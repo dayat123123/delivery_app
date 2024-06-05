@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1057377473512",
+    "project_id": "delivery-app-32cfc",
+    "storage_bucket": "delivery-app-32cfc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057377473512:android:d8598fb38357866d2f0a5d",
+        "android_client_info": {
+          "package_name": "com.hidayat.deliveryapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7EHt_P_r_OH1CsEkOHBDoiIhAK7Iicrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
