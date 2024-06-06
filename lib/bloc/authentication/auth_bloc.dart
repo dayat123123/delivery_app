@@ -74,7 +74,7 @@ class AuthenticationBloc
             postion: ToastGravity.TOP);
         add(LoggedIn(user: data, loginParams: event.loginParams));
         navigatorKey.currentState?.context
-            .pushNamedAndRemoveUntil(RouteNames.homepage);
+            .pushNamedAndRemoveUntil(RouteNames.mainpage);
         emit(AuthenticationAuthenticated(user: data));
       } else {
         navigatorKey.currentState?.context.showToast(result.errorMessage ?? "",

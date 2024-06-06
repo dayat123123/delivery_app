@@ -7,6 +7,11 @@ class PathFile {
   static const String signUpimagessvg = '$_pathassetsImages/signup.svg';
   static const String femalejpg = '$_pathassetsImages/female.jpg';
   static const String malejpg = '$_pathassetsImages/male.jpg';
+  static const String foodjpg = '$_pathassetsImages/food.jpg';
+  static const String drinkjpg = '$_pathassetsImages/drink.jpg';
+  static const String property = '$_pathassetsImages/property.jpg';
+  static const String alljpg = '$_pathassetsImages/all.jpg';
+  static const String servicejpg = '$_pathassetsImages/service.jpg';
 }
 
 const applicationName = "Delivery App";

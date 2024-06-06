@@ -1,12 +1,10 @@
 import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/bloc/authentication/auth_bloc.dart';
-import 'package:delivery_app/bloc/theme/theme_cubit.dart';
 import 'package:delivery_app/shared/constans/pathfile.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/login/login.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
-import 'package:delivery_app/shared/widgets/dropdown_button.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:delivery_app/shared/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
   final _focusNodePassword = FocusNode();
   final _formKey = GlobalKey<FormState>();
   final _authBloc = inject.get<AuthenticationBloc>();
-  final _themeCubit = inject.get<ThemeCubit>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -42,12 +39,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        appbar: AppBar(actions: [
-          CustomDropDownButton(
-            popupmenuitem: _popupmenuitem(),
-            child: const Icon(Icons.settings).center,
-          ).marginOnly(right: 15)
-        ]),
+        appbar: AppBar(),
         body: Column(
           children: [
             SvgPicture.asset(PathFile.signInimagessvg,
@@ -134,27 +126,6 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ));
   }
-
-  List<PopupMenuItemCustom> _popupmenuitem() => [
-        PopupMenuItemCustom(
-            onTap: () => _themeCubit.switchTheme(),
-            widget: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                        _themeCubit.isDarkTheme
-                            ? Icons.dark_mode
-                            : Icons.light_mode,
-                        size: 16)
-                    .spaceH(before: false, after: true, spacing: 10),
-                Text(_themeCubit.isDarkTheme ? "Dark Mode" : "Light Mode",
-                    style: context.textTheme.bodyMedium?.copyWith(fontSize: 14),
-                    softWrap: false)
-              ],
-            ),
-            value: null),
-      ];
 
   @override
   void dispose() {

@@ -11,6 +11,7 @@ class SearchTextField extends StatefulWidget {
   final void Function()? onTapOutside;
   final FocusNode? focusNode;
   final bool? enabled;
+  final String? hintText;
   const SearchTextField(
       {super.key,
       this.paddingBody,
@@ -22,7 +23,8 @@ class SearchTextField extends StatefulWidget {
       this.onFieldSubmitted,
       this.onTapOutside,
       this.focusNode,
-      this.enabled});
+      this.enabled,
+      this.hintText});
 
   @override
   State<SearchTextField> createState() => _SearchTextFieldState();
@@ -55,8 +57,8 @@ class _SearchTextFieldState extends State<SearchTextField> {
       },
       decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Search Food',
-          prefixIcon: Icon(Icons.search, size: 25),
+          hintText: widget.hintText ?? 'Search Something',
+          prefixIcon: const Icon(Icons.search, size: 25),
           contentPadding: const EdgeInsets.all(18),
           counterText: ''),
     );

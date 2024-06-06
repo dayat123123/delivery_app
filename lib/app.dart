@@ -27,7 +27,8 @@ class App extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   navigatorKey: navigatorKey,
                   initialRoute: RouteNames.root,
-                  routes: AppPage.routes));
+                  onGenerateRoute: (settings) =>
+                      AppPage.generateRoute(settings)));
         }));
   }
 }

@@ -1,8 +1,12 @@
-import 'package:delivery_app/features/home/sub_menu/page1.dart';
 import 'package:delivery_app/features/home/widgets/appbar.dart';
-import 'package:delivery_app/features/home/widgets/bottomnavigatorbar.dart';
+import 'package:delivery_app/features/home/widgets/category.dart';
 import 'package:delivery_app/features/home/widgets/drawer.dart';
+import 'package:delivery_app/features/home/widgets/popular.dart';
+import 'package:delivery_app/shared/constans/route_names.dart';
+import 'package:delivery_app/shared/extensions/context_extensions.dart';
+import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
+import 'package:delivery_app/shared/widgets/search_textfield.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,24 +17,66 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    if (_selectedIndex != index) {
-      setState(() {
-        _selectedIndex = index;
-      });
-    }
+  late ScrollController? _scrollController;
+  final double heightCategory = 120;
+  final double heigthPopluar = 230;
+  @override
+  void initState() {
+    _scrollController = ScrollController();
+    super.initState();
   }
 
-  final List<Widget> _pages = [const Page1(), Container(color: Colors.red)];
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        padding: EdgeInsets.zero,
-        drawer: const CustomDrawer(),
-        appbar: customAppBar(context),
-        body: IndexedStack(index: _selectedIndex, children: _pages),
-        bottomNavigationBar: CustomBottomNavigatorBar(
-            currentIndex: _selectedIndex, onTap: (p0) => _onItemTapped(p0)));
+      drawer: const CustomDrawer(),
+      appbar: customAppBar(context),
+      padding: EdgeInsets.zero,
+      body: Scrollbar(
+        controller: _scrollController,
+        child: ListView(
+          controller: _scrollController,
+          children: [
+            const Text('Good Food.\nFast Delivery.',
+                style: TextStyle(
+                    fontSize: 25, fontWeight: FontWeight.bold, height: 1.2)),
+            const SizedBox(height: 20),
+            GestureDetector(
+                onTap: () {
+                  context.pushNamed(RouteNames.searchpage);
+                },
+                child: const SearchTextField(enabled: false)),
+            const SizedBox(height: 20),
+            SizedBox(
+              height: heightCategory,
+              width: double.infinity,
+              child: const Category(),
+            ),
+            const SizedBox(height: 15),
+            const Text('Popular Now',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 15),
+            SizedBox(
+              height: heigthPopluar,
+              width: double.infinity,
+              child: const Popular(),
+            ),
+            const SizedBox(height: 10),
+            const Text('Recommended',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 15),
+            SizedBox(
+              height: heigthPopluar,
+              width: double.infinity,
+              child: const Popular(),
+            ),
+            const SizedBox(height: 10),
+          ],
+        ).paddingSymmetric(horizontal: 15).marginOnly(top: 10),
+      ),
+    );
   }
 }
+
+List<String> listcategory = ["All", "Food", "Drink", "Service"];
+List<Popular> listPoluar = [for (int i = 0; i < 10; i++) const Popular()];
