@@ -12,7 +12,6 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      body: Center(),
-    );
+        appbar: AppBar(title: const Text("Sign Up")), body: const Center());
   }
 }

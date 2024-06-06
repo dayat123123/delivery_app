@@ -1,9 +1,10 @@
 import 'package:delivery_app/injector.dart';
-import 'package:delivery_app/bloc/authentication/auth_bloc.dart';
-import 'package:delivery_app/shared/constans/pathfile.dart';
+import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
+import 'package:delivery_app/shared/misc/pathfile.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/login/login.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
+import 'package:delivery_app/shared/misc/route_names.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:delivery_app/shared/widgets/textfield.dart';
@@ -39,7 +40,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        appbar: AppBar(),
+        appbar: AppBar(
+          title: Text('Sign In'),
+        ),
         body: Column(
           children: [
             SvgPicture.asset(PathFile.signInimagessvg,
@@ -123,6 +126,16 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ),
+            const SizedBox(height: 15),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text("Don't have an account?",
+                  style:
+                      context.textTheme.headlineLarge?.copyWith(fontSize: 15)),
+              CustomButton(
+                  text: "Sign Up here",
+                  buttonType: ButtonType.textbutton,
+                  onPressed: () => context.pushNamed(RouteNames.registerpage))
+            ])
           ],
         ));
   }

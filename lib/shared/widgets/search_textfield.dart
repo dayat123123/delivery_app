@@ -12,6 +12,7 @@ class SearchTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final bool? enabled;
   final String? hintText;
+  final bool autofocus;
   const SearchTextField(
       {super.key,
       this.paddingBody,
@@ -24,7 +25,8 @@ class SearchTextField extends StatefulWidget {
       this.onTapOutside,
       this.focusNode,
       this.enabled,
-      this.hintText});
+      this.hintText,
+      this.autofocus = false});
 
   @override
   State<SearchTextField> createState() => _SearchTextFieldState();
@@ -40,12 +42,14 @@ class _SearchTextFieldState extends State<SearchTextField> {
 
   @override
   void dispose() {
+    widget.controller?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: widget.autofocus,
       enabled: widget.enabled,
       focusNode: widget.focusNode,
       onFieldSubmitted: widget.onFieldSubmitted,

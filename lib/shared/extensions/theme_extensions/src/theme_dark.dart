@@ -101,26 +101,26 @@ ThemeData get darkTheme {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       isDense: true,
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(10),
         borderSide:
             const BorderSide(width: 0.5, color: AppColors.defaultBorderDark),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(10),
         borderSide:
             const BorderSide(width: 0.5, color: AppColors.defaultBorderDark),
       ),
       disabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(10),
         borderSide:
             BorderSide(width: 0.5, color: AppColors.grey.withOpacity(0.2)),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(width: 0.5, color: AppColors.primary),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(width: 1, color: Colors.redAccent),
       ),
     ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class CustomCard extends StatelessWidget {
   final Widget child;
   final double width;
+  final double? height;
   final double? borderradius;
   final EdgeInsetsGeometry? padding;
   final void Function()? onTap;
@@ -11,6 +12,7 @@ class CustomCard extends StatelessWidget {
       {super.key,
       required this.child,
       this.padding,
+      this.height,
       required this.width,
       this.borderradius,
       this.onTap});
@@ -20,6 +22,7 @@ class CustomCard extends StatelessWidget {
     return GestureDetector(
         onTap: onTap,
         child: Container(
+            height: height,
             padding: padding ??
                 const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 15),
             width: width,

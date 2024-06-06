@@ -8,8 +8,8 @@ import 'package:delivery_app/features/authentication/domain/usecases/checkisLogg
 import 'package:delivery_app/features/authentication/domain/usecases/getLoggedinUser/get_loggedin_user.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/login/login.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/register/register.dart';
-import 'package:delivery_app/bloc/authentication/auth_bloc.dart';
-import 'package:delivery_app/bloc/theme/theme_cubit.dart';
+import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
+import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 

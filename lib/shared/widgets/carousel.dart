@@ -1,5 +1,5 @@
-import 'package:delivery_app/shared/constans/pathfile.dart';
-import 'package:delivery_app/shared/constans/route_names.dart';
+import 'package:delivery_app/shared/misc/pathfile.dart';
+import 'package:delivery_app/shared/misc/route_names.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:flutter/material.dart';

@@ -8,13 +8,12 @@ class DialogWidget {
   DialogWidget._();
 
   static SnackBar scaffoldMessenger(String message, BuildContext context,
-      {DialogAccentType? type}) {
-    return SnackBar(
-        elevation: 0,
-        padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
-        backgroundColor: dialogAccentcolor(type),
-        content: Text(message, style: const TextStyle(fontSize: 16)).center);
-  }
+          {DialogAccentType? type}) =>
+      SnackBar(
+          elevation: 0,
+          padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+          backgroundColor: dialogAccentcolor(type),
+          content: Text(message, style: const TextStyle(fontSize: 16)).center);
 
   static Color? dialogAccentcolor(DialogAccentType? type) {
     if (type == null) return Colors.black12;

@@ -97,38 +97,34 @@ ThemeData get lightTheme {
           elevation: 0,
           selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold)),
       inputDecorationTheme: InputDecorationTheme(
-        fillColor: AppColors.foregroundLight,
-        filled: true,
-        hintStyle: const TextStyle(
-            color: AppColors.textHint, fontWeight: FontWeight.w400),
-        errorStyle: const TextStyle(
-          fontSize: 11.0,
-        ),
-        iconColor: AppColors.darkerGrey,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        labelStyle: const TextStyle(color: AppColors.darkerGrey),
-        isDense: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide:
-              const BorderSide(width: 0.5, color: AppColors.defaultBorderLight),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide:
-              const BorderSide(width: 0.5, color: AppColors.defaultBorderLight),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(
-              width: 0.5, color: AppColors.lighterGrey.withOpacity(0.4)),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: const BorderSide(width: 1, color: Colors.redAccent),
-        ),
-      ),
+          fillColor: AppColors.foregroundLight,
+          filled: true,
+          hintStyle: const TextStyle(
+              color: AppColors.textHint, fontWeight: FontWeight.w400),
+          errorStyle: const TextStyle(
+            fontSize: 11.0,
+          ),
+          iconColor: AppColors.darkerGrey,
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          labelStyle: const TextStyle(color: AppColors.darkerGrey),
+          isDense: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+                width: 0.5, color: AppColors.defaultBorderLight),
+          ),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                  width: 0.5, color: AppColors.defaultBorderLight)),
+          disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                  width: 0.5, color: AppColors.lighterGrey.withOpacity(0.4))),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(width: 1, color: Colors.redAccent))),
       expansionTileTheme: ExpansionTileThemeData(
           backgroundColor: AppColors.foregroundLight,
           textColor: AppColors.black,

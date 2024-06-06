@@ -1,8 +1,8 @@
-import 'package:delivery_app/bloc/authentication/auth_bloc.dart';
-import 'package:delivery_app/bloc/theme/theme_cubit.dart';
+import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
+import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
 import 'package:delivery_app/injector.dart';
-import 'package:delivery_app/shared/constans/app_page.dart';
-import 'package:delivery_app/shared/constans/route_names.dart';
+import 'package:delivery_app/shared/misc/app_page.dart';
+import 'package:delivery_app/shared/misc/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
