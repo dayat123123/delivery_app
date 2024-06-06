@@ -7,7 +7,7 @@ import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/dropdown_button.dart';
 import 'package:flutter/material.dart';
 
-AppBar customAppBar(BuildContext context) {
+AppBar customAppBar(BuildContext context, {void Function()? onTap}) {
   final themeCubit = inject.get<ThemeCubit>();
   return AppBar(
       centerTitle: true,

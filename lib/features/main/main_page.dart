@@ -1,4 +1,5 @@
 import 'package:delivery_app/features/home/home_page.dart';
+import 'package:delivery_app/features/main/widgets/appbar.dart';
 import 'package:delivery_app/features/main/widgets/bottomnavigatorbar.dart';
 import 'package:delivery_app/features/order/presentation/order_page.dart';
 import 'package:delivery_app/features/wishlist/wishlist_page.dart';
@@ -22,18 +23,23 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
+  final List<Widget> _pages = [
+    const HomePage(),
+    const OrderPage(),
+    const WishlistPage()
+  ];
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+        appbar: _appbar(),
         padding: EdgeInsets.zero,
         body: IndexedStack(index: _selectedIndex, children: _pages),
         bottomNavigationBar: CustomBottomNavigatorBar(
             currentIndex: _selectedIndex, onTap: (p0) => _onItemTapped(p0)));
   }
-}
 
-final List<Widget> _pages = [
-  const HomePage(),
-  const OrderPage(),
-  const WishlistPage()
-];
+  AppBar? _appbar() {
+    return _selectedIndex == 0 ? customAppBar(context) : null;
+  }
+}

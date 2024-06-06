@@ -15,6 +15,10 @@ extension ContextExt on BuildContext {
           DialogWidget.scaffoldMessenger(message, this, type: type));
   }
 
+  void openDrawer() {
+    Scaffold.of(this).openDrawer();
+  }
+
   void showToast(String message,
           {DialogAccentType? type, int duration = 3, ToastGravity? postion}) =>
       Fluttertoast.showToast(

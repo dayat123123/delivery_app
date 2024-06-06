@@ -1,6 +1,4 @@
-import 'package:delivery_app/features/home/widgets/appbar.dart';
 import 'package:delivery_app/features/home/widgets/category.dart';
-import 'package:delivery_app/features/home/widgets/drawer.dart';
 import 'package:delivery_app/features/home/widgets/popular.dart';
 import 'package:delivery_app/shared/constans/route_names.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
@@ -29,8 +27,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      drawer: const CustomDrawer(),
-      appbar: customAppBar(context),
       padding: EdgeInsets.zero,
       body: Scrollbar(
         controller: _scrollController,

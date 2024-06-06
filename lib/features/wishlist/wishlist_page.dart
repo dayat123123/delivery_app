@@ -8,7 +8,7 @@ class WishlistPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold(
       appbar: AppBar(
-        title: Text('WishList'),
+        title: Text('Wishlist'),
       ),
     );
   }
