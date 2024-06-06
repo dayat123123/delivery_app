@@ -1,12 +1,12 @@
 import 'package:delivery_app/app.dart';
 import 'package:delivery_app/core/entities/result.dart';
 import 'package:delivery_app/core/utils/storage_helper.dart';
-import 'package:delivery_app/features/authentication/data/firebase/firebase_authentication.dart';
 import 'package:delivery_app/features/authentication/domain/entities/user.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/checkisLoggedin/check_is_loggedun.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/getLoggedinUser/get_loggedin_user.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/login/login.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/register/register.dart';
+import 'package:delivery_app/shared/misc/params_key.dart';
 import 'package:delivery_app/shared/misc/route_names.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,9 +54,9 @@ class AuthenticationBloc
   }
 
   void _onLoggedIn(LoggedIn event, Emitter<AuthenticationState> emit) async {
-    storageHelper.write(StorageHelperConstans.loginparamkey, {
-      FirebaseAuthenticationHelper.emailKey: event.loginParams.email,
-      FirebaseAuthenticationHelper.passwordKey: event.loginParams.password
+    storageHelper.write(ParamsKey.loginparamkey, {
+      ParamsKey.emailKey: event.loginParams.email,
+      ParamsKey.passwordKey: event.loginParams.password
     });
   }
 

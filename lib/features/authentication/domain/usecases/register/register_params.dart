@@ -1,4 +1,4 @@
-import 'package:delivery_app/features/authentication/data/firebase/firebase_user_repository.dart';
+import 'package:delivery_app/shared/misc/params_key.dart';
 
 class RegisterParams {
   final String name;

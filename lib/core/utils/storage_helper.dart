@@ -2,10 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class StorageHelperConstans {
-  static const loginparamkey = 'loginparamkey';
-}
-
 class StorageHelper {
   final FlutterSecureStorage _flutterSecureStorage = const FlutterSecureStorage(
       aOptions: _androidOptions, iOptions: _iosOptions);
@@ -14,16 +10,13 @@ class StorageHelper {
       sharedPreferencesName: 'secure_storage',
       preferencesKeyPrefix: 'secure_');
 
-  // iOS options with additional parameters
   static const IOSOptions _iosOptions =
       IOSOptions(accessibility: KeychainAccessibility.first_unlock);
 
-  // Menghapus data dari penyimpanan aman
   Future<void> deleteData(String key) async {
     await _flutterSecureStorage.delete(key: key);
   }
 
-  // Menghapus semua data dari penyimpanan aman
   Future<void> deleteAllData() async {
     await _flutterSecureStorage.deleteAll();
   }
@@ -37,7 +30,6 @@ class StorageHelper {
         iOptions: _iosOptions);
   }
 
-  // Membaca map dari penyimpanan aman
   Future<dynamic> read(String key) async {
     String? jsonString = await _flutterSecureStorage.read(
         key: key, aOptions: _androidOptions, iOptions: _iosOptions);

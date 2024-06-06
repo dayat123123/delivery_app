@@ -2,12 +2,10 @@ import 'package:delivery_app/core/entities/result.dart';
 import 'package:delivery_app/core/utils/storage_helper.dart';
 import 'package:delivery_app/features/authentication/data/repositories/authentication.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/login/login.dart';
+import 'package:delivery_app/shared/misc/params_key.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
-class FirebaseAuthenticationHelper {
-  static const String emailKey = 'emailKey';
-  static const String passwordKey = 'passwordKey';
-}
+class FirebaseAuthenticationHelper {}
 
 class FirebaseAuthentication implements Authentication {
   final firebase_auth.FirebaseAuth _firebaseAuth;
@@ -61,12 +59,12 @@ class FirebaseAuthentication implements Authentication {
   Future<Result<LoginParams?>> checkIsLogin() async {
     try {
       Map<String, dynamic>? loginParams =
-          await _storageHelper.read(StorageHelperConstans.loginparamkey);
+          await _storageHelper.read(ParamsKey.loginparamkey);
       if (loginParams == null) {
         return const Result.failed('No logged in user');
       } else {
-        String email = loginParams[FirebaseAuthenticationHelper.emailKey];
-        String password = loginParams[FirebaseAuthenticationHelper.passwordKey];
+        String email = loginParams[ParamsKey.emailKey];
+        String password = loginParams[ParamsKey.passwordKey];
         if (email.isNotEmpty && password.isNotEmpty) {
           LoginParams result = LoginParams(email: email, password: password);
           return Result.success(result);

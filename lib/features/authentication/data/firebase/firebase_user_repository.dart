@@ -1,12 +1,11 @@
 import 'dart:io';
 import 'package:delivery_app/core/entities/result.dart';
 import 'package:delivery_app/features/authentication/data/repositories/user_repository.dart';
+import 'package:delivery_app/shared/misc/params_key.dart';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:delivery_app/features/authentication/domain/entities/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
-enum AccountType { user, admin, superadmin }
 
 int enumATtoint(AccountType type) {
   int value;
