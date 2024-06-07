@@ -5,57 +5,56 @@ import 'package:delivery_app/shared/misc/params_key.dart';
 import 'package:delivery_app/shared/misc/pathfile.dart';
 import 'package:delivery_app/shared/misc/route_names.dart';
 import 'package:delivery_app/shared/widgets/card.dart';
+import 'package:delivery_app/shared/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class CardRecommended extends StatelessWidget {
-  final RecommendedModel produkModel;
-
-  const CardRecommended({super.key, required this.produkModel});
+  final RecommendedModel? recommendedModel;
+  final bool isLoading;
+  const CardRecommended(
+      {super.key, required this.recommendedModel, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
+    const double width = 180;
     return CustomCard(
+        isLoading: isLoading,
         onTap: () => context.pushNamed(RouteNames.detailitempage,
-            arguments: {ParamsKey.idProduct: produkModel.idProduct}),
-        width: 180,
+            arguments: {ParamsKey.idProduct: recommendedModel?.idProduct}),
+        width: width,
         child: Column(children: [
           Expanded(
               child: CircleAvatar(
                   radius: 55,
-                  backgroundImage:
-                      AssetImage(produkModel.imageUrl ?? PathFile.alljpg))),
-          Text(produkModel.namaProduct,
+                  backgroundImage: AssetImage(
+                      recommendedModel?.imageUrl ?? PathFile.alljpg))),
+          Text(recommendedModel?.namaProduct ?? "",
                   maxLines: 2,
                   overflow: TextOverflow.fade,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15.5))
               .centerLeft,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Rp. ${produkModel.hargaProduct}",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontWeight: FontWeight.w500))
-                  .centerLeft,
-            ],
-          ),
+          Text("Rp. ${recommendedModel?.hargaProduct ?? 0}",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.w500))
+              .centerLeft,
           Row(children: [
             ...[
               const Icon(Icons.star, color: Colors.amber, size: 20)
                   .spaceH(before: false, after: true, spacing: 5),
-              Text("${produkModel.rating}",
+              Text("${recommendedModel?.rating ?? 0}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(fontWeight: FontWeight.w500))
                   .centerLeft,
               const Spacer(),
-              Text("${produkModel.jumTerjual} Sell",
+              Text("${recommendedModel?.jumTerjual ?? 0} Sell",
                       maxLines: 1,
                       style: const TextStyle(fontWeight: FontWeight.w500))
                   .centerLeft
             ]
           ])
-        ])).marginOnly(right: 10);
+        ])).marginOnly(right: SpacerHelper.rightMargin);
   }
 }

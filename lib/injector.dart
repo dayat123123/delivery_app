@@ -9,6 +9,10 @@ import 'package:delivery_app/features/authentication/domain/usecases/getLoggedin
 import 'package:delivery_app/features/authentication/domain/usecases/login/login.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/register/register.dart';
 import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
+import 'package:delivery_app/features/popular_now/data/popular_now_repositories.dart';
+import 'package:delivery_app/features/popular_now/domain/usecases/get_popular_now/get_popular_now.dart';
+import 'package:delivery_app/features/recommended/data/get_recommended_repositories.dart';
+import 'package:delivery_app/features/recommended/domain/usecases/get_recommended/get_recommended.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
@@ -55,4 +59,16 @@ Future<void> initInjector() async {
       storageHelper: inject.get<StorageHelper>(),
       login: inject.get<Login>(),
       register: inject.get<Register>()));
+
+  // getpopular
+  inject.registerLazySingleton<PopularNowRepositoriesImpl>(
+      () => PopularNowRepositoriesImpl());
+  inject.registerLazySingleton<GetPopularNow>(() => GetPopularNow(
+      popularNowRepositoriesImpl: inject.get<PopularNowRepositoriesImpl>()));
+
+  // getrecommended
+  inject.registerLazySingleton<RecommendedRepositoriesImpl>(
+      () => RecommendedRepositoriesImpl());
+  inject.registerLazySingleton<GetRecommended>(() => GetRecommended(
+      recommendedRepositories: inject.get<RecommendedRepositoriesImpl>()));
 }

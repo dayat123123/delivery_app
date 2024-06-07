@@ -14,4 +14,4 @@ class PathFile {
   static const String servicejpg = '$_pathassetsImages/service.jpg';
 }
 
-const applicationName = "Sungai Salak App";
+const applicationName = "Delivery App";
