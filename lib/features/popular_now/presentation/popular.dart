@@ -1,6 +1,7 @@
 import 'package:delivery_app/features/popular_now/bloc/popular_now_bloc.dart';
 import 'package:delivery_app/features/popular_now/domain/entities/popular_now.dart';
 import 'package:delivery_app/features/popular_now/presentation/widgets/card_popular.dart';
+import 'package:delivery_app/shared/widgets/spacer.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,12 +20,14 @@ class PopularNow extends StatelessWidget {
         builder: (context, state) {
           if (state is PopularNowLoading) {
             return ListView(
+                padding: SpacerHelper.horizontalPadding,
                 scrollDirection: Axis.horizontal,
                 children: List.generate(
                     5, (index) => const CardPopular(isLoading: true)));
           } else if (state is PopularNowLoaded) {
             List<PopularNowModel> produkModel = state.detailproduct;
             return ListView(
+                padding: SpacerHelper.horizontalPadding,
                 scrollDirection: Axis.horizontal,
                 children: List.generate(produkModel.length,
                     (index) => CardPopular(produkModel: produkModel[index])));

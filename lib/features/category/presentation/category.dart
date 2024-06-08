@@ -3,6 +3,7 @@ import 'package:delivery_app/shared/misc/pathfile.dart';
 import 'package:delivery_app/shared/misc/route_names.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
+import 'package:delivery_app/shared/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class Category extends StatelessWidget {
@@ -11,6 +12,7 @@ class Category extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+        padding: SpacerHelper.horizontalPadding,
         scrollDirection: Axis.horizontal,
         children: List.generate(
             listcategoryModel.length,

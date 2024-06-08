@@ -1,103 +1,99 @@
-import 'package:delivery_app/shared/misc/pathfile.dart';
-import 'package:delivery_app/shared/misc/route_names.dart';
-import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/widgets/button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'dart:async';
 
-List<Widget> listCarouselwidget = [
-  Container(
-    child: Center(
-      child: SvgPicture.asset(PathFile.signInimagessvg),
-    ),
-  ),
-  Container(
-    child: Center(
-      child: SvgPicture.asset(PathFile.signUpimagessvg),
-    ),
-  ),
-];
+import 'package:delivery_app/shared/extensions/context_extensions.dart';
+import 'package:delivery_app/shared/extensions/widget_extensions.dart';
+import 'package:delivery_app/shared/widgets/spacer.dart';
+import 'package:flutter/material.dart';
 
 class CustomCarousel extends StatefulWidget {
-  const CustomCarousel({super.key});
+  final List<Widget> listwidget;
+  final TabController? tabController;
+  final double positionedIndicatorBottom;
+  final List<Widget>? widgetPositioned;
+  final bool animateView;
+  final int durationAnimateinseconds;
+  const CustomCarousel(
+      {super.key,
+      required this.listwidget,
+      this.tabController,
+      this.positionedIndicatorBottom = 130,
+      this.widgetPositioned,
+      this.animateView = false,
+      this.durationAnimateinseconds = 10});
 
   @override
   State<CustomCarousel> createState() => _CustomCarouselState();
 }
 
 class _CustomCarouselState extends State<CustomCarousel>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late final TabController _tabController;
+  late final int _itemCount;
+  late final List<Widget> _listCarouselwidget;
+  late Timer _timer;
   int _currentIndex = 0;
-  final int _itemCount = listCarouselwidget.length;
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(
-        length: _itemCount, vsync: this, initialIndex: _currentIndex);
-    _tabController.addListener(
-      () {
-        _currentIndex = _tabController.index;
-        setState(() {});
-      },
-    );
+    _itemCount = widget.listwidget.length;
+    _listCarouselwidget = widget.listwidget;
+    if (widget.tabController != null) {
+      _tabController = widget.tabController ??
+          TabController(
+              length: _itemCount, vsync: this, initialIndex: _currentIndex);
+    }
+    animateView();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
+    closeAnimateView();
     super.dispose();
+  }
+
+  void closeAnimateView() {
+    if (widget.animateView) {
+      _timer.cancel();
+    }
+  }
+
+  void animateView() {
+    _tabController.addListener(() {
+      _currentIndex = _tabController.index;
+      setState(() {});
+    });
+    if (widget.animateView) {
+      _timer = Timer.periodic(
+          Duration(seconds: widget.durationAnimateinseconds), (timer) {
+        if (_currentIndex < widget.listwidget.length - 1) {
+          _currentIndex += 1;
+        } else {
+          _currentIndex = 0;
+        }
+        _tabController.animateTo(_currentIndex,
+            curve: Curves.decelerate,
+            duration: const Duration(milliseconds: 500));
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        TabBarView(
-            controller: _tabController,
-            children: List.generate(listCarouselwidget.length,
-                (index) => listCarouselwidget[index])),
-        Positioned(
-            bottom: 130,
-            child: PageIndicator(
-                onTap: (p0) {
-                  if (_currentIndex != p0) {
-                    _currentIndex = p0;
-                    _tabController.index = _currentIndex;
-                    setState(() {});
-                  }
-                },
-                inactiveColor: context.themeColors.unselectedLabel,
-                activeColor: context.theme.primaryColor,
-                currentIndex: _currentIndex,
-                itemCount: _itemCount)),
-        Positioned(
-          bottom: 40,
-          child: Row(mainAxisSize: MainAxisSize.min, children: [
-            CustomButton(
-                height: 50,
-                fontsize: 16,
-                fontWeight: FontWeight.bold,
-                width: context.fullWidth * 0.35,
-                onPressed: () {
-                  context.pushNamed(RouteNames.registerpage);
-                },
-                text: 'Sign Up'),
-            const SizedBox(width: 10),
-            CustomButton(
-                fontsize: 16,
-                height: 50,
-                fontWeight: FontWeight.bold,
-                width: context.fullWidth * 0.35,
-                onPressed: () {
-                  context.pushNamed(RouteNames.loginpage);
-                },
-                text: 'Sign In')
-          ]),
-        )
-      ],
-    );
+    return Stack(alignment: Alignment.center, children: [
+      TabBarView(
+          controller: _tabController,
+          children: List.generate(_listCarouselwidget.length,
+              (index) => _listCarouselwidget[index])),
+      Positioned(
+          bottom: widget.positionedIndicatorBottom,
+          child: PageIndicator(
+              inactiveColor: context.themeColors.unselectedLabel,
+              activeColor: context.theme.primaryColor,
+              currentIndex: _currentIndex,
+              itemCount: _itemCount)),
+      ...widget.widgetPositioned ?? []
+    ]).marginSymmetric(horizontal: SpacerHelper.horizontalPaddingnumber);
   }
 }
 
@@ -108,26 +104,21 @@ class PageIndicator extends StatelessWidget {
   final double dotSpacing;
   final Color activeColor;
   final Color inactiveColor;
-  final void Function(int) onTap;
 
   const PageIndicator(
       {super.key,
       required this.currentIndex,
       required this.itemCount,
-      this.dotSize = 12,
+      this.dotSize = 10,
       this.dotSpacing = 8.0,
       required this.activeColor,
-      required this.inactiveColor,
-      required this.onTap});
+      required this.inactiveColor});
 
   @override
   Widget build(BuildContext context) {
     return Row(
         children: List.generate(itemCount, (index) {
-      return InkWell(
-          overlayColor: const WidgetStatePropertyAll(Colors.transparent),
-          onTap: () => onTap(index),
-          child: _indicatorWidget(index));
+      return _indicatorWidget(index);
     }));
   }
 
@@ -140,19 +131,18 @@ class PageIndicator extends StatelessWidget {
           height: dotSize,
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(20),
               color: activeColor));
     } else {
       return AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        margin: EdgeInsets.symmetric(horizontal: dotSpacing / 2),
-        width: dotSize,
-        height: dotSize,
-        decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(15),
-            color: inactiveColor),
-      );
+          duration: const Duration(milliseconds: 300),
+          margin: EdgeInsets.symmetric(horizontal: dotSpacing / 2),
+          width: dotSize,
+          height: dotSize,
+          decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(20),
+              color: inactiveColor));
     }
   }
 }

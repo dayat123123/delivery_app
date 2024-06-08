@@ -22,10 +22,10 @@ List<BottomNavigationBarItem> _listitem = [
   const BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home_max)),
   const BottomNavigationBarItem(
       label: 'Order',
-      activeIcon: Icon(Icons.shopping_basket),
-      icon: Icon(Icons.shopping_basket_outlined)),
+      activeIcon: Icon(Icons.shopping_cart_rounded),
+      icon: Icon(Icons.shopping_cart_rounded)),
   const BottomNavigationBarItem(
-      activeIcon: Icon(Icons.favorite),
+      activeIcon: Icon(Icons.favorite_border),
       label: 'Wishlist',
       icon: Icon(Icons.favorite_border))
 ];

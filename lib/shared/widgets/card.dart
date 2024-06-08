@@ -1,5 +1,6 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/widgets/shimmer.dart';
+import 'package:delivery_app/shared/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
@@ -36,12 +37,15 @@ class CustomCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                          color: context.themeColors.appContainerShadow,
+                          spreadRadius: 1,
+                          color: context.themeColors.appContainerShadow
+                              .withOpacity(0.1),
                           blurRadius: 4,
                           blurStyle: BlurStyle.normal,
-                          offset: const Offset(3, 2))
+                          offset: const Offset(0, 0))
                     ],
-                    borderRadius: BorderRadius.circular(borderradius ?? 15),
+                    borderRadius: BorderRadius.circular(
+                        borderradius ?? SpacerHelper.borderRadius),
                     color: context.themeColors.appContainerBackground),
                 child: child));
   }
@@ -54,7 +58,8 @@ class CustomCard extends StatelessWidget {
             const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 15),
         width: width,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(borderradius ?? 15),
+            borderRadius: BorderRadius.circular(
+                borderradius ?? SpacerHelper.borderRadius),
             color: context.themeColors.appContainerBackground,
             boxShadow: [
               BoxShadow(

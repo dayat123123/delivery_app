@@ -11,4 +11,5 @@ class RouteNames {
   static const String searchpage = '/searchpage';
   static const String wishlistpage = '/wishlistpage';
   static const String orderpage = '/orderpage';
+  static const String notificationpage = '/notificationpage';
 }

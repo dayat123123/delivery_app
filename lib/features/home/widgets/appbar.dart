@@ -10,34 +10,41 @@ import 'package:flutter/material.dart';
 AppBar customAppBar(BuildContext context, {void Function()? onTap}) {
   final themeCubit = inject.get<ThemeCubit>();
   return AppBar(
+      leading: CustomDropDownButton(
+          popupmenuitem: [
+            PopupMenuItemCustom(
+                onTap: () => themeCubit.switchTheme(),
+                widget: _itemDropdown(context,
+                    name: themeCubit.isDarkTheme ? "Dark Mode" : "Light Mode",
+                    icon: Icon(
+                        themeCubit.isDarkTheme
+                            ? Icons.dark_mode
+                            : Icons.light_mode,
+                        size: 16))),
+            PopupMenuItemCustom(
+                onTap: () {},
+                widget: _itemDropdown(context,
+                    name: "Settings",
+                    icon: const Icon(Icons.settings, size: 16))),
+            PopupMenuItemCustom(
+                onTap: () {
+                  context.pushNamedAndRemoveUntil(RouteNames.loginpage);
+                },
+                widget: _itemDropdown(context,
+                    name: "Logout", icon: const Icon(Icons.logout, size: 16)))
+          ],
+          child: const CircleAvatar(
+                  backgroundImage: AssetImage(PathFile.malejpg), radius: 18)
+              .marginOnly(left: 8)),
       centerTitle: true,
       actions: [
-        CustomDropDownButton(
-            popupmenuitem: [
-              PopupMenuItemCustom(
-                  onTap: () => themeCubit.switchTheme(),
-                  widget: _itemDropdown(context,
-                      name: themeCubit.isDarkTheme ? "Dark Mode" : "Light Mode",
-                      icon: Icon(
-                          themeCubit.isDarkTheme
-                              ? Icons.dark_mode
-                              : Icons.light_mode,
-                          size: 16))),
-              PopupMenuItemCustom(
-                  onTap: () {},
-                  widget: _itemDropdown(context,
-                      name: "Settings",
-                      icon: const Icon(Icons.settings, size: 16))),
-              PopupMenuItemCustom(
-                  onTap: () {
-                    context.pushNamedAndRemoveUntil(RouteNames.loginpage);
-                  },
-                  widget: _itemDropdown(context,
-                      name: "Logout", icon: const Icon(Icons.logout, size: 16)))
-            ],
-            child: const CircleAvatar(
-                    backgroundImage: AssetImage(PathFile.malejpg), radius: 18)
-                .marginOnly(right: 5))
+        GestureDetector(
+            onTap: () => context.pushNamed(RouteNames.notificationpage),
+            child: FittedBox(
+                child: const Icon(
+              Icons.notifications_none,
+              size: 28,
+            ).marginOnly(right: 8)))
       ],
       title: const Text(applicationName));
 }

@@ -12,7 +12,7 @@ class CardRecommended extends StatelessWidget {
   final RecommendedModel? recommendedModel;
   final bool isLoading;
   const CardRecommended(
-      {super.key, required this.recommendedModel, this.isLoading = false});
+      {super.key, this.recommendedModel, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {

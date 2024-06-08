@@ -48,10 +48,11 @@ ThemeData get darkTheme {
         elevation: 0,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold)),
     appBarTheme: AppBarTheme(
+      elevation: 10,
       centerTitle: Platform.isAndroid ? true : false,
       surfaceTintColor: Colors.transparent,
       shadowColor: Colors.transparent,
-      toolbarHeight: Platform.isAndroid ? 60 : 30,
+      toolbarHeight: Platform.isAndroid ? 65 : 30,
       color: Colors.transparent,
       systemOverlayStyle: SystemUiOverlayStyle.light,
       titleTextStyle: headline1.copyWith(

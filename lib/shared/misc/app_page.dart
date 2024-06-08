@@ -2,6 +2,7 @@ import 'package:delivery_app/features/authentication/presentation/register_page.
 import 'package:delivery_app/features/detail_category/presentation/detail_category.dart';
 import 'package:delivery_app/features/detail_product/presentation/detail_product.dart';
 import 'package:delivery_app/features/home/main_page.dart';
+import 'package:delivery_app/features/notification/presentation/notification.dart';
 import 'package:delivery_app/features/order/presentation/order_page.dart';
 import 'package:delivery_app/features/wishlist/wishlist_page.dart';
 import 'package:delivery_app/features/search/presentation/search_page.dart';
@@ -41,6 +42,9 @@ class AppPage {
         return MaterialPageRoute(builder: (context) => const OrderPage());
       case RouteNames.wishlistpage:
         return MaterialPageRoute(builder: (context) => const WishlistPage());
+      case RouteNames.notificationpage:
+        return MaterialPageRoute(
+            builder: (context) => const NotificationPage());
       case RouteNames.detailcategory:
         final data = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
