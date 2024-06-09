@@ -19,8 +19,12 @@ class CardRecommended extends StatelessWidget {
     const double width = 180;
     return CustomCard(
         isLoading: isLoading,
-        onTap: () => context.pushNamed(RouteNames.detailitempage,
-            arguments: {ParamsKey.idProduct: recommendedModel?.idProduct}),
+        onTap: () {
+          if (recommendedModel?.idProduct != null) {
+            context.pushNamed(RouteNames.detailitempage,
+                arguments: {ParamsKey.idProduct: recommendedModel?.idProduct});
+          }
+        },
         width: width,
         child: Column(children: [
           Expanded(

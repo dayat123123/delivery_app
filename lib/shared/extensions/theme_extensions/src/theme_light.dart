@@ -48,7 +48,6 @@ ThemeData get lightTheme {
       extensions: <ThemeExtension<dynamic>>[
         ThemeColors.light,
         ThemeTextStyles.light,
-        ThemePluto.light,
       ],
       appBarTheme: AppBarTheme(
         elevation: 10,

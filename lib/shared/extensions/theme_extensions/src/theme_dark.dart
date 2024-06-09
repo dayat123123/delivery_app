@@ -36,7 +36,6 @@ ThemeData get darkTheme {
     extensions: <ThemeExtension<dynamic>>[
       ThemeColors.dark,
       ThemeTextStyles.dark,
-      ThemePluto.dark,
     ],
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Colors.transparent,

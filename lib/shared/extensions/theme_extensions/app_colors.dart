@@ -5,7 +5,7 @@ const headline2 = TextStyle(fontWeight: FontWeight.w400, fontSize: 14);
 const headline3 = TextStyle(fontWeight: FontWeight.w400, fontSize: 12);
 
 abstract class AppColors {
-  static const primary = Color(0xFF205C96);
+  static const primary = Color.fromARGB(255, 37, 119, 196);
 
   static const white = Color(0xFFF0F0F0);
   static const black = Color(0xFF171B21);

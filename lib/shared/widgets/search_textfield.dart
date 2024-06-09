@@ -1,3 +1,5 @@
+import 'package:delivery_app/shared/extensions/context_extensions.dart';
+import 'package:delivery_app/shared/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class SearchTextField extends StatefulWidget {
@@ -48,23 +50,27 @@ class _SearchTextFieldState extends State<SearchTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      autofocus: widget.autofocus,
-      enabled: widget.enabled,
-      focusNode: widget.focusNode,
-      onFieldSubmitted: widget.onFieldSubmitted,
-      controller: widget.controller,
-      validator: widget.validator,
-      onTapOutside: (event) {
-        FocusScope.of(context).unfocus();
-        widget.onTapOutside?.call();
-      },
-      decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: widget.hintText ?? 'Search Something',
-          prefixIcon: const Icon(Icons.search, size: 25),
-          contentPadding: const EdgeInsets.all(18),
-          counterText: ''),
+    return Material(
+      elevation: 3,
+      borderRadius: BorderRadius.circular(SpacerHelper.borderRadius),
+      color: Colors.transparent,
+      shadowColor: context.themeColors.appContainerShadow,
+      child: TextFormField(
+          autofocus: widget.autofocus,
+          enabled: widget.enabled,
+          focusNode: widget.focusNode,
+          onFieldSubmitted: widget.onFieldSubmitted,
+          controller: widget.controller,
+          validator: widget.validator,
+          onTapOutside: (event) {
+            FocusScope.of(context).unfocus();
+            widget.onTapOutside?.call();
+          },
+          decoration: InputDecoration(
+              hintText: widget.hintText ?? 'Search Something',
+              prefixIcon: const Icon(Icons.search, size: 25),
+              contentPadding: const EdgeInsets.all(18),
+              counterText: '')),
     );
   }
 }

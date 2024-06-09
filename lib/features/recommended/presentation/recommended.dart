@@ -17,20 +17,20 @@ class Recommended extends StatelessWidget {
       child: BlocBuilder<RecommendedBloc, RecommendedState>(
         builder: (context, state) {
           if (state is RecommendedLoading) {
-            return ListView(
+            return ListView.builder(
+                itemCount: 5,
                 padding: SpacerHelper.horizontalPadding,
                 scrollDirection: Axis.horizontal,
-                children: List.generate(5, (index) {
-                  return const CardRecommended(isLoading: true);
-                }));
+                itemBuilder: (context, index) =>
+                    const CardRecommended(isLoading: true));
           } else if (state is RecommendedLoaded) {
             final listdata = state.recommendedProduct;
-            return ListView(
+            return ListView.builder(
+                itemCount: listdata.length,
                 padding: SpacerHelper.horizontalPadding,
                 scrollDirection: Axis.horizontal,
-                children: List.generate(listdata.length, (index) {
-                  return CardRecommended(recommendedModel: listdata[index]);
-                }));
+                itemBuilder: (context, index) =>
+                    CardRecommended(recommendedModel: listdata[index]));
           } else if (state is RecommendedError) {
             return Text(state.error).center;
           } else {

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/spacer.dart';
@@ -27,7 +26,7 @@ class CustomCarousel extends StatefulWidget {
 
 class _CustomCarouselState extends State<CustomCarousel>
     with SingleTickerProviderStateMixin {
-  late final TabController _tabController;
+  late final TabController? _tabController;
   late final int _itemCount;
   late final List<Widget> _listCarouselwidget;
   late Timer _timer;
@@ -37,17 +36,15 @@ class _CustomCarouselState extends State<CustomCarousel>
     super.initState();
     _itemCount = widget.listwidget.length;
     _listCarouselwidget = widget.listwidget;
-    if (widget.tabController != null) {
-      _tabController = widget.tabController ??
-          TabController(
-              length: _itemCount, vsync: this, initialIndex: _currentIndex);
-    }
+    _tabController = widget.tabController ??
+        TabController(
+            length: _itemCount, vsync: this, initialIndex: _currentIndex);
     animateView();
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController?.dispose();
     closeAnimateView();
     super.dispose();
   }
@@ -59,7 +56,7 @@ class _CustomCarouselState extends State<CustomCarousel>
   }
 
   void animateView() {
-    _tabController.addListener(() {
+    _tabController?.addListener(() {
       _currentIndex = _tabController.index;
       setState(() {});
     });
@@ -71,7 +68,7 @@ class _CustomCarouselState extends State<CustomCarousel>
         } else {
           _currentIndex = 0;
         }
-        _tabController.animateTo(_currentIndex,
+        _tabController?.animateTo(_currentIndex,
             curve: Curves.decelerate,
             duration: const Duration(milliseconds: 500));
       });
@@ -82,18 +79,24 @@ class _CustomCarouselState extends State<CustomCarousel>
   Widget build(BuildContext context) {
     return Stack(alignment: Alignment.center, children: [
       TabBarView(
-          controller: _tabController,
-          children: List.generate(_listCarouselwidget.length,
-              (index) => _listCarouselwidget[index])),
+        clipBehavior: Clip.antiAlias,
+        controller: _tabController,
+        children: List.generate(
+          growable: false,
+          _listCarouselwidget.length,
+          (index) => _listCarouselwidget[index].paddingSymmetric(
+              horizontal: SpacerHelper.horizontalPaddingnumber),
+        ),
+      ),
       Positioned(
           bottom: widget.positionedIndicatorBottom,
           child: PageIndicator(
-              inactiveColor: context.themeColors.unselectedLabel,
+              inactiveColor: context.themeColors.micIcon.withOpacity(0.6),
               activeColor: context.theme.primaryColor,
               currentIndex: _currentIndex,
               itemCount: _itemCount)),
       ...widget.widgetPositioned ?? []
-    ]).marginSymmetric(horizontal: SpacerHelper.horizontalPaddingnumber);
+    ]);
   }
 }
 
@@ -109,7 +112,7 @@ class PageIndicator extends StatelessWidget {
       {super.key,
       required this.currentIndex,
       required this.itemCount,
-      this.dotSize = 10,
+      this.dotSize = 8,
       this.dotSpacing = 8.0,
       required this.activeColor,
       required this.inactiveColor});

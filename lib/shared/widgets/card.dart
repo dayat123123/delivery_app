@@ -42,7 +42,7 @@ class CustomCard extends StatelessWidget {
                               .withOpacity(0.1),
                           blurRadius: 4,
                           blurStyle: BlurStyle.normal,
-                          offset: const Offset(0, 0))
+                          offset: const Offset(1, 0))
                     ],
                     borderRadius: BorderRadius.circular(
                         borderradius ?? SpacerHelper.borderRadius),

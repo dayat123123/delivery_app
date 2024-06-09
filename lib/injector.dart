@@ -9,6 +9,8 @@ import 'package:delivery_app/features/authentication/domain/usecases/getLoggedin
 import 'package:delivery_app/features/authentication/domain/usecases/login/login.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/register/register.dart';
 import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
+import 'package:delivery_app/features/big_promo/data/big_promo_repositories.dart';
+import 'package:delivery_app/features/big_promo/domain/usecases/get_big_promo.dart';
 import 'package:delivery_app/features/popular_now/data/popular_now_repositories.dart';
 import 'package:delivery_app/features/popular_now/domain/usecases/get_popular_now/get_popular_now.dart';
 import 'package:delivery_app/features/recommended/data/get_recommended_repositories.dart';
@@ -65,10 +67,14 @@ Future<void> initInjector() async {
       () => PopularNowRepositoriesImpl());
   inject.registerLazySingleton<GetPopularNow>(() => GetPopularNow(
       popularNowRepositoriesImpl: inject.get<PopularNowRepositoriesImpl>()));
-
   // getrecommended
   inject.registerLazySingleton<RecommendedRepositoriesImpl>(
       () => RecommendedRepositoriesImpl());
   inject.registerLazySingleton<GetRecommended>(() => GetRecommended(
       recommendedRepositories: inject.get<RecommendedRepositoriesImpl>()));
+  // getbigpromo
+  inject.registerLazySingleton<BigPromoRepositoriesImpl>(
+      () => BigPromoRepositoriesImpl());
+  inject.registerLazySingleton<GetBigPromo>(() => GetBigPromo(
+      bigPromoRepositoriesImpl: inject.get<BigPromoRepositoriesImpl>()));
 }

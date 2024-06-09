@@ -1,5 +1,6 @@
 import 'package:delivery_app/shared/extensions/theme_extensions/theme.dart';
 import 'package:delivery_app/shared/widgets/dialog_widget.dart';
+import 'package:delivery_app/shared/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 export 'package:delivery_app/shared/widgets/dialog_widget.dart';
@@ -15,8 +16,36 @@ extension ContextExt on BuildContext {
           DialogWidget.scaffoldMessenger(message, this, type: type));
   }
 
-  void openDrawer() {
-    Scaffold.of(this).openDrawer();
+  void showBottomSheet() {
+    showModalBottomSheet(
+        context: this,
+        showDragHandle: true,
+        elevation: 0,
+        isScrollControlled: false,
+        backgroundColor: themeColors.appContainerBackground,
+        builder: (BuildContext context) {
+          return DraggableScrollableSheet(
+            expand: false,
+            builder: (BuildContext context, ScrollController scrollController) {
+              return Container(
+                decoration: BoxDecoration(
+                    color: themeColors.appContainerBackground,
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(SpacerHelper.borderRadius),
+                        topLeft: Radius.circular(SpacerHelper.borderRadius))),
+                child: ListView.builder(
+                  controller: scrollController,
+                  itemCount: 25,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      title: Text('Item $index'),
+                    );
+                  },
+                ),
+              );
+            },
+          );
+        });
   }
 
   void showToast(String message,

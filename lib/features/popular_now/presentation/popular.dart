@@ -19,18 +19,20 @@ class PopularNow extends StatelessWidget {
         bloc: popularNowBloc,
         builder: (context, state) {
           if (state is PopularNowLoading) {
-            return ListView(
+            return ListView.builder(
+                itemCount: 5,
                 padding: SpacerHelper.horizontalPadding,
                 scrollDirection: Axis.horizontal,
-                children: List.generate(
-                    5, (index) => const CardPopular(isLoading: true)));
+                itemBuilder: (context, index) =>
+                    const CardPopular(isLoading: true));
           } else if (state is PopularNowLoaded) {
             List<PopularNowModel> produkModel = state.detailproduct;
-            return ListView(
+            return ListView.builder(
+                itemCount: produkModel.length,
                 padding: SpacerHelper.horizontalPadding,
                 scrollDirection: Axis.horizontal,
-                children: List.generate(produkModel.length,
-                    (index) => CardPopular(produkModel: produkModel[index])));
+                itemBuilder: (context, index) =>
+                    CardPopular(produkModel: produkModel[index]));
           } else if (state is PopularNowError) {
             return Center(child: Text(state.error));
           } else {

@@ -1,3 +1,6 @@
+import 'package:delivery_app/features/big_promo/bloc/big_promo_bloc.dart';
+import 'package:delivery_app/features/big_promo/bloc/big_promo_event.dart';
+import 'package:delivery_app/features/big_promo/domain/usecases/get_big_promo.dart';
 import 'package:delivery_app/features/big_promo/presentation/big_promo.dart';
 import 'package:delivery_app/features/category/presentation/category.dart';
 import 'package:delivery_app/features/home/widgets/appbar.dart';
@@ -10,11 +13,9 @@ import 'package:delivery_app/features/recommended/bloc/recommended_event.dart';
 import 'package:delivery_app/features/recommended/domain/usecases/get_recommended/get_recommended.dart';
 import 'package:delivery_app/features/recommended/presentation/recommended.dart';
 import 'package:delivery_app/injector.dart';
-import 'package:delivery_app/shared/misc/pathfile.dart';
 import 'package:delivery_app/shared/misc/route_names.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
-import 'package:delivery_app/shared/widgets/card.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:delivery_app/shared/widgets/search_textfield.dart';
 import 'package:delivery_app/shared/widgets/spacer.dart';
@@ -27,23 +28,22 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> {
   late PopularNowBloc popularNowBloc;
   late RecommendedBloc recommendedBloc;
-  late TabController _tabController;
+  late BigPromoBloc bigPromoBloc;
   final double heightCategory = 120;
   final double heightHorizontal = 235;
-  final double heigthBigPromo = 235;
+  final double heigthBigPromo = 220;
   @override
   void initState() {
-    _tabController =
-        _tabController = TabController(length: list.length, vsync: this);
     popularNowBloc = PopularNowBloc(getPopularNow: inject.get<GetPopularNow>())
       ..add(FetchPopularNow());
     recommendedBloc =
         RecommendedBloc(getRecommended: inject.get<GetRecommended>())
           ..add(FetchRecommended());
+    bigPromoBloc = BigPromoBloc(getBigPromo: inject.get<GetBigPromo>())
+      ..add(FetchBigPromo());
     super.initState();
   }
 
@@ -51,6 +51,7 @@ class _HomePageState extends State<HomePage>
   void dispose() {
     popularNowBloc.close();
     recommendedBloc.close();
+    bigPromoBloc.close();
     super.dispose();
   }
 
@@ -83,10 +84,15 @@ class _HomePageState extends State<HomePage>
                     width: double.infinity,
                     child: const Category()),
                 const SizedBox(height: 15),
-                const Text('Popular Now',
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold))
-                    .paddingOnly(left: SpacerHelper.horizontalPaddingnumber),
+                GestureDetector(
+                  onTap: () {
+                    context.showBottomSheet();
+                  },
+                  child: const Text('Popular Now',
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold))
+                      .paddingOnly(left: SpacerHelper.horizontalPaddingnumber),
+                ),
                 const SizedBox(height: 15),
                 SizedBox(
                   height: heightHorizontal,
@@ -112,10 +118,7 @@ class _HomePageState extends State<HomePage>
                 SizedBox(
                     height: heigthBigPromo,
                     width: double.infinity,
-                    child: BigPromo(
-                      list: list,
-                      tabController: _tabController,
-                    )),
+                    child: BigPromo(bigPromoBloc: bigPromoBloc)),
                 const SizedBox(height: 15),
                 const Text('Trending on',
                         style: TextStyle(
@@ -132,58 +135,3 @@ class _HomePageState extends State<HomePage>
 }
 
 List<String> listcategory = ["All", "Food", "Drink", "Service"];
-List<Widget> list = [
-  CustomCard(
-    onTap: () {
-      print('1');
-    },
-    padding: EdgeInsets.zero,
-    child: Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacerHelper.borderRadius),
-          image: DecorationImage(
-              fit: BoxFit.fill, image: AssetImage(PathFile.alljpg))),
-    ),
-    width: double.infinity,
-  ).marginOnly(right: SpacerHelper.rightMargin),
-  CustomCard(
-    onTap: () => print('3'),
-    padding: EdgeInsets.zero,
-    child: Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacerHelper.borderRadius),
-          image: DecorationImage(
-              fit: BoxFit.fill, image: AssetImage(PathFile.foodjpg))),
-    ),
-    width: double.infinity,
-  ).marginOnly(right: SpacerHelper.rightMargin),
-  CustomCard(
-    onTap: () => print('2'),
-    padding: EdgeInsets.zero,
-    child: Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacerHelper.borderRadius),
-          image: DecorationImage(
-              fit: BoxFit.fill, image: AssetImage(PathFile.alljpg))),
-    ),
-    width: double.infinity,
-  ).marginOnly(right: SpacerHelper.rightMargin),
-  CustomCard(
-    padding: EdgeInsets.zero,
-    child: Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SpacerHelper.borderRadius),
-          image: DecorationImage(
-              fit: BoxFit.fill, image: AssetImage(PathFile.drinkjpg))),
-    ),
-    width: double.infinity,
-  )
-];

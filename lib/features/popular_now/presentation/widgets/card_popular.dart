@@ -18,8 +18,12 @@ class CardPopular extends StatelessWidget {
     const double width = 180;
     return CustomCard(
         isLoading: isLoading,
-        onTap: () => context.pushNamed(RouteNames.detailitempage,
-            arguments: {ParamsKey.idProduct: produkModel?.idProduct}),
+        onTap: () {
+          if (produkModel?.idProduct != null) {
+            context.pushNamed(RouteNames.detailitempage,
+                arguments: {ParamsKey.idProduct: produkModel?.idProduct});
+          }
+        },
         width: width,
         child: Stack(
           children: [
