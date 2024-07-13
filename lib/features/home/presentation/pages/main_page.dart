@@ -1,4 +1,4 @@
-import 'package:delivery_app/features/home/home_page.dart';
+import 'package:delivery_app/features/home/presentation/pages/home_page.dart';
 import 'package:delivery_app/features/home/widgets/bottomnavigatorbar.dart';
 import 'package:delivery_app/features/order/presentation/order_page.dart';
 import 'package:delivery_app/features/wishlist/wishlist_page.dart';

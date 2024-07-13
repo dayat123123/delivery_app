@@ -1,21 +1,20 @@
 import 'package:delivery_app/features/authentication/presentation/register_page.dart';
 import 'package:delivery_app/features/detail_category/presentation/detail_category.dart';
 import 'package:delivery_app/features/detail_product/presentation/detail_product.dart';
-import 'package:delivery_app/features/home/main_page.dart';
+import 'package:delivery_app/features/home/presentation/pages/main_page.dart';
 import 'package:delivery_app/features/notification/presentation/notification.dart';
 import 'package:delivery_app/features/order/presentation/order_page.dart';
 import 'package:delivery_app/features/wishlist/wishlist_page.dart';
 import 'package:delivery_app/features/search/presentation/search_page.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
-import 'package:delivery_app/shared/misc/route_names.dart';
-import 'package:delivery_app/features/home/home_page.dart';
-import 'package:delivery_app/features/landing/landing_page.dart';
+import 'package:delivery_app/features/home/presentation/pages/home_page.dart';
+import 'package:delivery_app/features/landing/presentation/pages/landing_page.dart';
 import 'package:delivery_app/features/authentication/presentation/login_page.dart';
-import 'package:delivery_app/features/landing/splash_page.dart';
+import 'package:delivery_app/features/landing/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
-class AppPage {
-  AppPage._();
+class AppPages {
+  AppPages._();
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -54,4 +53,20 @@ class AppPage {
         return MaterialPageRoute(builder: (context) => const SizedBox.shrink());
     }
   }
+}
+
+class RouteNames {
+  RouteNames._();
+  static const String root = '/';
+  static const String landingpage = '/landingpage';
+  static const String registerpage = '/registerpage';
+  static const String loginpage = '/loginpage';
+  static const String homepage = '/homepage';
+  static const String mainpage = '/mainpage';
+  static const String detailitempage = '/detailitempage';
+  static const String detailcategory = '/detailcategory';
+  static const String searchpage = '/searchpage';
+  static const String wishlistpage = '/wishlistpage';
+  static const String orderpage = '/orderpage';
+  static const String notificationpage = '/notificationpage';
 }

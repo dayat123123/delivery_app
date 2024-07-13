@@ -1,8 +1,7 @@
 import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
 import 'package:delivery_app/injector.dart';
-import 'package:delivery_app/shared/misc/app_page.dart';
-import 'package:delivery_app/shared/misc/route_names.dart';
+import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +27,7 @@ class App extends StatelessWidget {
                   navigatorKey: navigatorKey,
                   initialRoute: RouteNames.root,
                   onGenerateRoute: (settings) =>
-                      AppPage.generateRoute(settings)));
+                      AppPages.generateRoute(settings)));
         }));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/misc/pathfile.dart';
-import 'package:delivery_app/shared/misc/route_names.dart';
+import 'package:delivery_app/shared/misc/app_pages.dart';
+import 'package:delivery_app/shared/misc/file_paths.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:delivery_app/shared/widgets/carousel.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
@@ -28,9 +28,8 @@ class LandingPage extends StatelessWidget {
                             fontsize: 16,
                             fontWeight: FontWeight.bold,
                             width: context.fullWidth * 0.35,
-                            onPressed: () {
-                              context.pushNamed(RouteNames.registerpage);
-                            },
+                            onPressed: () =>
+                                context.pushNamed(RouteNames.registerpage),
                             text: 'Sign Up'),
                         const SizedBox(width: 10),
                         CustomButton(
@@ -38,9 +37,8 @@ class LandingPage extends StatelessWidget {
                             height: 50,
                             fontWeight: FontWeight.bold,
                             width: context.fullWidth * 0.35,
-                            onPressed: () {
-                              context.pushNamed(RouteNames.loginpage);
-                            },
+                            onPressed: () =>
+                                context.pushNamed(RouteNames.loginpage),
                             text: 'Sign In')
                       ]))
                 ])));
@@ -50,12 +48,12 @@ class LandingPage extends StatelessWidget {
 final List<Widget> listwidgetLanding = [
   Container(
     child: Center(
-      child: SvgPicture.asset(PathFile.signInimagessvg),
+      child: SvgPicture.asset(FilePaths.signInimagessvg),
     ),
   ),
   Container(
     child: Center(
-      child: SvgPicture.asset(PathFile.signUpimagessvg),
+      child: SvgPicture.asset(FilePaths.signUpimagessvg),
     ),
   ),
 ];

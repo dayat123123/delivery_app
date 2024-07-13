@@ -1,8 +1,8 @@
 import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
 import 'package:delivery_app/injector.dart';
-import 'package:delivery_app/shared/misc/pathfile.dart';
-import 'package:delivery_app/shared/misc/route_names.dart';
+import 'package:delivery_app/shared/misc/file_paths.dart';
+import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/dropdown_button.dart';
@@ -34,7 +34,7 @@ AppBar customAppBar(BuildContext context, {void Function()? onTap}) {
                     name: "Logout", icon: const Icon(Icons.logout, size: 16)))
           ],
           child: const CircleAvatar(
-                  backgroundImage: AssetImage(PathFile.malejpg), radius: 15)
+                  backgroundImage: AssetImage(FilePaths.malejpg), radius: 15)
               .marginOnly(left: 8)),
       centerTitle: true,
       actions: [

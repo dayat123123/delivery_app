@@ -4,10 +4,11 @@ import 'package:delivery_app/features/detail_product/domain/entities/product_mod
 import 'package:delivery_app/features/detail_product/domain/usecases/get_product_detail/get_product_detail.dart';
 import 'package:delivery_app/features/detail_product/presentation/widgets/order_floating.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/misc/pathfile.dart';
+import 'package:delivery_app/shared/extensions/widget_extensions.dart';
+import 'package:delivery_app/shared/misc/file_paths.dart';
 import 'package:delivery_app/shared/widgets/card_container.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
-import 'package:delivery_app/shared/misc/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer_helpers.dart';
 import 'package:flutter/material.dart';
 
 class DetailProductPage extends StatefulWidget {
@@ -44,7 +45,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                     image: DecorationImage(
                         alignment: Alignment.topCenter,
                         fit: BoxFit.fill,
-                        image: AssetImage(PathFile.foodjpg)))),
+                        image: AssetImage(FilePaths.foodjpg)))),
             Positioned(
                 left: SpacerHelper.leftrightPadding,
                 top: 50,
@@ -88,13 +89,50 @@ class _DetailProductPageState extends State<DetailProductPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("INI ADALAH PRODUCT NAME"),
-                    SizedBox(height: 20),
-                    Text("INI ADALAH SUB TITLE"),
-                    SizedBox(height: 20),
+                    const Text("Roasted Salmond With Salted Egg Chicken",
+                        maxLines: 3,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500)),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: context.themeColors.neutral,
+                        ).spaceH(before: false, after: true),
+                        const Text("500(100)", style: TextStyle(fontSize: 15)),
+                        const Spacer(),
+                        CardContainer(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            height: 25,
+                            color: context.themeColors.neutral,
+                            child: Row(
+                              children: [
+                                const Icon(Icons.timer, size: 20)
+                                    .spaceH(before: false, spacing: 3),
+                                const Text("45 Min",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500))
+                              ],
+                            ))
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    const Text("Description",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500)),
                     Expanded(
-                      child: ListView(padding: EdgeInsets.zero, children: []),
-                    )
+                        child: ListView(
+                      padding: const EdgeInsets.only(top: 5),
+                      children: [
+                        const SizedBox(height: 5),
+                        for (int i = 0; i < 10; i++)
+                          const Text(
+                                  "Menu ini dibuat dengan campuran udang ebi khas dari makasar dan juga udah tempura khas dari Riau, menjadikan menu ini cocok untuk dimakan kapan saja",
+                                  style: TextStyle(fontSize: 15))
+                              .spaceV(before: false),
+                      ],
+                    ))
                   ],
                 ),
               ),
@@ -114,19 +152,19 @@ class _DetailProductPageState extends State<DetailProductPage> {
 
 List<Widget> dd = [
   Container(
-    margin: EdgeInsets.only(top: 10),
+    margin: const EdgeInsets.only(top: 10),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(SpacerHelper.borderRadius),
-      image:
-          DecorationImage(fit: BoxFit.fill, image: AssetImage(PathFile.alljpg)),
+      image: const DecorationImage(
+          fit: BoxFit.fill, image: AssetImage(FilePaths.alljpg)),
     ),
   ),
   Container(
-    margin: EdgeInsets.only(top: 10),
+    margin: const EdgeInsets.only(top: 10),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(SpacerHelper.borderRadius),
-      image: DecorationImage(
-          fit: BoxFit.fill, image: AssetImage(PathFile.foodjpg)),
+      image: const DecorationImage(
+          fit: BoxFit.fill, image: AssetImage(FilePaths.foodjpg)),
     ),
   ),
 ];
@@ -138,7 +176,7 @@ List<Widget> dd = [
 // import 'package:delivery_app/features/detail_product/presentation/widgets/order_floating.dart';
 // import 'package:delivery_app/shared/extensions/context_extensions.dart';
 // import 'package:delivery_app/shared/extensions/widget_extensions.dart';
-// import 'package:delivery_app/shared/misc/pathfile.dart';
+// import 'package:delivery_app/shared/misc/FilePaths.dart';
 // import 'package:delivery_app/shared/widgets/carousel.dart';
 // import 'package:delivery_app/shared/widgets/scaffold.dart';
 // import 'package:delivery_app/shared/widgets/spacer.dart';
@@ -219,7 +257,7 @@ List<Widget> dd = [
 //     decoration: BoxDecoration(
 //       borderRadius: BorderRadius.circular(SpacerHelper.borderRadius),
 //       image:
-//           DecorationImage(fit: BoxFit.fill, image: AssetImage(PathFile.alljpg)),
+//           DecorationImage(fit: BoxFit.fill, image: AssetImage(FilePaths.alljpg)),
 //     ),
 //   ),
 //   Container(
@@ -227,7 +265,7 @@ List<Widget> dd = [
 //     decoration: BoxDecoration(
 //       borderRadius: BorderRadius.circular(SpacerHelper.borderRadius),
 //       image: DecorationImage(
-//           fit: BoxFit.fill, image: AssetImage(PathFile.foodjpg)),
+//           fit: BoxFit.fill, image: AssetImage(FilePaths.foodjpg)),
 //     ),
 //   ),
 // ];

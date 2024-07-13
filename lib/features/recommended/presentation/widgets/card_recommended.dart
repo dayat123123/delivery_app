@@ -1,11 +1,11 @@
 import 'package:delivery_app/features/recommended/domain/entities/recommended.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
+import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
-import 'package:delivery_app/shared/misc/pathfile.dart';
-import 'package:delivery_app/shared/misc/route_names.dart';
-import 'package:delivery_app/shared/widgets/card.dart';
-import 'package:delivery_app/shared/misc/spacer.dart';
+import 'package:delivery_app/shared/misc/file_paths.dart';
+import 'package:delivery_app/shared/misc/spacer_helpers.dart';
+import 'package:delivery_app/shared/widgets/card_container.dart';
 import 'package:flutter/material.dart';
 
 class CardRecommended extends StatelessWidget {
@@ -17,7 +17,8 @@ class CardRecommended extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double width = 180;
-    return CustomCard(
+    return CardContainer(
+        padding: SpacerHelper.allPadding,
         isLoading: isLoading,
         onTap: () {
           if (recommendedModel?.idProduct != null) {
@@ -31,7 +32,7 @@ class CardRecommended extends StatelessWidget {
               child: CircleAvatar(
                   radius: 55,
                   backgroundImage: AssetImage(
-                      recommendedModel?.imageUrl ?? PathFile.alljpg))),
+                      recommendedModel?.imageUrl ?? FilePaths.alljpg))),
           Text(recommendedModel?.namaProduct ?? "",
                   maxLines: 2,
                   overflow: TextOverflow.fade,
@@ -45,7 +46,7 @@ class CardRecommended extends StatelessWidget {
               .centerLeft,
           Row(children: [
             ...[
-              const Icon(Icons.star, color: Colors.amber, size: 20)
+              Icon(Icons.star, color: context.themeColors.neutral, size: 20)
                   .spaceH(before: false, after: true, spacing: 5),
               Text("${recommendedModel?.rating ?? 0}",
                       maxLines: 1,

@@ -1,4 +1,4 @@
-import 'package:delivery_app/shared/misc/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer_helpers.dart';
 import 'package:flutter/material.dart';
 
 class CustomScaffold extends StatelessWidget {

@@ -1,10 +1,10 @@
 import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
-import 'package:delivery_app/shared/misc/pathfile.dart';
+import 'package:delivery_app/shared/misc/file_paths.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/login/login.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/misc/route_names.dart';
+import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:delivery_app/shared/widgets/textfield.dart';
@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         body: Column(
           children: [
-            SvgPicture.asset(PathFile.signInimagessvg,
+            SvgPicture.asset(FilePaths.signInimagessvg,
                 width: context.fullWidth, height: context.fullHeight * 0.25),
             RichText(
                 text: TextSpan(children: [

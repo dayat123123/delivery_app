@@ -1,8 +1,8 @@
 import 'package:delivery_app/features/category/domain/entities/category_model.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
-import 'package:delivery_app/shared/misc/pathfile.dart';
-import 'package:delivery_app/shared/misc/route_names.dart';
+import 'package:delivery_app/shared/misc/file_paths.dart';
+import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:flutter/material.dart';
 
 class AvatarCategory extends StatelessWidget {
@@ -20,8 +20,8 @@ class AvatarCategory extends StatelessWidget {
             children: [
               Expanded(
                   child: CircleAvatar(
-                      backgroundImage:
-                          AssetImage(categoryModel.imageUrl ?? PathFile.alljpg),
+                      backgroundImage: AssetImage(
+                          categoryModel.imageUrl ?? FilePaths.alljpg),
                       radius: 38)),
               const SizedBox(height: 5),
               Text(categoryModel.title,

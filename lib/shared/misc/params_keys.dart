@@ -6,5 +6,3 @@ class ParamsKeys {
   static const String emailKey = 'emailKey';
   static const String passwordKey = 'passwordKey';
 }
-
-enum AccountType { user, admin, superadmin }

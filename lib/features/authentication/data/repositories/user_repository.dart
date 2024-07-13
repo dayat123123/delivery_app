@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:delivery_app/core/entities/result.dart';
-import 'package:delivery_app/shared/misc/params_keys.dart';
-
-import '../../../../features/authentication/domain/entities/user.dart';
+import 'package:delivery_app/features/authentication/domain/entities/user.dart';
+import 'package:delivery_app/shared/misc/constans.dart';
 
 abstract interface class UserRepository {
   Future<Result<User>> createUser(

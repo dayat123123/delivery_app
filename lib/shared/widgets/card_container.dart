@@ -1,5 +1,6 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/misc/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer_helpers.dart';
+import 'package:delivery_app/shared/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 
 class CardContainer extends StatelessWidget {
@@ -16,6 +17,7 @@ class CardContainer extends StatelessWidget {
   final void Function()? onTap;
   final void Function()? onLongPress;
   final CardContainerShape shape;
+  final bool isLoading;
   const CardContainer(
       {super.key,
       required this.child,
@@ -30,7 +32,8 @@ class CardContainer extends StatelessWidget {
       this.constraints,
       this.color,
       this.splashColor,
-      this.shape = CardContainerShape.rounded});
+      this.shape = CardContainerShape.rounded,
+      this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,18 @@ class CardContainer extends StatelessWidget {
                 decoration: _boxDecoration(context),
                 width: width,
                 height: height,
-                child: child)));
+                child: isLoading ? _isLoadingwidget(context) : child)));
+  }
+
+  Widget _isLoadingwidget(BuildContext context) {
+    return Column(children: [
+      Expanded(
+          child: CustomShimmer(
+              width: context.fullWidth, child: const CircleAvatar(radius: 55))),
+      CustomShimmer(width: context.fullWidth * 0.2),
+      const SizedBox(height: 5),
+      CustomShimmer(width: context.fullWidth)
+    ]);
   }
 
   BorderRadiusGeometry? _borderRadiusGeometry() {

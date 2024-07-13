@@ -7,7 +7,7 @@ import 'package:delivery_app/features/authentication/domain/usecases/getLoggedin
 import 'package:delivery_app/features/authentication/domain/usecases/login/login.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/register/register.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
-import 'package:delivery_app/shared/misc/route_names.dart';
+import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';

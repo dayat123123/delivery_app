@@ -1,5 +1,5 @@
-class PathFile {
-  PathFile._();
+class FilePaths {
+  FilePaths._();
 
   static const String _pathassets = 'assets';
   static const String _pathassetsImages = '$_pathassets/images';

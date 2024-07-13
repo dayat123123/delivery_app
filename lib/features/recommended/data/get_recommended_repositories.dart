@@ -1,6 +1,6 @@
 import 'package:delivery_app/core/entities/result.dart';
 import 'package:delivery_app/features/recommended/domain/entities/recommended.dart';
-import 'package:delivery_app/shared/misc/pathfile.dart';
+import 'package:delivery_app/shared/misc/file_paths.dart';
 
 abstract interface class RecommendedRepositories {
   Future<Result<List<RecommendedModel>>> getRecommended();
@@ -17,7 +17,7 @@ class RecommendedRepositoriesImpl implements RecommendedRepositories {
           jumTerjual: 11,
           jumSave: 65,
           rating: 5.0,
-          imageUrl: PathFile.alljpg),
+          imageUrl: FilePaths.alljpg),
       RecommendedModel(
           idProduct: '2',
           namaProduct: "Cincang Ayam",
@@ -25,7 +25,7 @@ class RecommendedRepositoriesImpl implements RecommendedRepositories {
           jumTerjual: 45,
           jumSave: 66,
           rating: 3.9,
-          imageUrl: PathFile.foodjpg),
+          imageUrl: FilePaths.foodjpg),
       RecommendedModel(
           idProduct: '3',
           namaProduct: "Sate Madura",
@@ -33,7 +33,7 @@ class RecommendedRepositoriesImpl implements RecommendedRepositories {
           jumTerjual: 12,
           jumSave: 100,
           rating: 4.5,
-          imageUrl: PathFile.alljpg),
+          imageUrl: FilePaths.alljpg),
       RecommendedModel(
           idProduct: '4',
           namaProduct: "Sop Buntut",
@@ -41,7 +41,7 @@ class RecommendedRepositoriesImpl implements RecommendedRepositories {
           jumTerjual: 12,
           jumSave: 100,
           rating: 4.5,
-          imageUrl: PathFile.foodjpg),
+          imageUrl: FilePaths.foodjpg),
       RecommendedModel(
           idProduct: '5',
           namaProduct: "Matrabak Mesir",
@@ -49,7 +49,7 @@ class RecommendedRepositoriesImpl implements RecommendedRepositories {
           jumTerjual: 12,
           jumSave: 100,
           rating: 4.5,
-          imageUrl: PathFile.foodjpg)
+          imageUrl: FilePaths.foodjpg)
     ];
     await Future.delayed(Duration(seconds: 2));
     return Result.success(list);

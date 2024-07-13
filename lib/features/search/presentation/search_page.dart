@@ -2,7 +2,7 @@ import 'package:delivery_app/features/search/presentation/widgets/history_search
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:delivery_app/shared/widgets/search_textfield.dart';
-import 'package:delivery_app/shared/misc/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer_helpers.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:delivery_app/shared/misc/params_keys.dart';
+import 'package:delivery_app/shared/misc/constans.dart';
 
 class Formatter {
   Formatter._();
@@ -6,13 +6,13 @@ class Formatter {
     int value;
     switch (type) {
       case AccountType.user:
-        value = 0;
+        value = user;
         break;
       case AccountType.admin:
-        value = 1;
+        value = admin;
         break;
-      default:
-        value = 2;
+      case AccountType.superadmin:
+        value = superuser;
         break;
     }
     return value;

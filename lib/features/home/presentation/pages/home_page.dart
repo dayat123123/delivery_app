@@ -13,12 +13,12 @@ import 'package:delivery_app/features/recommended/bloc/recommended_event.dart';
 import 'package:delivery_app/features/recommended/domain/usecases/get_recommended/get_recommended.dart';
 import 'package:delivery_app/features/recommended/presentation/recommended.dart';
 import 'package:delivery_app/injector.dart';
-import 'package:delivery_app/shared/misc/route_names.dart';
+import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:delivery_app/shared/widgets/search_textfield.dart';
-import 'package:delivery_app/shared/misc/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer_helpers.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
