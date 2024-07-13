@@ -1,3 +1,4 @@
+import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
 import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/shared/misc/pathfile.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 
 AppBar customAppBar(BuildContext context, {void Function()? onTap}) {
   final themeCubit = inject.get<ThemeCubit>();
+  final authBloc = inject.get<AuthenticationBloc>();
   return AppBar(
       leading: CustomDropDownButton(
           popupmenuitem: [
@@ -27,14 +29,12 @@ AppBar customAppBar(BuildContext context, {void Function()? onTap}) {
                     name: "Settings",
                     icon: const Icon(Icons.settings, size: 16))),
             PopupMenuItemCustom(
-                onTap: () {
-                  context.pushNamedAndRemoveUntil(RouteNames.loginpage);
-                },
+                onTap: () => authBloc..add(LoggedOut()),
                 widget: _itemDropdown(context,
                     name: "Logout", icon: const Icon(Icons.logout, size: 16)))
           ],
           child: const CircleAvatar(
-                  backgroundImage: AssetImage(PathFile.malejpg), radius: 18)
+                  backgroundImage: AssetImage(PathFile.malejpg), radius: 15)
               .marginOnly(left: 8)),
       centerTitle: true,
       actions: [

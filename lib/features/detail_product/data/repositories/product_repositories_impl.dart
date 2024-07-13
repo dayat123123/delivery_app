@@ -16,7 +16,7 @@ abstract interface class ProductRepositories {
   Future<Result<DetailProductModel>> updateProduct(
       {required String idProduct,
       required String nameProduct,
-      required int hargaProduct, //product category not allow to update
+      required int hargaProduct, //product category is not allow to update
       String? imageUrl});
   Future<Result<void>> uploadImageProduct(
       {required String imageUrl,
@@ -49,16 +49,15 @@ class ProductRepositoriesImpl implements ProductRepositories {
   @override
   Future<Result<DetailProductModel>> getProductDetail(
       {required String idProduct}) async {
-    await Future.delayed(Duration(seconds: 3));
-    return const Result.success(DetailProductModel(
-      idProduct: '1',
-      categoryProduct: 'All',
-      namaProduct: 'Kacang Kulit',
-      hargaProduct: 150000,
-      jumTerjual: 100,
-      jumSave: 85,
-      rating: 4.5,
-    ));
+    await Future.delayed(const Duration(seconds: 3));
+    return Result.success(DetailProductModel(
+        idProduct: idProduct,
+        categoryProduct: 'All',
+        namaProduct: 'Kacang Kulit',
+        hargaProduct: 150000,
+        jumTerjual: 100,
+        jumSave: 85,
+        rating: 4.5));
   }
 
   @override

@@ -8,16 +8,4 @@ part 'detail_product_state.dart';
 class DetailProductBloc extends Bloc<DetailProductEvent, DetailProductState> {
   final GetProductDetail getProductDetail;
   DetailProductBloc(this.getProductDetail) : super(DetailProductInitial());
-
-  Stream<DetailProductState> mapEventToState(DetailProductEvent event) async* {
-    if (event is FetchDetailProducts) {
-      yield DetailProductLoading();
-      // try {
-      //   final result = await getProductDetail.call()
-      //   yield ProductLoaded(products: products);
-      // } catch (e) {
-      //   yield ProductError(error: 'Failed to fetch products');
-      // }
-    }
-  }
 }

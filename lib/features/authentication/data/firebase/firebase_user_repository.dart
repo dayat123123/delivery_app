@@ -1,27 +1,12 @@
 import 'dart:io';
 import 'package:delivery_app/core/entities/result.dart';
 import 'package:delivery_app/features/authentication/data/repositories/user_repository.dart';
-import 'package:delivery_app/shared/misc/params_key.dart';
+import 'package:delivery_app/shared/misc/formatter.dart';
+import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:delivery_app/features/authentication/domain/entities/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
-int enumATtoint(AccountType type) {
-  int value;
-  switch (type) {
-    case AccountType.user:
-      value = 0;
-      break;
-    case AccountType.admin:
-      value = 1;
-      break;
-    default:
-      value = 2;
-      break;
-  }
-  return value;
-}
 
 class FirebaseUserRepository implements UserRepository {
   final FirebaseFirestore _firebaseFirestore;
@@ -44,7 +29,7 @@ class FirebaseUserRepository implements UserRepository {
       'name': name,
       'photoUrl': photoUrl,
       'balance': balance,
-      'accountType': enumATtoint(accountType)
+      'accountType': Formatter.enumAccountTypetoint(accountType)
     });
     DocumentSnapshot<Map<String, dynamic>> result = await users.doc(uid).get();
     if (result is Success) {

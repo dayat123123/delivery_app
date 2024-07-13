@@ -1,3 +1,4 @@
+import 'package:delivery_app/shared/misc/spacer.dart';
 import 'package:flutter/material.dart';
 
 class CustomScaffold extends StatelessWidget {
@@ -8,29 +9,30 @@ class CustomScaffold extends StatelessWidget {
   final Widget? drawer;
   final Widget? bottomNavigationBar;
   final bool? drawerEnableOpenDragGesture;
+  final Widget? floatingActionButton;
   const CustomScaffold(
       {super.key,
       this.appbar,
       this.margin,
-      this.padding = const EdgeInsets.symmetric(horizontal: 15),
+      this.padding = SpacerHelper.horizontalPadding,
       this.body,
       this.drawer,
       this.bottomNavigationBar,
-      this.drawerEnableOpenDragGesture});
+      this.drawerEnableOpenDragGesture,
+      this.floatingActionButton});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawerEnableOpenDragGesture: drawerEnableOpenDragGesture ?? true,
-      bottomNavigationBar: bottomNavigationBar,
-      drawer: drawer,
-      resizeToAvoidBottomInset: false,
-      appBar: appbar,
-      body: Container(
-        margin: margin,
-        padding: padding,
-        child: body ?? const Placeholder(),
-      ),
-    );
+        drawerEnableOpenDragGesture: drawerEnableOpenDragGesture ?? true,
+        bottomNavigationBar: bottomNavigationBar,
+        drawer: drawer,
+        resizeToAvoidBottomInset: false,
+        appBar: appbar,
+        floatingActionButton: floatingActionButton,
+        body: Container(
+            margin: margin,
+            padding: padding,
+            child: body ?? const Placeholder()));
   }
 }

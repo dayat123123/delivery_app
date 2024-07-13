@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
-import 'package:delivery_app/shared/widgets/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer.dart';
 import 'package:flutter/material.dart';
 
 class CustomCarousel extends StatefulWidget {
@@ -18,7 +18,7 @@ class CustomCarousel extends StatefulWidget {
       this.positionedIndicatorBottom = 130,
       this.widgetPositioned,
       this.animateView = false,
-      this.durationAnimateinseconds = 10});
+      this.durationAnimateinseconds = 8});
 
   @override
   State<CustomCarousel> createState() => _CustomCarouselState();
@@ -82,11 +82,10 @@ class _CustomCarouselState extends State<CustomCarousel>
         clipBehavior: Clip.antiAlias,
         controller: _tabController,
         children: List.generate(
-          growable: false,
-          _listCarouselwidget.length,
-          (index) => _listCarouselwidget[index].paddingSymmetric(
-              horizontal: SpacerHelper.horizontalPaddingnumber),
-        ),
+            growable: false,
+            _listCarouselwidget.length,
+            (index) => _listCarouselwidget[index].paddingSymmetric(
+                horizontal: SpacerHelper.horizontalPaddingnumber)),
       ),
       Positioned(
           bottom: widget.positionedIndicatorBottom,
@@ -126,26 +125,16 @@ class PageIndicator extends StatelessWidget {
   }
 
   Widget _indicatorWidget(int index) {
-    if (index == currentIndex) {
-      return AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          margin: EdgeInsets.symmetric(horizontal: dotSpacing / 2),
-          width: dotSize + 15,
-          height: dotSize,
-          decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(20),
-              color: activeColor));
-    } else {
-      return AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          margin: EdgeInsets.symmetric(horizontal: dotSpacing / 2),
-          width: dotSize,
-          height: dotSize,
-          decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(20),
-              color: inactiveColor));
-    }
+    bool isCurrentIndex = index == currentIndex;
+
+    return AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        margin: EdgeInsets.symmetric(horizontal: dotSpacing / 2),
+        width: isCurrentIndex ? dotSize + 15 : dotSize,
+        height: dotSize,
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(20),
+            color: isCurrentIndex ? activeColor : inactiveColor));
   }
 }

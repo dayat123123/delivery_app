@@ -1,6 +1,6 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
-import 'package:delivery_app/shared/widgets/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer.dart';
 import 'package:flutter/material.dart';
 
 class HistorySearch extends StatelessWidget {

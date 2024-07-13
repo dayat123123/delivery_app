@@ -3,7 +3,7 @@ import 'package:delivery_app/features/big_promo/domain/entities/big_promo_model.
 import 'package:delivery_app/features/big_promo/presentation/widgets/card_big_promo.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/carousel.dart';
-import 'package:delivery_app/shared/widgets/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

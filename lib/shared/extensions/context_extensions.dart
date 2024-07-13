@@ -1,8 +1,7 @@
 import 'package:delivery_app/shared/extensions/theme_extensions/theme.dart';
 import 'package:delivery_app/shared/widgets/dialog_widget.dart';
-import 'package:delivery_app/shared/widgets/spacer.dart';
+import 'package:delivery_app/shared/widgets/modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 export 'package:delivery_app/shared/widgets/dialog_widget.dart';
 
 extension ContextExt on BuildContext {
@@ -16,47 +15,33 @@ extension ContextExt on BuildContext {
           DialogWidget.scaffoldMessenger(message, this, type: type));
   }
 
-  void showBottomSheet() {
+  void showCustomSnackbar(
+      {DialogAccentType? type,
+      String? title,
+      required String description,
+      Duration? duration,
+      IconData? icon,
+      bool useIcon = true}) {
+    DialogWidget.appSnackbar(
+            type: type ?? DialogAccentType.info,
+            title: title,
+            description: description,
+            duration: duration,
+            icon: icon,
+            useIcon: useIcon)
+        .show(this);
+  }
+
+  void showBottomSheet({required List<Widget> child}) {
     showModalBottomSheet(
         context: this,
         showDragHandle: true,
         elevation: 0,
         isScrollControlled: false,
         backgroundColor: themeColors.appContainerBackground,
-        builder: (BuildContext context) {
-          return DraggableScrollableSheet(
-            expand: false,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return Container(
-                decoration: BoxDecoration(
-                    color: themeColors.appContainerBackground,
-                    borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(SpacerHelper.borderRadius),
-                        topLeft: Radius.circular(SpacerHelper.borderRadius))),
-                child: ListView.builder(
-                  controller: scrollController,
-                  itemCount: 25,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      title: Text('Item $index'),
-                    );
-                  },
-                ),
-              );
-            },
-          );
-        });
+        builder: (BuildContext context) =>
+            CustomModalBottomSheet(widget: child));
   }
-
-  void showToast(String message,
-          {DialogAccentType? type, int duration = 3, ToastGravity? postion}) =>
-      Fluttertoast.showToast(
-          msg: message,
-          fontSize: 17,
-          gravity: postion,
-          textColor: theme.textTheme.titleLarge?.color,
-          backgroundColor: DialogWidget.dialogAccentcolor(type) ??
-              theme.scaffoldBackgroundColor);
 
   void push(Widget destination, {Object? arguments}) {
     Navigator.push(

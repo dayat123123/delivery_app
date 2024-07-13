@@ -1,10 +1,10 @@
 import 'package:delivery_app/features/big_promo/domain/entities/big_promo_model.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/misc/params_key.dart';
+import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/misc/pathfile.dart';
 import 'package:delivery_app/shared/misc/route_names.dart';
 import 'package:delivery_app/shared/widgets/shimmer.dart';
-import 'package:delivery_app/shared/widgets/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../shared/widgets/card.dart';
@@ -20,7 +20,7 @@ class CardBigPromo extends StatelessWidget {
         onTap: () {
           if (bigPromoModel?.idProduct != null) {
             context.pushNamed(RouteNames.detailitempage,
-                arguments: {ParamsKey.idProduct: bigPromoModel?.idProduct});
+                arguments: {ParamsKeys.idProduct: bigPromoModel?.idProduct});
           }
         },
         padding: EdgeInsets.zero,
@@ -33,7 +33,7 @@ class CardBigPromo extends StatelessWidget {
                     top: 0,
                     bottom: 0,
                     child: Container(
-                        width: context.fullWidth / 1.5,
+                        width: context.fullWidth / 1.6,
                         decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                                 topRight:
@@ -45,7 +45,7 @@ class CardBigPromo extends StatelessWidget {
                                 image: AssetImage(bigPromoModel?.imageUrl ??
                                     PathFile.alljpg))))),
                 Container(
-                    width: context.fullWidth / 3,
+                    width: context.fullWidth / 2.8,
                     decoration: BoxDecoration(
                         color: Colors.red.withOpacity(0.5),
                         borderRadius:
@@ -60,9 +60,9 @@ class CardBigPromo extends StatelessWidget {
           top: 0,
           bottom: 0,
           child: CustomShimmer(
-              width: context.fullWidth / 1.5,
+              width: context.fullWidth / 1.6,
               child: Container(
-                  width: context.fullWidth / 1.5,
+                  width: context.fullWidth / 1.6,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
@@ -74,7 +74,7 @@ class CardBigPromo extends StatelessWidget {
                           image: AssetImage(
                               bigPromoModel?.imageUrl ?? PathFile.alljpg)))))),
       Container(
-        width: context.fullWidth / 3,
+        width: context.fullWidth / 2.8,
         alignment: Alignment.center,
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(

@@ -6,7 +6,7 @@ import 'package:delivery_app/features/notification/presentation/notification.dar
 import 'package:delivery_app/features/order/presentation/order_page.dart';
 import 'package:delivery_app/features/wishlist/wishlist_page.dart';
 import 'package:delivery_app/features/search/presentation/search_page.dart';
-import 'package:delivery_app/shared/misc/params_key.dart';
+import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/misc/route_names.dart';
 import 'package:delivery_app/features/home/home_page.dart';
 import 'package:delivery_app/features/landing/landing_page.dart';
@@ -35,7 +35,7 @@ class AppPage {
         final data = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
             builder: (context) =>
-                DetailProductPage(idProduct: data[ParamsKey.idProduct]));
+                DetailProductPage(idProduct: data[ParamsKeys.idProduct]));
       case RouteNames.searchpage:
         return MaterialPageRoute(builder: (context) => const SearchPage());
       case RouteNames.orderpage:
@@ -49,7 +49,7 @@ class AppPage {
         final data = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
             builder: (context) =>
-                DetailCategory(category: data[ParamsKey.title]));
+                DetailCategory(category: data[ParamsKeys.title]));
       default:
         return MaterialPageRoute(builder: (context) => const SizedBox.shrink());
     }

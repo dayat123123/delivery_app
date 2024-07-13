@@ -1,5 +1,5 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/widgets/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer.dart';
 import 'package:flutter/material.dart';
 
 class SearchTextField extends StatefulWidget {
@@ -37,14 +37,9 @@ class SearchTextField extends StatefulWidget {
 class _SearchTextFieldState extends State<SearchTextField> {
   final double iconSize = 30;
   final double suffixiconSize = 25;
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {
-    widget.controller?.dispose();
     super.dispose();
   }
 

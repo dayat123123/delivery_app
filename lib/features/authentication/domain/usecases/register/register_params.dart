@@ -1,4 +1,4 @@
-import 'package:delivery_app/shared/misc/params_key.dart';
+import 'package:delivery_app/shared/misc/params_keys.dart';
 
 class RegisterParams {
   final String name;

@@ -1,11 +1,11 @@
 import 'package:delivery_app/features/recommended/domain/entities/recommended.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
-import 'package:delivery_app/shared/misc/params_key.dart';
+import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/misc/pathfile.dart';
 import 'package:delivery_app/shared/misc/route_names.dart';
 import 'package:delivery_app/shared/widgets/card.dart';
-import 'package:delivery_app/shared/widgets/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer.dart';
 import 'package:flutter/material.dart';
 
 class CardRecommended extends StatelessWidget {
@@ -22,7 +22,7 @@ class CardRecommended extends StatelessWidget {
         onTap: () {
           if (recommendedModel?.idProduct != null) {
             context.pushNamed(RouteNames.detailitempage,
-                arguments: {ParamsKey.idProduct: recommendedModel?.idProduct});
+                arguments: {ParamsKeys.idProduct: recommendedModel?.idProduct});
           }
         },
         width: width,

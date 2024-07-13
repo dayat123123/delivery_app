@@ -1,7 +1,7 @@
 import 'package:delivery_app/features/popular_now/bloc/popular_now_bloc.dart';
 import 'package:delivery_app/features/popular_now/domain/entities/popular_now.dart';
 import 'package:delivery_app/features/popular_now/presentation/widgets/card_popular.dart';
-import 'package:delivery_app/shared/widgets/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

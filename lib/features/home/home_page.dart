@@ -18,7 +18,7 @@ import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:delivery_app/shared/widgets/search_textfield.dart';
-import 'package:delivery_app/shared/widgets/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,6 +30,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late PopularNowBloc popularNowBloc;
+  late final ScrollController scrollController;
   late RecommendedBloc recommendedBloc;
   late BigPromoBloc bigPromoBloc;
   final double heightCategory = 120;
@@ -37,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   final double heigthBigPromo = 220;
   @override
   void initState() {
+    scrollController = ScrollController();
     popularNowBloc = PopularNowBloc(getPopularNow: inject.get<GetPopularNow>())
       ..add(FetchPopularNow());
     recommendedBloc =
@@ -86,7 +88,10 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 15),
                 GestureDetector(
                   onTap: () {
-                    context.showBottomSheet();
+                    context.showBottomSheet(child: [
+                      for (int i = 0; i < 100; i++)
+                        Text("dsdsd").spaceV(before: false, after: true)
+                    ]);
                   },
                   child: const Text('Popular Now',
                           style: TextStyle(
@@ -133,5 +138,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-List<String> listcategory = ["All", "Food", "Drink", "Service"];

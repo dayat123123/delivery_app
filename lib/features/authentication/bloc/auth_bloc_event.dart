@@ -21,6 +21,14 @@ class SignInButtonPressed extends AuthenticationEvent {
   List<Object> get props => [loginParams];
 }
 
+class SignInOnStarted extends AuthenticationEvent {
+  final LoginParams loginParams;
+  const SignInOnStarted({required this.loginParams});
+
+  @override
+  List<Object> get props => [loginParams];
+}
+
 class LoggedIn extends AuthenticationEvent {
   final User user;
   final LoginParams loginParams;

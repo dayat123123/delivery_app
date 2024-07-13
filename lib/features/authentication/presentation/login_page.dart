@@ -11,7 +11,6 @@ import 'package:delivery_app/shared/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -41,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return CustomScaffold(
         appbar: AppBar(
-          title: Text('Sign In'),
+          title: const Text('Sign In'),
         ),
         body: Column(
           children: [
@@ -92,8 +91,8 @@ class _LoginPageState extends State<LoginPage> {
                     height: 40,
                     buttonType: ButtonType.textbutton,
                     onPressed: () {
-                      context.showToast(' Coming Soon ',
-                          postion: ToastGravity.TOP,
+                      context.showCustomSnackbar(
+                          description: "Coming soon",
                           type: DialogAccentType.info);
                     },
                   ).spaceV(before: false, spacing: 10, after: true),

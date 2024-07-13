@@ -1,11 +1,11 @@
 import 'package:delivery_app/features/popular_now/domain/entities/popular_now.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
-import 'package:delivery_app/shared/misc/params_key.dart';
+import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/misc/pathfile.dart';
 import 'package:delivery_app/shared/misc/route_names.dart';
 import 'package:delivery_app/shared/widgets/card.dart';
-import 'package:delivery_app/shared/widgets/spacer.dart';
+import 'package:delivery_app/shared/misc/spacer.dart';
 import 'package:flutter/material.dart';
 
 class CardPopular extends StatelessWidget {
@@ -21,7 +21,7 @@ class CardPopular extends StatelessWidget {
         onTap: () {
           if (produkModel?.idProduct != null) {
             context.pushNamed(RouteNames.detailitempage,
-                arguments: {ParamsKey.idProduct: produkModel?.idProduct});
+                arguments: {ParamsKeys.idProduct: produkModel?.idProduct});
           }
         },
         width: width,
