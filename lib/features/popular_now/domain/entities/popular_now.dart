@@ -8,7 +8,7 @@ class PopularNowModel with _$PopularNowModel {
   const factory PopularNowModel(
       {required String idProduct,
       required String namaProduct,
-      required int hargaProduct,
+      required double hargaProduct,
       required int jumTerjual,
       required int jumSave,
       required double rating,

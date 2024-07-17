@@ -22,7 +22,7 @@ BigPromoModel _$BigPromoModelFromJson(Map<String, dynamic> json) {
 mixin _$BigPromoModel {
   String get idProduct => throw _privateConstructorUsedError;
   String get namaProduct => throw _privateConstructorUsedError;
-  int get hargaProduct => throw _privateConstructorUsedError;
+  double get hargaProduct => throw _privateConstructorUsedError;
   double get discon => throw _privateConstructorUsedError;
   int get terjual => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $BigPromoModelCopyWith<$Res> {
   $Res call(
       {String idProduct,
       String namaProduct,
-      int hargaProduct,
+      double hargaProduct,
       double discon,
       int terjual,
       String? imageUrl});
@@ -80,7 +80,7 @@ class _$BigPromoModelCopyWithImpl<$Res, $Val extends BigPromoModel>
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
           : hargaProduct // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       discon: null == discon
           ? _value.discon
           : discon // ignore: cast_nullable_to_non_nullable
@@ -108,7 +108,7 @@ abstract class _$$BigPromoModelImplCopyWith<$Res>
   $Res call(
       {String idProduct,
       String namaProduct,
-      int hargaProduct,
+      double hargaProduct,
       double discon,
       int terjual,
       String? imageUrl});
@@ -144,7 +144,7 @@ class __$$BigPromoModelImplCopyWithImpl<$Res>
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
           : hargaProduct // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       discon: null == discon
           ? _value.discon
           : discon // ignore: cast_nullable_to_non_nullable
@@ -180,7 +180,7 @@ class _$BigPromoModelImpl implements _BigPromoModel {
   @override
   final String namaProduct;
   @override
-  final int hargaProduct;
+  final double hargaProduct;
   @override
   final double discon;
   @override
@@ -233,7 +233,7 @@ abstract class _BigPromoModel implements BigPromoModel {
   const factory _BigPromoModel(
       {required final String idProduct,
       required final String namaProduct,
-      required final int hargaProduct,
+      required final double hargaProduct,
       required final double discon,
       required final int terjual,
       final String? imageUrl}) = _$BigPromoModelImpl;
@@ -246,7 +246,7 @@ abstract class _BigPromoModel implements BigPromoModel {
   @override
   String get namaProduct;
   @override
-  int get hargaProduct;
+  double get hargaProduct;
   @override
   double get discon;
   @override

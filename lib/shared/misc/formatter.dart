@@ -1,4 +1,5 @@
 import 'package:delivery_app/shared/misc/constans.dart';
+import 'package:intl/intl.dart';
 
 class Formatter {
   Formatter._();
@@ -16,5 +17,18 @@ class Formatter {
         break;
     }
     return value;
+  }
+
+  static String formatPrice(double price) {
+    final formatter = NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ');
+    String formatted = formatter.format(price);
+    if (formatted.endsWith(',00')) {
+      formatted = formatted.substring(0, formatted.length - 3);
+    }
+    return formatted;
+  }
+
+  static String formatTotalSell(int value) {
+    return "$value Sold";
   }
 }

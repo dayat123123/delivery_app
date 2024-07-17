@@ -2,7 +2,7 @@ import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/misc/default_values.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:delivery_app/shared/widgets/search_textfield.dart';
-import 'package:delivery_app/shared/misc/spacer_helpers.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:flutter/material.dart';
 
 class DetailCategory extends StatefulWidget {
@@ -14,50 +14,48 @@ class DetailCategory extends StatefulWidget {
 }
 
 class _DetailCategoryState extends State<DetailCategory> {
-  late final TextEditingController _textEditingController;
+  late final TextEditingController _searchController;
   @override
   void initState() {
-    _textEditingController = TextEditingController();
+    _searchController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _textEditingController.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      padding: EdgeInsets.zero,
-      appbar: AppBar(title: Text(widget.category)),
-      body: Column(
-        children: [
+        padding: EdgeInsets.zero,
+        appbar: AppBar(title: Text(widget.category)),
+        body: Column(children: [
           const SizedBox(height: 20),
           SearchTextField(
-            controller: _textEditingController,
+            controller: _searchController,
             hintText: hintText(),
-          ).marginSymmetric(horizontal: SpacerHelper.horizontalPaddingnumber),
-          const SizedBox(height: 15),
-        ],
-      ),
-    );
+          ).marginSymmetric(horizontal: StyleHelpers.horizontalPaddingnumber),
+          const SizedBox(height: 15)
+        ]));
   }
 
   String hintText() {
-    if (widget.category == DefaultValues.all) {
-      return "What do you want to search?";
-    } else if (widget.category == DefaultValues.food) {
-      return "What do you want to eat?";
-    } else if (widget.category == DefaultValues.drink) {
-      return "What do you want to drink?";
-    } else if (widget.category == DefaultValues.property) {
-      return "What do you want to search?";
-    } else if (widget.category == DefaultValues.service) {
-      return "What do you want to need?";
-    } else {
-      return "";
+    switch (widget.category) {
+      case DefaultValues.all:
+        return "What do you want to search?";
+      case DefaultValues.food:
+        return "What do you want to eat?";
+      case DefaultValues.drink:
+        return "What do you want to drink?";
+      case DefaultValues.property:
+        return "What do you want to search?";
+      case DefaultValues.service:
+        return "What do you want to need?";
+      default:
+        return "";
     }
   }
 }

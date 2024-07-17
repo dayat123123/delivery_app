@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
-import 'package:delivery_app/shared/misc/spacer_helpers.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:flutter/material.dart';
 
 class CustomCarousel extends StatefulWidget {
@@ -79,14 +79,13 @@ class _CustomCarouselState extends State<CustomCarousel>
   Widget build(BuildContext context) {
     return Stack(alignment: Alignment.center, children: [
       TabBarView(
-        clipBehavior: Clip.antiAlias,
-        controller: _tabController,
-        children: List.generate(
-            growable: false,
-            _listCarouselwidget.length,
-            (index) => _listCarouselwidget[index].paddingSymmetric(
-                horizontal: SpacerHelper.horizontalPaddingnumber)),
-      ),
+          clipBehavior: Clip.antiAlias,
+          controller: _tabController,
+          children: List.generate(
+              growable: false,
+              _listCarouselwidget.length,
+              (index) => _listCarouselwidget[index].paddingSymmetric(
+                  horizontal: StyleHelpers.horizontalPaddingnumber))),
       Positioned(
           bottom: widget.positionedIndicatorBottom,
           child: PageIndicator(

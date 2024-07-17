@@ -1,7 +1,7 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 
-extension WidgetPaddingX on Widget {
+extension WidgetExtensions on Widget {
   Widget paddingAll(double padding) =>
       Padding(padding: EdgeInsets.all(padding), child: this);
 

@@ -12,7 +12,7 @@ _$DetailProductModelImpl _$$DetailProductModelImplFromJson(
       idProduct: json['idProduct'] as String,
       categoryProduct: json['categoryProduct'] as String,
       namaProduct: json['namaProduct'] as String,
-      hargaProduct: (json['hargaProduct'] as num).toInt(),
+      hargaProduct: (json['hargaProduct'] as num).toDouble(),
       jumTerjual: (json['jumTerjual'] as num).toInt(),
       jumSave: (json['jumSave'] as num).toInt(),
       rating: (json['rating'] as num).toDouble(),

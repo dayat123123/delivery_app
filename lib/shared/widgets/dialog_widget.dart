@@ -1,9 +1,14 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
+import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 enum DialogAccentType { success, failed, warning, info }
+
+enum DialogType { confirmation, notification }
 
 class DialogWidget {
   DialogWidget._();
@@ -54,6 +59,46 @@ class DialogWidget {
         break;
     }
     return iconDef;
+  }
+
+  static AlertDialog alertDialog(BuildContext context,
+      {String? title,
+      required String content,
+      void Function()? onPressed,
+      String? aproveNameButton}) {
+    final TextTheme textTheme = context.theme.textTheme;
+    final ThemeColors themeColors = context.themeColors;
+    return AlertDialog(
+        backgroundColor: themeColors.settingsDialogLanguage,
+        contentTextStyle: TextStyle(
+            color: textTheme.bodyMedium?.color?.withOpacity(0.8), fontSize: 17),
+        titleTextStyle:
+            TextStyle(color: textTheme.headlineLarge?.color, fontSize: 18),
+        title: Text(title ?? "Confirm"),
+        content: Text(content),
+        actionsAlignment: MainAxisAlignment.end,
+        shape: const RoundedRectangleBorder(
+            borderRadius: StyleHelpers.borderRadiusGeometry),
+        actionsPadding: StyleHelpers.horizontalPadding.copyWith(bottom: 10),
+        actions: <Widget>[
+          Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                CustomButton(
+                    text: aproveNameButton ?? "Approve",
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      context.pop();
+                      onPressed?.call();
+                    },
+                    buttonType: ButtonType.textbutton),
+                CustomButton(
+                    text: "Cancel",
+                    onPressed: () => context.pop(),
+                    buttonType: ButtonType.textbutton)
+              ])
+        ]);
   }
 
   static AnimatedSnackBar appSnackbar(

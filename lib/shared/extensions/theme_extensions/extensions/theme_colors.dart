@@ -15,7 +15,6 @@ class ThemeColors extends ThemeExtension<ThemeColors> {
   final Color upward;
   final Color downward;
   final Color neutral;
-
   final Color gradientColor1;
   final Color gradientColor2;
   const ThemeColors({

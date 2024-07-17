@@ -90,10 +90,7 @@ ThemeData get darkTheme {
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: TextStyle(
           color: AppColors.white.withOpacity(0.4), fontWeight: FontWeight.w400),
-      errorStyle: const TextStyle(
-        fontSize: 11.0,
-        color: Colors.redAccent,
-      ),
+      errorStyle: const TextStyle(fontSize: 11.0, color: Colors.redAccent),
       iconColor: AppColors.white,
       filled: true,
       fillColor: AppColors.foregroundDark,
@@ -101,26 +98,26 @@ ThemeData get darkTheme {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       isDense: true,
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(StyleHelpers.borderRadius),
         borderSide:
             const BorderSide(width: 0.5, color: AppColors.defaultBorderDark),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(StyleHelpers.borderRadius),
         borderSide:
             const BorderSide(width: 0.5, color: AppColors.defaultBorderDark),
       ),
       disabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(StyleHelpers.borderRadius),
         borderSide:
             BorderSide(width: 0.5, color: AppColors.grey.withOpacity(0.2)),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(StyleHelpers.borderRadius),
         borderSide: const BorderSide(width: 0.5, color: AppColors.primary),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(StyleHelpers.borderRadius),
         borderSide: const BorderSide(width: 1, color: Colors.redAccent),
       ),
     ),

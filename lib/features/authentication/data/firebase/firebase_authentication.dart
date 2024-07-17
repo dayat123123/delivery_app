@@ -5,8 +5,6 @@ import 'package:delivery_app/features/authentication/domain/usecases/login/login
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
-class FirebaseAuthenticationHelper {}
-
 class FirebaseAuthentication implements Authentication {
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final StorageHelper _storageHelper;

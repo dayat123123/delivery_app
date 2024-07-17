@@ -4,7 +4,8 @@ import 'package:delivery_app/features/detail_product/presentation/detail_product
 import 'package:delivery_app/features/home/presentation/pages/main_page.dart';
 import 'package:delivery_app/features/notification/presentation/notification.dart';
 import 'package:delivery_app/features/order/presentation/order_page.dart';
-import 'package:delivery_app/features/wishlist/wishlist_page.dart';
+import 'package:delivery_app/features/wishlist/presentation/pages/detail_wishlist.dart';
+import 'package:delivery_app/features/wishlist/presentation/pages/wishlist_page.dart';
 import 'package:delivery_app/features/search/presentation/search_page.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/features/home/presentation/pages/home_page.dart';
@@ -33,14 +34,20 @@ class AppPages {
       case RouteNames.detailitempage:
         final data = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-            builder: (context) =>
-                DetailProductPage(idProduct: data[ParamsKeys.idProduct]));
+            builder: (context) => DetailProductPage(
+                  data: data[ParamsKeys.cartProduct],
+                ));
       case RouteNames.searchpage:
         return MaterialPageRoute(builder: (context) => const SearchPage());
       case RouteNames.orderpage:
         return MaterialPageRoute(builder: (context) => const OrderPage());
       case RouteNames.wishlistpage:
         return MaterialPageRoute(builder: (context) => const WishlistPage());
+      case RouteNames.detailwishlistpage:
+        final data = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+            builder: (context) =>
+                DetailWishlist(data: data[ParamsKeys.groupCartModel]));
       case RouteNames.notificationpage:
         return MaterialPageRoute(
             builder: (context) => const NotificationPage());
@@ -67,6 +74,7 @@ class RouteNames {
   static const String detailcategory = '/detailcategory';
   static const String searchpage = '/searchpage';
   static const String wishlistpage = '/wishlistpage';
+  static const String detailwishlistpage = '/detailwishlistpage';
   static const String orderpage = '/orderpage';
   static const String notificationpage = '/notificationpage';
 }

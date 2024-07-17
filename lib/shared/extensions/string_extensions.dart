@@ -32,4 +32,23 @@ extension StringExtensions on String {
     final phoneRegExp = RegExp(r"^\+?0[0-9]{10}$");
     return phoneRegExp.hasMatch(this);
   }
+
+  bool get isValidImageUrl {
+    if (isEmpty) return false;
+    final uri = Uri.tryParse(this);
+    if (uri == null || !(uri.isScheme('http') || uri.isScheme('https'))) {
+      return false;
+    }
+
+    final imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+    final path = uri.path.toLowerCase();
+    final hasValidExtension =
+        imageExtensions.any((ext) => path.endsWith('.$ext'));
+
+    if (!hasValidExtension) return false;
+
+    final hostRegExp =
+        RegExp(r"^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$|^(\d{1,3}\.){3}\d{1,3}$");
+    return hostRegExp.hasMatch(uri.host);
+  }
 }

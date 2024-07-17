@@ -1,6 +1,6 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
-import 'package:delivery_app/shared/misc/spacer_helpers.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:flutter/material.dart';
 
 class HistorySearch extends StatelessWidget {
@@ -12,7 +12,7 @@ class HistorySearch extends StatelessWidget {
       height: 35,
       width: double.infinity,
       child: ListView(
-        padding: SpacerHelper.horizontalPadding,
+        padding: StyleHelpers.horizontalPadding,
         scrollDirection: Axis.horizontal,
         children: List.generate(
           10,

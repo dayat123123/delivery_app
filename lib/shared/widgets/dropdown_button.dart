@@ -1,4 +1,5 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropDownButton extends StatelessWidget {
@@ -31,7 +32,7 @@ class CustomDropDownButton extends StatelessWidget {
             padding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: themeColors.border),
-                borderRadius: BorderRadius.circular(10)),
+                borderRadius: StyleHelpers.borderRadiusGeometry),
             color: themeColors.appContainerBackground,
             constraints: constraints ??
                 const BoxConstraints.tightFor(height: 150, width: 150),
@@ -42,10 +43,7 @@ class CustomDropDownButton extends StatelessWidget {
   List<PopupMenuItem> _generateList() {
     return popupmenuitem.map((item) {
       return PopupMenuItem(
-        value: item.value,
-        onTap: item.onTap,
-        child: item.widget,
-      );
+          value: item.value, onTap: item.onTap, child: item.widget);
     }).toList();
   }
 }

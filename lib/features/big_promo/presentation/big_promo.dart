@@ -3,7 +3,7 @@ import 'package:delivery_app/features/big_promo/domain/entities/big_promo_model.
 import 'package:delivery_app/features/big_promo/presentation/widgets/card_big_promo.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/carousel.dart';
-import 'package:delivery_app/shared/misc/spacer_helpers.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +20,7 @@ class BigPromo extends StatelessWidget {
         builder: (context, state) {
           if (state is BigPromoLoading) {
             return const CardBigPromo(isLoading: true).marginSymmetric(
-                horizontal: SpacerHelper.horizontalPaddingnumber);
+                horizontal: StyleHelpers.horizontalPaddingnumber);
           } else if (state is BigPromoLoaded) {
             List<BigPromoModel> bigpromodata = state.bigPromoProduct;
             final datawidget = List.generate(bigpromodata.length,

@@ -1,5 +1,5 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/misc/spacer_helpers.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:delivery_app/shared/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,7 @@ class CardContainer extends StatelessWidget {
       this.padding,
       this.border,
       this.onLongPress,
-      this.borderRadius = SpacerHelper.borderRadius,
+      this.borderRadius = StyleHelpers.borderRadius,
       this.constraints,
       this.color,
       this.splashColor,

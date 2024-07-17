@@ -10,7 +10,7 @@ _$BigPromoModelImpl _$$BigPromoModelImplFromJson(Map<String, dynamic> json) =>
     _$BigPromoModelImpl(
       idProduct: json['idProduct'] as String,
       namaProduct: json['namaProduct'] as String,
-      hargaProduct: (json['hargaProduct'] as num).toInt(),
+      hargaProduct: (json['hargaProduct'] as num).toDouble(),
       discon: (json['discon'] as num).toDouble(),
       terjual: (json['terjual'] as num).toInt(),
       imageUrl: json['imageUrl'] as String?,

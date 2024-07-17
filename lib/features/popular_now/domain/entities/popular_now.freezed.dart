@@ -22,7 +22,7 @@ PopularNowModel _$PopularNowModelFromJson(Map<String, dynamic> json) {
 mixin _$PopularNowModel {
   String get idProduct => throw _privateConstructorUsedError;
   String get namaProduct => throw _privateConstructorUsedError;
-  int get hargaProduct => throw _privateConstructorUsedError;
+  double get hargaProduct => throw _privateConstructorUsedError;
   int get jumTerjual => throw _privateConstructorUsedError;
   int get jumSave => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $PopularNowModelCopyWith<$Res> {
   $Res call(
       {String idProduct,
       String namaProduct,
-      int hargaProduct,
+      double hargaProduct,
       int jumTerjual,
       int jumSave,
       double rating,
@@ -83,7 +83,7 @@ class _$PopularNowModelCopyWithImpl<$Res, $Val extends PopularNowModel>
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
           : hargaProduct // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       jumTerjual: null == jumTerjual
           ? _value.jumTerjual
           : jumTerjual // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ abstract class _$$PopularNowModelImplCopyWith<$Res>
   $Res call(
       {String idProduct,
       String namaProduct,
-      int hargaProduct,
+      double hargaProduct,
       int jumTerjual,
       int jumSave,
       double rating,
@@ -153,7 +153,7 @@ class __$$PopularNowModelImplCopyWithImpl<$Res>
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
           : hargaProduct // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       jumTerjual: null == jumTerjual
           ? _value.jumTerjual
           : jumTerjual // ignore: cast_nullable_to_non_nullable
@@ -194,7 +194,7 @@ class _$PopularNowModelImpl implements _PopularNowModel {
   @override
   final String namaProduct;
   @override
-  final int hargaProduct;
+  final double hargaProduct;
   @override
   final int jumTerjual;
   @override
@@ -252,7 +252,7 @@ abstract class _PopularNowModel implements PopularNowModel {
   const factory _PopularNowModel(
       {required final String idProduct,
       required final String namaProduct,
-      required final int hargaProduct,
+      required final double hargaProduct,
       required final int jumTerjual,
       required final int jumSave,
       required final double rating,
@@ -266,7 +266,7 @@ abstract class _PopularNowModel implements PopularNowModel {
   @override
   String get namaProduct;
   @override
-  int get hargaProduct;
+  double get hargaProduct;
   @override
   int get jumTerjual;
   @override

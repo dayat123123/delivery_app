@@ -29,9 +29,15 @@ AppBar customAppBar(BuildContext context, {void Function()? onTap}) {
                     name: "Settings",
                     icon: const Icon(Icons.settings, size: 16))),
             PopupMenuItemCustom(
-                onTap: () => authBloc..add(LoggedOut()),
+                onTap: () {
+                  context.showDialogCustom(
+                      alowDismiss: false,
+                      onPressed: () => authBloc..add(LoggedOut()),
+                      title: "Confirm",
+                      content: "Are you sure want to logout?");
+                },
                 widget: _itemDropdown(context,
-                    name: "Logout", icon: const Icon(Icons.logout, size: 16)))
+                    name: "Sign Out", icon: const Icon(Icons.logout, size: 16)))
           ],
           child: const CircleAvatar(
                   backgroundImage: AssetImage(FilePaths.malejpg), radius: 15)

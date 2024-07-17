@@ -1,10 +1,12 @@
+import 'package:delivery_app/core/utils/local_database/cart_model.dart';
 import 'package:delivery_app/features/recommended/domain/entities/recommended.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
+import 'package:delivery_app/shared/misc/formatter.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/misc/file_paths.dart';
-import 'package:delivery_app/shared/misc/spacer_helpers.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:delivery_app/shared/widgets/card_container.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +20,16 @@ class CardRecommended extends StatelessWidget {
   Widget build(BuildContext context) {
     const double width = 180;
     return CardContainer(
-        padding: SpacerHelper.allPadding,
+        padding: StyleHelpers.allPadding,
         isLoading: isLoading,
         onTap: () {
-          if (recommendedModel?.idProduct != null) {
-            context.pushNamed(RouteNames.detailitempage,
-                arguments: {ParamsKeys.idProduct: recommendedModel?.idProduct});
+          if (recommendedModel != null) {
+            context.pushNamed(RouteNames.detailitempage, arguments: {
+              ParamsKeys.cartProduct: CartModel(
+                  productId: recommendedModel!.idProduct,
+                  productName: recommendedModel!.namaProduct,
+                  productImage: recommendedModel!.imageUrl)
+            });
           }
         },
         width: width,
@@ -39,7 +45,7 @@ class CardRecommended extends StatelessWidget {
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15.5))
               .centerLeft,
-          Text("Rp. ${recommendedModel?.hargaProduct ?? 0}",
+          Text(Formatter.formatPrice(recommendedModel?.hargaProduct ?? 0),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.w500))
@@ -54,12 +60,12 @@ class CardRecommended extends StatelessWidget {
                       style: const TextStyle(fontWeight: FontWeight.w500))
                   .centerLeft,
               const Spacer(),
-              Text("${recommendedModel?.jumTerjual ?? 0} Sell",
+              Text(Formatter.formatTotalSell(recommendedModel?.jumTerjual ?? 0),
                       maxLines: 1,
                       style: const TextStyle(fontWeight: FontWeight.w500))
                   .centerLeft
             ]
           ])
-        ])).marginOnly(right: SpacerHelper.rightMargin);
+        ]));
   }
 }

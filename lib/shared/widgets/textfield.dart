@@ -3,7 +3,7 @@ import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-enum TextFieldType { basic, email, password, number, search }
+enum TextFieldType { basic, email, password, number, search, text }
 
 int _passwordLength = 6;
 
@@ -13,12 +13,15 @@ class CustomTextField extends StatefulWidget {
   final Color? bordersideColor;
   final TextFieldType? textFieldType;
   final String? text;
+  final String? labelText;
+  final int? maxLength;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final void Function(String)? onFieldSubmitted;
   final void Function()? onTapOutside;
   final FocusNode? focusNode;
   final bool? enabled;
+  final bool? autoFocus;
   const CustomTextField(
       {super.key,
       this.paddingBody,
@@ -31,7 +34,10 @@ class CustomTextField extends StatefulWidget {
       this.onFieldSubmitted,
       this.onTapOutside,
       this.focusNode,
-      this.enabled});
+      this.enabled,
+      this.labelText,
+      this.maxLength,
+      this.autoFocus});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -57,6 +63,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: widget.autoFocus ?? false,
       enabled: widget.enabled,
       focusNode: widget.focusNode,
       onFieldSubmitted: widget.onFieldSubmitted,
@@ -74,14 +81,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
       },
       maxLength: lengthInput(),
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(14),
-        labelText: labelText(),
-        errorText: !_isValid && widget.validator != null ? _errorMessage : null,
-        hintText: widget.text ?? 'Input ${labelText() ?? "Form"}',
-        counterText: '',
-        icon: iconTextfield(),
-        suffixIcon: suffixiconTextfield(),
-      ),
+          contentPadding: const EdgeInsets.all(14),
+          labelText: widget.labelText ?? labelText(),
+          errorText:
+              !_isValid && widget.validator != null ? _errorMessage : null,
+          hintText: widget.text ?? 'Input ${labelText() ?? "Form"}',
+          counterText: '',
+          icon: iconTextfield(),
+          suffixIcon: suffixiconTextfield()),
     ).spaceV(after: true);
   }
 
@@ -151,6 +158,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
       case TextFieldType.password:
         type = FilteringTextInputFormatter.allow(RegExp('[^,\\s]*'));
         break;
+      case TextFieldType.text:
+        type =
+            FilteringTextInputFormatter.deny(RegExp(r'[/\\<>~/|{}^&*$|%#?]'));
+        break;
       default:
         type = FilteringTextInputFormatter.allow(RegExp('[^,\\s]*'));
         break;
@@ -173,25 +184,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   Widget? suffixiconTextfield() {
     switch (widget.textFieldType) {
-      case TextFieldType.basic:
-        return null;
       case TextFieldType.password:
         return InkWell(
-          onTap: () {
-            _showText = !_showText;
-            setState(() {});
-          },
-          child: Icon(
-            _showText ? Icons.visibility_off : Icons.visibility,
-            size: suffixiconSize,
-          ),
-        );
+            onTap: () {
+              _showText = !_showText;
+              setState(() {});
+            },
+            child: Icon(_showText ? Icons.visibility_off : Icons.visibility,
+                size: suffixiconSize));
       default:
         return null;
     }
   }
 
   int lengthInput() {
+    if (widget.maxLength != null) return widget.maxLength!;
     switch (widget.textFieldType) {
       case TextFieldType.basic:
         return 50;
@@ -211,6 +218,7 @@ String? emailValidator(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please fill your email';
   }
+
   if (!value.isValidEmail) return "Email is not valid";
   return null;
 }

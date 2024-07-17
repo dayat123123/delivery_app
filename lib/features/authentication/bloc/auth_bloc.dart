@@ -62,11 +62,8 @@ class AuthenticationBloc
 
   void _onLoggedOut(LoggedOut event, Emitter<AuthenticationState> emit) async {
     storageHelper.deleteData(ParamsKeys.loginparamkey);
-    await Future.delayed(const Duration(seconds: 1), () {
-      navigatorKey.currentContext
-          ?.pushNamedAndRemoveUntil(RouteNames.loginpage);
-      emit(AuthenticationUnauthenticated());
-    });
+    navigatorKey.currentContext?.pushNamedAndRemoveUntil(RouteNames.loginpage);
+    emit(AuthenticationUnauthenticated());
   }
 
   void _onSignInButtonPressed(

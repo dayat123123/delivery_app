@@ -110,20 +110,20 @@ ThemeData get lightTheme {
           labelStyle: const TextStyle(color: AppColors.darkerGrey),
           isDense: true,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(StyleHelpers.borderRadius),
             borderSide: const BorderSide(
                 width: 0.5, color: AppColors.defaultBorderLight),
           ),
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(StyleHelpers.borderRadius),
               borderSide: const BorderSide(
                   width: 0.5, color: AppColors.defaultBorderLight)),
           disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(StyleHelpers.borderRadius),
               borderSide: BorderSide(
                   width: 0.5, color: AppColors.lighterGrey.withOpacity(0.4))),
           errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(StyleHelpers.borderRadius),
               borderSide: const BorderSide(width: 1, color: Colors.redAccent))),
       expansionTileTheme: ExpansionTileThemeData(
           backgroundColor: AppColors.foregroundLight,

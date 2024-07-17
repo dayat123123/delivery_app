@@ -11,30 +11,8 @@ class CartModel {
   final String productName;
 
   @HiveField(3)
-  final String productDeskripsi;
-
-  @HiveField(4)
-  final String productImage;
-
-  @HiveField(5)
-  final String productVolume;
-
-  @HiveField(6)
-  final String productPriceSaved;
-
-  @HiveField(7)
-  final String productJumlahBeli;
-
-  @HiveField(8)
-  final String productWeight;
+  final String? productImage;
 
   CartModel(
-      this.productId,
-      this.productName,
-      this.productDeskripsi,
-      this.productImage,
-      this.productVolume,
-      this.productPriceSaved,
-      this.productJumlahBeli,
-      this.productWeight);
+      {required this.productId, required this.productName, this.productImage});
 }

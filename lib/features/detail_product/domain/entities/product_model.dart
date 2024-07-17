@@ -9,7 +9,7 @@ class DetailProductModel with _$DetailProductModel {
     required String idProduct,
     required String categoryProduct,
     required String namaProduct,
-    required int hargaProduct,
+    required double hargaProduct,
     required int jumTerjual,
     required int jumSave,
     required double rating,

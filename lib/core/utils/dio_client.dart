@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:delivery_app/core/entities/result.dart';
 import 'package:delivery_app/core/utils/storage_helper.dart';
 import 'package:delivery_app/shared/misc/storage_keys.dart';
@@ -46,11 +45,9 @@ class DioClient {
     try {
       switch (method) {
         case Method.post:
-          response = await _dio.post(
-            url,
-            data: params,
-            options: Options(contentType: Headers.formUrlEncodedContentType),
-          );
+          response = await _dio.post(url,
+              data: params,
+              options: Options(contentType: Headers.formUrlEncodedContentType));
         case Method.postjson:
           response = await _dio.post(url,
               data: json.encode(params),
@@ -82,6 +79,7 @@ class DioClient {
           if (response.statusCode == HttpStatus.ok) {
             return Result.success(response.data);
           }
+          break;
         default:
           response = await _dio.get(url);
           break;
@@ -125,7 +123,6 @@ class DioClient {
           'Accept': '*/*'
         });
       }
-
       request.headers
           .addAll({"Access-Control-Allow-Origin": "*", 'Accept': '*/*'});
       return handler.next(request);

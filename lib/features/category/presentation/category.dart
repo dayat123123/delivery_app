@@ -1,7 +1,6 @@
 import 'package:delivery_app/features/category/presentation/widgets/avatar_category.dart';
-import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/misc/default_values.dart';
-import 'package:delivery_app/shared/misc/spacer_helpers.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:flutter/material.dart';
 
 class Category extends StatelessWidget {
@@ -9,14 +8,15 @@ class Category extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
+        separatorBuilder: (context, index) =>
+            const SizedBox(width: StyleHelpers.rightMargin + 8),
         itemCount: DefaultValues.listcategoryModel.length,
         scrollDirection: Axis.horizontal,
-        padding: SpacerHelper.horizontalPadding,
+        padding: StyleHelpers.horizontalPadding,
         itemBuilder: (context, index) {
           return AvatarCategory(
-                  categoryModel: DefaultValues.listcategoryModel[index])
-              .spaceH(before: false, after: true, spacing: 20);
+              categoryModel: DefaultValues.listcategoryModel[index]);
         });
   }
 }

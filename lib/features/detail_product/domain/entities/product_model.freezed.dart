@@ -23,7 +23,7 @@ mixin _$DetailProductModel {
   String get idProduct => throw _privateConstructorUsedError;
   String get categoryProduct => throw _privateConstructorUsedError;
   String get namaProduct => throw _privateConstructorUsedError;
-  int get hargaProduct => throw _privateConstructorUsedError;
+  double get hargaProduct => throw _privateConstructorUsedError;
   int get jumTerjual => throw _privateConstructorUsedError;
   int get jumSave => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ abstract class $DetailProductModelCopyWith<$Res> {
       {String idProduct,
       String categoryProduct,
       String namaProduct,
-      int hargaProduct,
+      double hargaProduct,
       int jumTerjual,
       int jumSave,
       double rating,
@@ -90,7 +90,7 @@ class _$DetailProductModelCopyWithImpl<$Res, $Val extends DetailProductModel>
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
           : hargaProduct // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       jumTerjual: null == jumTerjual
           ? _value.jumTerjual
           : jumTerjual // ignore: cast_nullable_to_non_nullable
@@ -123,7 +123,7 @@ abstract class _$$DetailProductModelImplCopyWith<$Res>
       {String idProduct,
       String categoryProduct,
       String namaProduct,
-      int hargaProduct,
+      double hargaProduct,
       int jumTerjual,
       int jumSave,
       double rating,
@@ -166,7 +166,7 @@ class __$$DetailProductModelImplCopyWithImpl<$Res>
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
           : hargaProduct // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       jumTerjual: null == jumTerjual
           ? _value.jumTerjual
           : jumTerjual // ignore: cast_nullable_to_non_nullable
@@ -210,7 +210,7 @@ class _$DetailProductModelImpl implements _DetailProductModel {
   @override
   final String namaProduct;
   @override
-  final int hargaProduct;
+  final double hargaProduct;
   @override
   final int jumTerjual;
   @override
@@ -271,7 +271,7 @@ abstract class _DetailProductModel implements DetailProductModel {
       {required final String idProduct,
       required final String categoryProduct,
       required final String namaProduct,
-      required final int hargaProduct,
+      required final double hargaProduct,
       required final int jumTerjual,
       required final int jumSave,
       required final double rating,
@@ -287,7 +287,7 @@ abstract class _DetailProductModel implements DetailProductModel {
   @override
   String get namaProduct;
   @override
-  int get hargaProduct;
+  double get hargaProduct;
   @override
   int get jumTerjual;
   @override

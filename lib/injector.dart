@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:delivery_app/core/utils/local_database/local_database_helper.dart';
 import 'package:delivery_app/core/utils/storage_helper.dart';
 import 'package:delivery_app/features/authentication/data/firebase/firebase_authentication.dart';
 import 'package:delivery_app/features/authentication/data/firebase/firebase_user_repository.dart';
@@ -16,6 +17,7 @@ import 'package:delivery_app/features/popular_now/domain/usecases/get_popular_no
 import 'package:delivery_app/features/recommended/data/get_recommended_repositories.dart';
 import 'package:delivery_app/features/recommended/domain/usecases/get_recommended/get_recommended.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
+import 'package:delivery_app/shared/features/bottomsheet/save_product/bloc/favorite_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
@@ -26,6 +28,7 @@ Future<void> initInjector() async {
     final storageHelper = StorageHelper();
     return storageHelper;
   });
+  inject.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
   await inject.isReady<StorageHelper>();
   inject.registerSingleton<ThemeCubit>(ThemeCubit());
   inject.registerLazySingleton<FirebaseFirestore>(
@@ -45,7 +48,7 @@ Future<void> initInjector() async {
       firebaseFirestore: inject.get<FirebaseFirestore>()));
   inject.registerLazySingleton<CheckIsLoggedin>(
       () => CheckIsLoggedin(authentication: inject.get<Authentication>()));
-  //inject bloc
+  //authentication
   inject.registerLazySingleton<Login>(() => Login(
       authentication: inject.get<FirebaseAuthentication>(),
       userRepository: inject.get<FirebaseUserRepository>()));
@@ -55,12 +58,15 @@ Future<void> initInjector() async {
   inject.registerLazySingleton<Getloggedinuser>(() => Getloggedinuser(
       authentication: inject.get<FirebaseAuthentication>(),
       userRepository: inject.get<FirebaseUserRepository>()));
+  //inject bloc
   inject.registerSingleton<AuthenticationBloc>(AuthenticationBloc(
       getloggedinuser: inject.get<Getloggedinuser>(),
       checkIsLoggedin: inject.get<CheckIsLoggedin>(),
       storageHelper: inject.get<StorageHelper>(),
       login: inject.get<Login>(),
       register: inject.get<Register>()));
+  inject.registerSingleton<FavoriteBloc>(
+      FavoriteBloc(databaseHelper: inject.get<DatabaseHelper>()));
 
   // getpopular
   inject.registerLazySingleton<PopularNowRepositoriesImpl>(

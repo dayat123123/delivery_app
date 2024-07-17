@@ -1,8 +1,8 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/misc/spacer_helpers.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:flutter/material.dart';
 
-class SearchTextField extends StatefulWidget {
+class SearchTextField extends StatelessWidget {
   final EdgeInsetsGeometry? paddingBody;
   final double? cornerRadius;
   final Color? bordersideColor;
@@ -15,6 +15,8 @@ class SearchTextField extends StatefulWidget {
   final bool? enabled;
   final String? hintText;
   final bool autofocus;
+  final double? height;
+  final double? iconSize;
   const SearchTextField(
       {super.key,
       this.paddingBody,
@@ -28,44 +30,33 @@ class SearchTextField extends StatefulWidget {
       this.focusNode,
       this.enabled,
       this.hintText,
-      this.autofocus = false});
-
-  @override
-  State<SearchTextField> createState() => _SearchTextFieldState();
-}
-
-class _SearchTextFieldState extends State<SearchTextField> {
-  final double iconSize = 30;
-  final double suffixiconSize = 25;
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+      this.autofocus = false,
+      this.height,
+      this.iconSize});
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 3,
-      borderRadius: BorderRadius.circular(SpacerHelper.borderRadius),
-      color: Colors.transparent,
-      shadowColor: context.themeColors.appContainerShadow,
-      child: TextFormField(
-          autofocus: widget.autofocus,
-          enabled: widget.enabled,
-          focusNode: widget.focusNode,
-          onFieldSubmitted: widget.onFieldSubmitted,
-          controller: widget.controller,
-          validator: widget.validator,
-          onTapOutside: (event) {
-            FocusScope.of(context).unfocus();
-            widget.onTapOutside?.call();
-          },
-          decoration: InputDecoration(
-              hintText: widget.hintText ?? 'Search Something',
-              prefixIcon: const Icon(Icons.search, size: 25),
-              contentPadding: const EdgeInsets.all(18),
-              counterText: '')),
-    );
+        elevation: 1,
+        borderRadius: StyleHelpers.borderRadiusGeometry,
+        color: Colors.transparent,
+        shadowColor: context.themeColors.appContainerShadow,
+        child: TextFormField(
+            autofocus: autofocus,
+            enabled: enabled,
+            focusNode: focusNode,
+            onFieldSubmitted: onFieldSubmitted,
+            controller: controller,
+            validator: validator,
+            onTapOutside: (event) {
+              FocusScope.of(context).unfocus();
+              onTapOutside?.call();
+            },
+            decoration: InputDecoration(
+                constraints: BoxConstraints.tightFor(height: height ?? 45),
+                hintText: hintText ?? 'Search Something',
+                prefixIcon: Icon(Icons.search, size: iconSize ?? 25),
+                contentPadding: const EdgeInsets.all(18),
+                counterText: '')));
   }
 }

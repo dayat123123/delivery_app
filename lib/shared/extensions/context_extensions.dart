@@ -4,7 +4,7 @@ import 'package:delivery_app/shared/widgets/modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 export 'package:delivery_app/shared/widgets/dialog_widget.dart';
 
-extension ContextExt on BuildContext {
+extension ContextExtensions on BuildContext {
   void showSnackbar(String message, {DialogAccentType? type}) {
     ScaffoldMessenger.of(this)
       ..removeCurrentSnackBar()
@@ -13,6 +13,18 @@ extension ContextExt on BuildContext {
               duration: const Duration(milliseconds: 250),
               reverseDuration: const Duration(milliseconds: 500)),
           DialogWidget.scaffoldMessenger(message, this, type: type));
+  }
+
+  void showDialogCustom(
+      {String? title,
+      required String content,
+      bool alowDismiss = true,
+      void Function()? onPressed}) {
+    showDialog(
+        context: this,
+        barrierDismissible: alowDismiss,
+        builder: (BuildContext context) => DialogWidget.alertDialog(context,
+            content: content, onPressed: onPressed, title: title));
   }
 
   void showCustomSnackbar(
@@ -32,15 +44,30 @@ extension ContextExt on BuildContext {
         .show(this);
   }
 
-  void showBottomSheet({required List<Widget> child}) {
+  void showBottomSheet(
+      {Widget? header,
+      required Widget child,
+      bool showDragHandle = true,
+      bool isScrollControlled = false,
+      double? initialChildSize,
+      double? maxChildSize,
+      double? minChildSize,
+      bool? isScrollChild}) {
     showModalBottomSheet(
         context: this,
-        showDragHandle: true,
+        showDragHandle: showDragHandle,
         elevation: 0,
-        isScrollControlled: false,
+        isScrollControlled: isScrollControlled,
+        sheetAnimationStyle: AnimationStyle()
+            .copyWith(reverseDuration: const Duration(milliseconds: 100)),
         backgroundColor: themeColors.appContainerBackground,
-        builder: (BuildContext context) =>
-            CustomModalBottomSheet(widget: child));
+        builder: (BuildContext context) => CustomModalBottomSheet(
+            header: header,
+            initialChildSize: initialChildSize,
+            minChildSize: minChildSize,
+            maxChildSize: maxChildSize,
+            isScrollChild: isScrollChild,
+            child: child));
   }
 
   void push(Widget destination, {Object? arguments}) {
@@ -71,8 +98,14 @@ extension ContextExt on BuildContext {
     );
   }
 
-  void pushNamed(String routeName, {Object? arguments}) {
-    Navigator.pushNamed(this, routeName, arguments: arguments);
+  void pushNamed(String routeName,
+      {Object? arguments, void Function()? onComplete}) {
+    if (onComplete != null) {
+      Navigator.pushNamed(this, routeName, arguments: arguments)
+          .whenComplete(() => onComplete.call());
+    } else {
+      Navigator.pushNamed(this, routeName, arguments: arguments);
+    }
   }
 
   void pushReplacementNamed(String routeName, {Object? arguments}) {
@@ -90,6 +123,7 @@ extension ContextExt on BuildContext {
 
   ThemeData get theme => Theme.of(this);
   ThemeColors get themeColors => theme.extension<ThemeColors>()!;
+  ThemeTextStyles get themeTextStyles => theme.extension<ThemeTextStyles>()!;
   TextTheme get textTheme => Theme.of(this).textTheme;
 
   /// The same of [MediaQuery.of(context).size]

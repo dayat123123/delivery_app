@@ -33,9 +33,7 @@ class StorageHelper {
   Future<dynamic> read(String key) async {
     String? jsonString = await _flutterSecureStorage.read(
         key: key, aOptions: _androidOptions, iOptions: _iosOptions);
-    if (jsonString != null) {
-      return jsonDecode(jsonString);
-    }
+    if (jsonString != null) return jsonDecode(jsonString);
     return null;
   }
 }

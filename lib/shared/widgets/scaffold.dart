@@ -1,4 +1,4 @@
-import 'package:delivery_app/shared/misc/spacer_helpers.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:flutter/material.dart';
 
 class CustomScaffold extends StatelessWidget {
@@ -14,7 +14,7 @@ class CustomScaffold extends StatelessWidget {
       {super.key,
       this.appbar,
       this.margin,
-      this.padding = SpacerHelper.horizontalPadding,
+      this.padding = StyleHelpers.horizontalPadding,
       this.body,
       this.drawer,
       this.bottomNavigationBar,

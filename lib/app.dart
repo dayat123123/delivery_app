@@ -1,6 +1,7 @@
 import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
 import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/shared/features/bottomsheet/save_product/bloc/favorite_bloc.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +16,8 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => inject.get<ThemeCubit>()),
-          BlocProvider(create: (context) => inject<AuthenticationBloc>())
+          BlocProvider(create: (context) => inject.get<AuthenticationBloc>()),
+          BlocProvider(create: (context) => inject.get<FavoriteBloc>())
         ],
         child: BlocBuilder<ThemeCubit, ThemeData>(builder: (context, state) {
           return AnnotatedRegion<SystemUiOverlayStyle>(

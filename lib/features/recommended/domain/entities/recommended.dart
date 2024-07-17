@@ -8,7 +8,7 @@ class RecommendedModel with _$RecommendedModel {
   const factory RecommendedModel(
       {required String idProduct,
       required String namaProduct,
-      required int hargaProduct,
+      required double hargaProduct,
       required int jumTerjual,
       required int jumSave,
       required double rating,

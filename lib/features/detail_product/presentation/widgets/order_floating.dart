@@ -10,7 +10,7 @@ class OrderFloating extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 25).copyWith(bottom: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 25).copyWith(bottom: 10),
       height: 85,
       alignment: Alignment.center,
       width: context.fullWidth,
@@ -21,7 +21,7 @@ class OrderFloating extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("Rp. 150.000",
+          const Text("Rp. 150.000",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
           CustomButton(
               height: 45,
