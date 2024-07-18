@@ -3,6 +3,7 @@ import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/misc/file_paths.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
+import 'package:delivery_app/shared/widgets/network_image.dart';
 import 'package:flutter/material.dart';
 
 class AvatarCategory extends StatelessWidget {
@@ -19,10 +20,12 @@ class AvatarCategory extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                  child: CircleAvatar(
-                      backgroundImage: AssetImage(
-                          categoryModel.imageUrl ?? FilePaths.alljpg),
-                      radius: 38)),
+                  child: CustomNetworkImage(
+                      width: 85,
+                      scale: 0.85,
+                      shape: CustomNetworkImageShape.circle,
+                      fit: BoxFit.cover,
+                      assetImgUrl: categoryModel.imageUrl ?? FilePaths.alljpg)),
               const SizedBox(height: 5),
               Text(categoryModel.title,
                   style: const TextStyle(

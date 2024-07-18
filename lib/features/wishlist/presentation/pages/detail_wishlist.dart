@@ -27,6 +27,16 @@ class _DetailWishlistState extends State<DetailWishlist> {
     super.initState();
   }
 
+  void _onLongTap(BuildContext context, CartModel selectedItem) {
+    context.showDialogCustom(
+        onPressed: () async {
+          await _store.removeItemFromGroupCart(
+              widget.data.groupCartName, selectedItem.productId);
+          setState(() {});
+        },
+        content: "Delete item ${selectedItem.productName}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -38,11 +48,10 @@ class _DetailWishlistState extends State<DetailWishlist> {
                 crossAxisCount: 3, mainAxisSpacing: 2, crossAxisSpacing: 2),
             itemBuilder: (context, index) => CardDetailWishlish(
                 data: memberData[index],
+                onLongPress: (p0) => _onLongTap(context, p0),
                 onTap: (data) => context.pushNamed(RouteNames.detailitempage,
                         arguments: {ParamsKeys.cartProduct: data},
                         onComplete: () async {
-                      memberData = await _store
-                          .getSingleGroupFavorit(widget.data.groupCartName);
                       setState(() {});
                     }))));
   }

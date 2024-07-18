@@ -14,10 +14,10 @@ class BigPromo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BigPromoBloc>(
-      lazy: false,
-      create: (context) => bigPromoBloc,
-      child: BlocBuilder<BigPromoBloc, BigPromoState>(
-        builder: (context, state) {
+        lazy: false,
+        create: (context) => bigPromoBloc,
+        child:
+            BlocBuilder<BigPromoBloc, BigPromoState>(builder: (context, state) {
           if (state is BigPromoLoading) {
             return const CardBigPromo(isLoading: true).marginSymmetric(
                 horizontal: StyleHelpers.horizontalPaddingnumber);
@@ -26,16 +26,15 @@ class BigPromo extends StatelessWidget {
             final datawidget = List.generate(bigpromodata.length,
                 (index) => CardBigPromo(bigPromoModel: bigpromodata[index]));
             return CustomCarousel(
+                isShowIndicator: false,
                 animateView: true,
                 listwidget: datawidget,
-                positionedIndicatorBottom: 15);
+                positionedIndicatorBottom: 5);
           } else if (state is BigPromoError) {
             return Center(child: Text(state.error));
           } else {
             return const SizedBox.shrink();
           }
-        },
-      ),
-    );
+        }));
   }
 }

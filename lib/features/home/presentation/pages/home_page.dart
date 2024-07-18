@@ -30,15 +30,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late PopularNowBloc popularNowBloc;
-  late final ScrollController scrollController;
   late RecommendedBloc recommendedBloc;
   late BigPromoBloc bigPromoBloc;
   final double heightCategory = 120;
   final double heightHorizontal = 235;
-  final double heigthBigPromo = 220;
+  final double heigthBigPromo = 185;
   @override
   void initState() {
-    scrollController = ScrollController();
     popularNowBloc = PopularNowBloc(getPopularNow: inject.get<GetPopularNow>())
       ..add(FetchPopularNow());
     recommendedBloc =
@@ -69,7 +67,7 @@ class _HomePageState extends State<HomePage> {
           GestureDetector(
                   onTap: () => context.pushNamed(RouteNames.searchpage),
                   child: const SearchTextField(enabled: false))
-              .paddingSymmetric(
+              .marginSymmetric(
                   horizontal: StyleHelpers.horizontalPaddingnumber),
           const SizedBox(height: 20),
           SizedBox(

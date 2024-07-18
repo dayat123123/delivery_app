@@ -19,8 +19,10 @@ class DetailProductPage extends StatefulWidget {
 }
 
 class _DetailProductPageState extends State<DetailProductPage> {
+  late TextEditingController _groupcartNameController;
   @override
   void initState() {
+    _groupcartNameController = TextEditingController();
     super.initState();
   }
 
@@ -46,8 +48,9 @@ class _DetailProductPageState extends State<DetailProductPage> {
                 child: Builder(builder: (context) {
                   return CustomButton(
                       buttonType: ButtonType.savebutton,
-                      onPressed: () =>
-                          showBottomSheetSaveProduct(context, widget.data));
+                      onPressed: () => showBottomSheetSaveProduct(
+                          context, widget.data,
+                          controller: _groupcartNameController));
                 })),
             Positioned(
                 bottom: 0,

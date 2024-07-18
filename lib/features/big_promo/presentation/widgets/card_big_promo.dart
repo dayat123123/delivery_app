@@ -1,11 +1,13 @@
 import 'package:delivery_app/core/utils/local_database/cart_model.dart';
 import 'package:delivery_app/features/big_promo/domain/entities/big_promo_model.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
+import 'package:delivery_app/shared/extensions/text_extensions.dart';
+import 'package:delivery_app/shared/misc/formatter.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
-import 'package:delivery_app/shared/misc/file_paths.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/widgets/card_container.dart';
 import 'package:delivery_app/shared/misc/style_helpers.dart';
+import 'package:delivery_app/shared/widgets/network_image.dart';
 import 'package:delivery_app/shared/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 
@@ -29,44 +31,88 @@ class CardBigPromo extends StatelessWidget {
         },
         child: isLoading
             ? _isLoadingwidget(context)
-            : Stack(children: [
-                Positioned(
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
+            : Row(children: [
+                Banner(
+                    location: BannerLocation.topEnd,
+                    message:
+                        Formatter.disconPercentage(bigPromoModel?.discon ?? 0),
+                    color: context.theme.primaryColor,
+                    layoutDirection: TextDirection.ltr,
+                    textStyle: const TextStyle(
+                        fontWeight: FontWeight.w700, fontSize: 13),
+                    child: SizedBox(
+                        width: context.fullWidth * 0.4,
+                        child: CustomNetworkImage(
+                            borderRadius: StyleHelpers.borderRadius,
+                            networkImgUrl: bigPromoModel?.imageUrl))),
+                Expanded(
                     child: Container(
-                        width: context.fullWidth / 1.6,
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topRight:
-                                    Radius.circular(StyleHelpers.borderRadius),
-                                bottomRight:
-                                    Radius.circular(StyleHelpers.borderRadius)),
-                            image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(bigPromoModel?.imageUrl ??
-                                    FilePaths.alljpg))))),
-                Positioned(
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    child: Container(
-                        width: context.fullWidth / 2.8,
-                        decoration: BoxDecoration(
-                            color: context.themeColors.appContainerBackground,
-                            borderRadius: BorderRadius.circular(
-                                StyleHelpers.borderRadius)))),
+                        padding: StyleHelpers.allPadding,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(bigPromoModel?.namaProduct ?? "",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
+                              const Text("Rumah makan setia budi indah",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w400)),
+                              const Spacer(),
+                              Text(
+                                  Formatter.formatTotalSell(
+                                      bigPromoModel?.terjual ?? 0),
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500)),
+                              Row(children: [
+                                Formatter.formatPrice(
+                                        bigPromoModel?.hargaProduct ?? 0)
+                                    .textWithStrip(
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w500)),
+                                const SizedBox(width: 5),
+                                Text(
+                                    Formatter.formatDiscon(
+                                        bigPromoModel?.discon ?? 0,
+                                        bigPromoModel?.hargaProduct ?? 0),
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500))
+                              ])
+                            ])))
               ]));
   }
 
   Widget _isLoadingwidget(BuildContext context) {
-    return Stack(children: [
-      Positioned(
-          right: 0,
-          top: 0,
-          bottom: 0,
+    return Row(children: [
+      Container(
+          width: context.fullWidth * 0.4,
+          alignment: Alignment.center,
+          padding: StyleHelpers.allPadding,
+          decoration: BoxDecoration(
+              color:
+                  context.themeColors.appContainerBackground.withOpacity(0.85),
+              borderRadius: BorderRadius.circular(StyleHelpers.borderRadius)),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 15),
+                CustomShimmer(width: context.fullWidth / 5, height: 12),
+                const SizedBox(height: 15),
+                CustomShimmer(width: context.fullWidth / 4, height: 12),
+                const SizedBox(height: 15),
+                CustomShimmer(width: context.fullWidth / 4, height: 12)
+              ])),
+      Expanded(
           child: CustomShimmer(
-              width: context.fullWidth / 1.6,
+              width: context.fullWidth,
               child: Container(
                   width: context.fullWidth / 1.6,
                   alignment: Alignment.center,
@@ -75,33 +121,7 @@ class CardBigPromo extends StatelessWidget {
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(StyleHelpers.borderRadius),
                           bottomRight:
-                              Radius.circular(StyleHelpers.borderRadius)))))),
-      Positioned(
-        left: 0,
-        top: 0,
-        bottom: 0,
-        child: Container(
-          width: context.fullWidth / 2.8,
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(15),
-          decoration: BoxDecoration(
-              color:
-                  context.themeColors.appContainerBackground.withOpacity(0.85),
-              borderRadius: BorderRadius.circular(StyleHelpers.borderRadius)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 15),
-              CustomShimmer(width: context.fullWidth / 5, height: 12),
-              const SizedBox(height: 15),
-              CustomShimmer(width: context.fullWidth / 4, height: 12),
-              const SizedBox(height: 15),
-              CustomShimmer(width: context.fullWidth / 4, height: 12)
-            ],
-          ),
-        ),
-      )
+                              Radius.circular(StyleHelpers.borderRadius))))))
     ]);
   }
 }

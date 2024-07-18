@@ -1,3 +1,4 @@
+import 'package:delivery_app/shared/widgets/widget_without_splash.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckboxListtile extends StatelessWidget {
@@ -14,10 +15,7 @@ class CustomCheckboxListtile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-        data: Theme.of(context).copyWith(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent),
+    return WidgetWithoutSplash(
         child: CheckboxListTile(
             subtitle: null != subtitle ? Text(subtitle!) : null,
             title: Text(title),

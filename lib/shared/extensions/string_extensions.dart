@@ -40,12 +40,12 @@ extension StringExtensions on String {
       return false;
     }
 
-    final imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
-    final path = uri.path.toLowerCase();
-    final hasValidExtension =
-        imageExtensions.any((ext) => path.endsWith('.$ext'));
+    // final imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+    // final path = uri.path.toLowerCase();
+    // final hasValidExtension =
+    //     imageExtensions.any((ext) => path.endsWith('.$ext'));
 
-    if (!hasValidExtension) return false;
+    // if (!hasValidExtension) return false;
 
     final hostRegExp =
         RegExp(r"^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$|^(\d{1,3}\.){3}\d{1,3}$");

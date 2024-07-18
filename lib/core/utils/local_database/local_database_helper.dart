@@ -76,7 +76,7 @@ class DatabaseHelper {
     if (listData != null) {
       newGroupCart.items = listData;
     }
-    groups.add(newGroupCart);
+    groups.insert(0, newGroupCart);
     await box.put(LocalDatabaseKeys.groupWishlish, groups);
     return true;
   }

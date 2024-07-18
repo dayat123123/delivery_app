@@ -6,21 +6,28 @@ import 'package:flutter/material.dart';
 
 class CardDetailWishlish extends StatelessWidget {
   final CartModel data;
-  final void Function(CartModel)? onTap;
-  const CardDetailWishlish({super.key, required this.data, this.onTap});
+  final void Function(CartModel) onTap;
+  final void Function(CartModel) onLongPress;
+  const CardDetailWishlish(
+      {super.key,
+      required this.data,
+      required this.onTap,
+      required this.onLongPress});
 
   @override
   Widget build(BuildContext context) {
     return CardContainer(
+        onLongPress: () => onLongPress(data),
         alignment: Alignment.topCenter,
-        onTap: () => onTap?.call(data),
+        onTap: () => onTap(data),
         borderRadius: 0,
         child: Stack(children: [
           CustomNetworkImage(
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
-              networkImgUrl: data.productImage),
+              networkImgUrl:
+                  "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"),
           Positioned(
               bottom: 5,
               left: 5,

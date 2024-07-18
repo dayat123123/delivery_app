@@ -8,64 +8,88 @@ import 'package:delivery_app/shared/features/bottomsheet/save_product/bloc/favor
 import 'package:delivery_app/shared/features/bottomsheet/save_product/presentation/widgets/favorite_listtile.dart';
 import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
+import 'package:delivery_app/shared/widgets/card_container.dart';
 import 'package:delivery_app/shared/widgets/network_image.dart';
 import 'package:delivery_app/shared/widgets/textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-showBottomSheetSaveProduct(BuildContext context, CartModel data) {
+void showBottomSheetSaveProduct(BuildContext context, CartModel data,
+    {required TextEditingController controller}) {
   final themeColors = context.themeColors;
-  context.read<FavoriteBloc>().add(LoadFavorites(data.productId));
+  final favoriteBloc = inject.get<FavoriteBloc>()
+    ..add(LoadFavorites(data.productId));
   context.showBottomSheet(
       child: FavoriteListTile(
           data: CartModel(
               productId: data.productId,
               productName: data.productName,
               productImage: data.productImage)),
-      header: Container(
-          padding: StyleHelpers.horizontalPadding.copyWith(bottom: 10, top: 0),
-          height: 55,
-          width: double.infinity,
-          decoration: BoxDecoration(
-              border: Border(
-                  bottom: BorderSide(
-                      width: 1, color: themeColors.appContainerShadow)),
-              color: themeColors.appContainerBackground),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ClipRRect(
-                    borderRadius: StyleHelpers.borderRadiusGeometry,
-                    child: CustomNetworkImage(
-                        width: 60,
-                        height: 50,
-                        networkImgUrl: data.productImage)),
-                const SizedBox(width: 15),
-                Expanded(
-                    child: Row(children: [
-                  const Flexible(
+      header: Column(children: [
+        Container(
+            padding:
+                StyleHelpers.horizontalPadding.copyWith(bottom: 10, top: 0),
+            height: 55,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+                        width: 1, color: themeColors.appContainerShadow)),
+                color: themeColors.appContainerBackground),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                      borderRadius: StyleHelpers.borderRadiusGeometry,
+                      child: CustomNetworkImage(
+                          width: 60,
+                          height: 50,
+                          networkImgUrl: data.productImage)),
+                  const SizedBox(width: 15),
+                  Expanded(
                       flex: 6,
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Save"),
-                            Text("Roasted salmond with salted egg chicken",
+                            const Text("Save"),
+                            Text(data.productName,
                                 maxLines: 1, overflow: TextOverflow.ellipsis)
                           ])),
                   const SizedBox(width: 5),
-                  Expanded(child: const Icon(Icons.favorite_border).centerRight)
-                ]))
-              ])));
+                  Expanded(
+                      flex: 1,
+                      child: const Icon(Icons.favorite_border).centerRight)
+                ])),
+        ListTile(
+            onTap: () =>
+                showBottomSheetCreateNewFavorit(context, onDone: (p0, p1) {
+                  if (p0) {
+                    context.pop();
+                    context.showCustomSnackbar(
+                        type: DialogAccentType.success,
+                        description: "Saved new group");
+                    favoriteBloc.add(LoadFavorites(data.productId));
+                  } else {
+                    context.showCustomSnackbar(
+                        type: DialogAccentType.failed,
+                        description: "Group $p1 is exist");
+                  }
+                }),
+            title: const Text("Create group"),
+            leading: CardContainer(
+                width: 30,
+                height: 30,
+                child: Icon(Icons.add, color: context.theme.primaryColor)))
+      ]));
 }
 
-showBottomSheetCreateNewFavorit(BuildContext context,
-    {required TextEditingController controller,
-    required GlobalKey<FormState> formKey,
-    void Function(bool)? onDone}) {
+void showBottomSheetCreateNewFavorit(BuildContext context,
+    {void Function(bool, String)? onDone}) {
   final themeColors = context.themeColors;
   final store = inject.get<DatabaseHelper>();
+  final formKey = GlobalKey<FormState>();
+  final controller = TextEditingController();
   context.showBottomSheet(
       showDragHandle: true,
       initialChildSize: 1,
@@ -77,7 +101,7 @@ showBottomSheetCreateNewFavorit(BuildContext context,
           padding: StyleHelpers.allPadding,
           child: Column(children: [
             const Text(
-                    "Enter your collection name in this form and the maximum character limit is 20.",
+                    "Enter your group name in this form and the maximum character limit is 20.",
                     style: TextStyle(fontSize: 15))
                 .centerLeft,
             const SizedBox(height: 5),
@@ -89,8 +113,8 @@ showBottomSheetCreateNewFavorit(BuildContext context,
                     controller: controller,
                     maxLength: 20,
                     validator: (p0) => emptyValidator(p0),
-                    labelText: "Collection Name",
-                    text: "Input collection name",
+                    labelText: "Group Name",
+                    text: "Input group name",
                     textFieldType: TextFieldType.text))
           ])),
       header: Container(
@@ -113,21 +137,21 @@ showBottomSheetCreateNewFavorit(BuildContext context,
                         .centerLeft)),
             Expanded(
                 flex: 1,
-                child: const Text("New Collection",
+                child: const Text("New Group",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500))
                     .center),
             Expanded(
                 flex: 1,
                 child: CustomButton(
-                  fontsize: 16,
                   onPressed: () async {
                     if ((formKey.currentState?.validate() ?? false)) {
                       bool state = await store.createNewGroupFavorit(
                           GroupCartModel(groupCartName: controller.text));
-                      onDone?.call(state);
+                      onDone?.call(state, controller.text);
                     }
                   },
+                  fontsize: 16,
                   text: "Save",
                   buttonType: ButtonType.textbutton,
                 ).centerRight)

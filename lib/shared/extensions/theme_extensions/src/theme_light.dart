@@ -51,7 +51,7 @@ ThemeData get lightTheme {
       ],
       appBarTheme: AppBarTheme(
         elevation: 10,
-        centerTitle: Platform.isAndroid ? true : false,
+        centerTitle: false,
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.transparent,
         toolbarHeight: Platform.isAndroid ? 65 : 30,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
 import 'package:delivery_app/injector.dart';
@@ -6,6 +8,7 @@ import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/dropdown_button.dart';
+import 'package:delivery_app/shared/widgets/widget_without_splash.dart';
 import 'package:flutter/material.dart';
 
 AppBar customAppBar(BuildContext context, {void Function()? onTap}) {
@@ -39,18 +42,21 @@ AppBar customAppBar(BuildContext context, {void Function()? onTap}) {
                 widget: _itemDropdown(context,
                     name: "Sign Out", icon: const Icon(Icons.logout, size: 16)))
           ],
-          child: const CircleAvatar(
-                  backgroundImage: AssetImage(FilePaths.malejpg), radius: 15)
-              .marginOnly(left: 8)),
+          child: WidgetWithoutSplash(
+            child: Transform.scale(
+                scale: Platform.isAndroid ? 0.7 : 1,
+                child: const CircleAvatar(
+                        backgroundImage: AssetImage(FilePaths.malejpg))
+                    .marginOnly(left: 8)),
+          )),
       centerTitle: true,
       actions: [
         GestureDetector(
             onTap: () => context.pushNamed(RouteNames.notificationpage),
-            child: FittedBox(
-                child: const Icon(
+            child: const Icon(
               Icons.notifications_none,
               size: 28,
-            ).marginOnly(right: 8)))
+            ).marginOnly(right: 8))
       ],
       title: const Text(applicationName));
 }

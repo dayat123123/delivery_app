@@ -5,9 +5,9 @@ import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/misc/formatter.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
-import 'package:delivery_app/shared/misc/file_paths.dart';
 import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:delivery_app/shared/widgets/card_container.dart';
+import 'package:delivery_app/shared/widgets/network_image.dart';
 import 'package:flutter/material.dart';
 
 class CardRecommended extends StatelessWidget {
@@ -20,7 +20,6 @@ class CardRecommended extends StatelessWidget {
   Widget build(BuildContext context) {
     const double width = 180;
     return CardContainer(
-        padding: StyleHelpers.allPadding,
         isLoading: isLoading,
         onTap: () {
           if (recommendedModel != null) {
@@ -35,37 +34,41 @@ class CardRecommended extends StatelessWidget {
         width: width,
         child: Column(children: [
           Expanded(
-              child: CircleAvatar(
-                  radius: 55,
-                  backgroundImage: AssetImage(
-                      recommendedModel?.imageUrl ?? FilePaths.alljpg))),
-          Text(recommendedModel?.namaProduct ?? "",
-                  maxLines: 2,
-                  overflow: TextOverflow.fade,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 15.5))
-              .centerLeft,
-          Text(Formatter.formatPrice(recommendedModel?.hargaProduct ?? 0),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.w500))
-              .centerLeft,
-          Row(children: [
-            ...[
-              Icon(Icons.star, color: context.themeColors.neutral, size: 20)
-                  .spaceH(before: false, after: true, spacing: 5),
-              Text("${recommendedModel?.rating ?? 0}",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontWeight: FontWeight.w500))
-                  .centerLeft,
-              const Spacer(),
-              Text(Formatter.formatTotalSell(recommendedModel?.jumTerjual ?? 0),
-                      maxLines: 1,
-                      style: const TextStyle(fontWeight: FontWeight.w500))
-                  .centerLeft
-            ]
-          ])
+              child: CustomNetworkImage(
+                  borderRadius: StyleHelpers.borderRadius,
+                  shape: CustomNetworkImageShape.rounded,
+                  networkImgUrl: recommendedModel?.imageUrl)),
+          Wrap(children: [
+            Text(recommendedModel?.namaProduct ?? "",
+                    maxLines: 1,
+                    overflow: TextOverflow.fade,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15.5))
+                .centerLeft,
+            Text(Formatter.formatPrice(recommendedModel?.hargaProduct ?? 0),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontWeight: FontWeight.w500))
+                .centerLeft,
+            Row(children: [
+              ...[
+                Icon(Icons.star, color: context.themeColors.neutral, size: 20)
+                    .spaceH(before: false, after: true, spacing: 5),
+                Text("${recommendedModel?.rating ?? 0}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontWeight: FontWeight.w500))
+                    .centerLeft,
+                const Spacer(),
+                Text(
+                        Formatter.formatTotalSell(
+                            recommendedModel?.jumTerjual ?? 0),
+                        maxLines: 1,
+                        style: const TextStyle(fontWeight: FontWeight.w500))
+                    .centerLeft
+              ]
+            ])
+          ]).paddingAll(StyleHelpers.allPaddingNumber)
         ]));
   }
 }

@@ -1,4 +1,4 @@
-import 'package:delivery_app/shared/extensions/context_extensions.dart';
+import 'package:delivery_app/shared/widgets/widget_without_splash.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomNavigatorBar extends StatelessWidget {
@@ -9,10 +9,7 @@ class CustomBottomNavigatorBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-        data: context.theme.copyWith(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent),
+    return WidgetWithoutSplash(
         child: BottomNavigationBar(
             items: _listitem, currentIndex: currentIndex, onTap: onTap));
   }

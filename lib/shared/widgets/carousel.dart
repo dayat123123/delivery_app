@@ -10,6 +10,7 @@ class CustomCarousel extends StatefulWidget {
   final double positionedIndicatorBottom;
   final List<Widget>? widgetPositioned;
   final bool animateView;
+  final bool isShowIndicator;
   final int durationAnimateinseconds;
   const CustomCarousel(
       {super.key,
@@ -18,6 +19,7 @@ class CustomCarousel extends StatefulWidget {
       this.positionedIndicatorBottom = 130,
       this.widgetPositioned,
       this.animateView = false,
+      this.isShowIndicator = true,
       this.durationAnimateinseconds = 8});
 
   @override
@@ -86,13 +88,14 @@ class _CustomCarouselState extends State<CustomCarousel>
               _listCarouselwidget.length,
               (index) => _listCarouselwidget[index].paddingSymmetric(
                   horizontal: StyleHelpers.horizontalPaddingnumber))),
-      Positioned(
-          bottom: widget.positionedIndicatorBottom,
-          child: PageIndicator(
-              inactiveColor: context.themeColors.micIcon.withOpacity(0.6),
-              activeColor: context.theme.primaryColor,
-              currentIndex: _currentIndex,
-              itemCount: _itemCount)),
+      if (widget.isShowIndicator)
+        Positioned(
+            bottom: widget.positionedIndicatorBottom,
+            child: PageIndicator(
+                inactiveColor: context.themeColors.micIcon.withOpacity(0.6),
+                activeColor: context.theme.primaryColor,
+                currentIndex: _currentIndex,
+                itemCount: _itemCount)),
       ...widget.widgetPositioned ?? []
     ]);
   }
@@ -118,14 +121,11 @@ class PageIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-        children: List.generate(itemCount, (index) {
-      return _indicatorWidget(index);
-    }));
+        children: List.generate(itemCount, (index) => _indicatorWidget(index)));
   }
 
   Widget _indicatorWidget(int index) {
     bool isCurrentIndex = index == currentIndex;
-
     return AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         margin: EdgeInsets.symmetric(horizontal: dotSpacing / 2),

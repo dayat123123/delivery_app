@@ -20,20 +20,16 @@ class WishlistPage extends StatefulWidget {
 }
 
 class _WishlistPageState extends State<WishlistPage> {
-  late TextEditingController _collectionNameController;
-  final _formKey = GlobalKey<FormState>();
   final _store = inject.get<DatabaseHelper>();
   final _favoriteBloc = inject.get<FavoriteBloc>();
 
   @override
   void initState() {
     super.initState();
-    _collectionNameController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _collectionNameController.dispose();
     super.dispose();
   }
 
@@ -43,14 +39,13 @@ class _WishlistPageState extends State<WishlistPage> {
         margin: StyleHelpers.verticalPadding,
         appbar: AppBar(title: const Text('Wishlist'), actions: [
           CardContainer(
+                  height: 40,
                   alignment: Alignment.center,
                   width: 80,
                   onTap: () => showBottomSheetCreateNewFavorit(context,
-                          controller: _collectionNameController,
-                          formKey: _formKey, onDone: (p0) {
+                          onDone: (p0, p1) {
                         if (p0) {
                           context.pop();
-                          _collectionNameController.clear();
                           context.showCustomSnackbar(
                               type: DialogAccentType.success,
                               description: "Saved new collection");
@@ -58,8 +53,7 @@ class _WishlistPageState extends State<WishlistPage> {
                         } else {
                           context.showCustomSnackbar(
                               type: DialogAccentType.failed,
-                              description:
-                                  "Group ${_collectionNameController.text} is exist");
+                              description: "Group $p1 is exist");
                         }
                       }),
                   child: Row(

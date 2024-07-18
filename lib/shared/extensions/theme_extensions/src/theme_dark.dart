@@ -47,16 +47,15 @@ ThemeData get darkTheme {
         elevation: 0,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold)),
     appBarTheme: AppBarTheme(
-      elevation: 10,
-      centerTitle: Platform.isAndroid ? true : false,
-      surfaceTintColor: Colors.transparent,
-      shadowColor: Colors.transparent,
-      toolbarHeight: Platform.isAndroid ? 65 : 30,
-      color: Colors.transparent,
-      systemOverlayStyle: SystemUiOverlayStyle.light,
-      titleTextStyle: headline1.copyWith(
-          fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.white),
-    ),
+        elevation: 10,
+        centerTitle: false,
+        surfaceTintColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        toolbarHeight: Platform.isAndroid ? 65 : 30,
+        color: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        titleTextStyle: headline1.copyWith(
+            fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.white)),
     dialogTheme: DialogTheme(
       backgroundColor: AppColors.backgroundDark,
       surfaceTintColor: AppColors.backgroundDark,

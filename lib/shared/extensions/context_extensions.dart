@@ -52,7 +52,8 @@ extension ContextExtensions on BuildContext {
       double? initialChildSize,
       double? maxChildSize,
       double? minChildSize,
-      bool? isScrollChild}) {
+      bool? isScrollChild,
+      void Function()? whenComplete}) async {
     showModalBottomSheet(
         context: this,
         showDragHandle: showDragHandle,

@@ -7,9 +7,8 @@ class OrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      appbar: AppBar(
-        title: const Text('Order'),
-      ),
-    );
+        appbar: AppBar(
+      title: const Text('Order'),
+    ));
   }
 }

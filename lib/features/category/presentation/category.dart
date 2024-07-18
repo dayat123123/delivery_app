@@ -10,13 +10,11 @@ class Category extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
         separatorBuilder: (context, index) =>
-            const SizedBox(width: StyleHelpers.rightMargin + 8),
+            const SizedBox(width: StyleHelpers.rightMargin + 5),
         itemCount: DefaultValues.listcategoryModel.length,
         scrollDirection: Axis.horizontal,
         padding: StyleHelpers.horizontalPadding,
-        itemBuilder: (context, index) {
-          return AvatarCategory(
-              categoryModel: DefaultValues.listcategoryModel[index]);
-        });
+        itemBuilder: (context, index) => AvatarCategory(
+            categoryModel: DefaultValues.listcategoryModel[index]));
   }
 }

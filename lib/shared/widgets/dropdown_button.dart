@@ -1,5 +1,6 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/misc/style_helpers.dart';
+import 'package:delivery_app/shared/widgets/widget_without_splash.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropDownButton extends StatelessWidget {
@@ -18,8 +19,7 @@ class CustomDropDownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeColors = context.themeColors;
-    return Theme(
-        data: context.theme.copyWith(splashColor: Colors.transparent),
+    return WidgetWithoutSplash(
         child: PopupMenuButton(
             tooltip: '',
             popUpAnimationStyle:

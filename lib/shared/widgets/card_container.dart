@@ -1,4 +1,5 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
+import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:delivery_app/shared/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class CardContainer extends StatelessWidget {
   final void Function()? onLongPress;
   final CardContainerShape shape;
   final bool isLoading;
+  final bool withBorder;
   const CardContainer(
       {super.key,
       required this.child,
@@ -33,43 +35,54 @@ class CardContainer extends StatelessWidget {
       this.color,
       this.splashColor,
       this.shape = CardContainerShape.rounded,
-      this.isLoading = false});
+      this.isLoading = false,
+      this.withBorder = true});
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-        shape: _shapeBorder(),
-        color: color ?? context.themeColors.appContainerBackground,
-        borderRadius: _borderRadiusGeometry(),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-            onTap: onTap,
-            onLongPress: onLongPress,
-            splashColor:
-                splashColor ?? context.theme.primaryColor.withOpacity(0.05),
-            hoverColor:
-                splashColor ?? context.theme.primaryColor.withOpacity(0.05),
-            highlightColor:
-                splashColor ?? context.theme.primaryColor.withOpacity(0.05),
-            splashFactory: InkSplash.splashFactory,
-            child: Container(
-                padding: padding,
-                alignment: alignment,
-                constraints: constraints,
-                decoration: _boxDecoration(context),
-                width: width,
-                height: height,
-                child: isLoading ? _isLoadingwidget(context) : child)));
+    return Container(
+      margin: const EdgeInsets.only(bottom: 5),
+      decoration: _boxDecoration(context, withBorder),
+      child: Material(
+          shape: _shapeBorder(),
+          color: !withBorder
+              ? null
+              : color ?? context.themeColors.appContainerBackground,
+          borderRadius: _borderRadiusGeometry(),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+              onTap: onTap,
+              onLongPress: onLongPress,
+              splashColor:
+                  splashColor ?? context.theme.primaryColor.withOpacity(0.05),
+              hoverColor:
+                  splashColor ?? context.theme.primaryColor.withOpacity(0.05),
+              highlightColor:
+                  splashColor ?? context.theme.primaryColor.withOpacity(0.05),
+              splashFactory: InkSplash.splashFactory,
+              child: Container(
+                  padding: padding,
+                  alignment: alignment,
+                  constraints: constraints,
+                  width: width,
+                  height: height,
+                  child: isLoading ? _isLoadingwidget(context) : child))),
+    );
   }
 
   Widget _isLoadingwidget(BuildContext context) {
     return Column(children: [
       Expanded(
           child: CustomShimmer(
-              width: context.fullWidth, child: const CircleAvatar(radius: 55))),
-      CustomShimmer(width: context.fullWidth * 0.2),
-      const SizedBox(height: 5),
-      CustomShimmer(width: context.fullWidth)
+              width: context.fullWidth,
+              child: Container(
+                color: Colors.black,
+              ))),
+      Wrap(children: [
+        CustomShimmer(width: context.fullWidth * 0.2),
+        const SizedBox(height: 25),
+        CustomShimmer(width: context.fullWidth)
+      ]).paddingAll(StyleHelpers.allPaddingNumber)
     ]);
   }
 
@@ -91,11 +104,21 @@ class CardContainer extends StatelessWidget {
     return null;
   }
 
-  BoxDecoration? _boxDecoration(BuildContext context) {
+  BoxDecoration? _boxDecoration(BuildContext context, bool withBorder) {
     switch (shape) {
       case CardContainerShape.rounded:
         return BoxDecoration(
-            border: Border.all(width: 0.5, color: context.themeColors.border),
+            boxShadow: [
+              BoxShadow(
+                  color:
+                      context.themeColors.appContainerShadow.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 8,
+                  offset: const Offset(1, 1))
+            ],
+            border: withBorder
+                ? Border.all(width: 0.5, color: context.themeColors.border)
+                : null,
             borderRadius: BorderRadius.circular(borderRadius));
       default:
     }

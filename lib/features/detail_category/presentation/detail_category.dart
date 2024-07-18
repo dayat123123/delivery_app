@@ -30,15 +30,15 @@ class _DetailCategoryState extends State<DetailCategory> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+        margin: StyleHelpers.verticalPadding,
         padding: EdgeInsets.zero,
         appbar: AppBar(title: Text(widget.category)),
-        body: Column(children: [
-          const SizedBox(height: 20),
+        body: ListView(children: [
           SearchTextField(
-            controller: _searchController,
+            autofocus: true,
             hintText: hintText(),
           ).marginSymmetric(horizontal: StyleHelpers.horizontalPaddingnumber),
-          const SizedBox(height: 15)
+          const SizedBox(height: 20),
         ]));
   }
 
