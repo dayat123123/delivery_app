@@ -1,7 +1,7 @@
 import 'package:delivery_app/core/utils/local_database/local_database_helper.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/features/bottomsheet/save_product/bloc/favorite_bloc.dart';
-import 'package:delivery_app/shared/features/bottomsheet/save_product/presentation/widgets/bottomsheet_favorit.dart';
+import 'package:delivery_app/shared/features/save_and_remove_favorit/bloc/favorite_bloc.dart';
+import 'package:delivery_app/shared/features/save_and_remove_favorit/presentation/widgets/bottomsheet_favorit.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/misc/style_helpers.dart';
@@ -12,29 +12,13 @@ import 'package:delivery_app/shared/widgets/card_container.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class WishlistPage extends StatefulWidget {
+class WishlistPage extends StatelessWidget {
   const WishlistPage({super.key});
 
   @override
-  State<WishlistPage> createState() => _WishlistPageState();
-}
-
-class _WishlistPageState extends State<WishlistPage> {
-  final _store = inject.get<DatabaseHelper>();
-  final _favoriteBloc = inject.get<FavoriteBloc>();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final store = inject.get<DatabaseHelper>();
+    final favoriteBloc = inject.get<FavoriteBloc>();
     return CustomScaffold(
         margin: StyleHelpers.verticalPadding,
         appbar: AppBar(title: const Text('Wishlist'), actions: [
@@ -49,7 +33,7 @@ class _WishlistPageState extends State<WishlistPage> {
                           context.showCustomSnackbar(
                               type: DialogAccentType.success,
                               description: "Saved new collection");
-                          _favoriteBloc.add(const LoadAllFavorites());
+                          favoriteBloc.add(const LoadAllFavorites());
                         } else {
                           context.showCustomSnackbar(
                               type: DialogAccentType.failed,
@@ -68,7 +52,7 @@ class _WishlistPageState extends State<WishlistPage> {
                   before: false, spacing: StyleHelpers.horizontalPaddingnumber)
         ]),
         body: BlocBuilder<FavoriteBloc, FavoriteState>(
-            bloc: _favoriteBloc,
+            bloc: favoriteBloc,
             builder: (context, state) {
               if (state is FavoritesLoading) {
                 return const Center(child: CircularProgressIndicator())
@@ -95,13 +79,13 @@ class _WishlistPageState extends State<WishlistPage> {
                               RouteNames.detailwishlistpage,
                               arguments: {ParamsKeys.groupCartModel: item},
                               onComplete: () =>
-                                  _favoriteBloc.add(const LoadAllFavorites())),
+                                  favoriteBloc.add(const LoadAllFavorites())),
                           onLongPress: () {
                             context.showDialogCustom(
                                 content: "Delete group $groupName",
                                 onPressed: () async {
-                                  await _store.removeGroupWithMember(groupName);
-                                  _favoriteBloc.add(const LoadAllFavorites());
+                                  await store.removeGroupWithMember(groupName);
+                                  favoriteBloc.add(const LoadAllFavorites());
                                 });
                           },
                           child: Column(
@@ -110,7 +94,7 @@ class _WishlistPageState extends State<WishlistPage> {
                               children: [
                                 Text(groupName,
                                     style: const TextStyle(fontSize: 16)),
-                                Text("Total : ${item.items?.length ?? 0}",
+                                Text("${item.items?.length ?? 0} items",
                                     style: const TextStyle(fontSize: 15))
                               ]));
                     });

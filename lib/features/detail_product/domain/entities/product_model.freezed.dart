@@ -21,12 +21,18 @@ DetailProductModel _$DetailProductModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DetailProductModel {
   String get idProduct => throw _privateConstructorUsedError;
-  String get categoryProduct => throw _privateConstructorUsedError;
   String get namaProduct => throw _privateConstructorUsedError;
+  String get sellerName => throw _privateConstructorUsedError;
+  String get addressProduct => throw _privateConstructorUsedError;
+  String get categoryProduct => throw _privateConstructorUsedError;
   double get hargaProduct => throw _privateConstructorUsedError;
   int get jumTerjual => throw _privateConstructorUsedError;
   int get jumSave => throw _privateConstructorUsedError;
+  int get stockProduct => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
+  double get discount => throw _privateConstructorUsedError;
+  String get numberPhone => throw _privateConstructorUsedError;
+  LocationModel get location => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,13 +49,21 @@ abstract class $DetailProductModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String idProduct,
-      String categoryProduct,
       String namaProduct,
+      String sellerName,
+      String addressProduct,
+      String categoryProduct,
       double hargaProduct,
       int jumTerjual,
       int jumSave,
+      int stockProduct,
       double rating,
+      double discount,
+      String numberPhone,
+      LocationModel location,
       String? imageUrl});
+
+  $LocationModelCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -66,12 +80,18 @@ class _$DetailProductModelCopyWithImpl<$Res, $Val extends DetailProductModel>
   @override
   $Res call({
     Object? idProduct = null,
-    Object? categoryProduct = null,
     Object? namaProduct = null,
+    Object? sellerName = null,
+    Object? addressProduct = null,
+    Object? categoryProduct = null,
     Object? hargaProduct = null,
     Object? jumTerjual = null,
     Object? jumSave = null,
+    Object? stockProduct = null,
     Object? rating = null,
+    Object? discount = null,
+    Object? numberPhone = null,
+    Object? location = null,
     Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -79,13 +99,21 @@ class _$DetailProductModelCopyWithImpl<$Res, $Val extends DetailProductModel>
           ? _value.idProduct
           : idProduct // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryProduct: null == categoryProduct
-          ? _value.categoryProduct
-          : categoryProduct // ignore: cast_nullable_to_non_nullable
-              as String,
       namaProduct: null == namaProduct
           ? _value.namaProduct
           : namaProduct // ignore: cast_nullable_to_non_nullable
+              as String,
+      sellerName: null == sellerName
+          ? _value.sellerName
+          : sellerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      addressProduct: null == addressProduct
+          ? _value.addressProduct
+          : addressProduct // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryProduct: null == categoryProduct
+          ? _value.categoryProduct
+          : categoryProduct // ignore: cast_nullable_to_non_nullable
               as String,
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
@@ -99,15 +127,39 @@ class _$DetailProductModelCopyWithImpl<$Res, $Val extends DetailProductModel>
           ? _value.jumSave
           : jumSave // ignore: cast_nullable_to_non_nullable
               as int,
+      stockProduct: null == stockProduct
+          ? _value.stockProduct
+          : stockProduct // ignore: cast_nullable_to_non_nullable
+              as int,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double,
+      numberPhone: null == numberPhone
+          ? _value.numberPhone
+          : numberPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as LocationModel,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationModelCopyWith<$Res> get location {
+    return $LocationModelCopyWith<$Res>(_value.location, (value) {
+      return _then(_value.copyWith(location: value) as $Val);
+    });
   }
 }
 
@@ -121,13 +173,22 @@ abstract class _$$DetailProductModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String idProduct,
-      String categoryProduct,
       String namaProduct,
+      String sellerName,
+      String addressProduct,
+      String categoryProduct,
       double hargaProduct,
       int jumTerjual,
       int jumSave,
+      int stockProduct,
       double rating,
+      double discount,
+      String numberPhone,
+      LocationModel location,
       String? imageUrl});
+
+  @override
+  $LocationModelCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -142,12 +203,18 @@ class __$$DetailProductModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? idProduct = null,
-    Object? categoryProduct = null,
     Object? namaProduct = null,
+    Object? sellerName = null,
+    Object? addressProduct = null,
+    Object? categoryProduct = null,
     Object? hargaProduct = null,
     Object? jumTerjual = null,
     Object? jumSave = null,
+    Object? stockProduct = null,
     Object? rating = null,
+    Object? discount = null,
+    Object? numberPhone = null,
+    Object? location = null,
     Object? imageUrl = freezed,
   }) {
     return _then(_$DetailProductModelImpl(
@@ -155,13 +222,21 @@ class __$$DetailProductModelImplCopyWithImpl<$Res>
           ? _value.idProduct
           : idProduct // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryProduct: null == categoryProduct
-          ? _value.categoryProduct
-          : categoryProduct // ignore: cast_nullable_to_non_nullable
-              as String,
       namaProduct: null == namaProduct
           ? _value.namaProduct
           : namaProduct // ignore: cast_nullable_to_non_nullable
+              as String,
+      sellerName: null == sellerName
+          ? _value.sellerName
+          : sellerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      addressProduct: null == addressProduct
+          ? _value.addressProduct
+          : addressProduct // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryProduct: null == categoryProduct
+          ? _value.categoryProduct
+          : categoryProduct // ignore: cast_nullable_to_non_nullable
               as String,
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
@@ -175,10 +250,26 @@ class __$$DetailProductModelImplCopyWithImpl<$Res>
           ? _value.jumSave
           : jumSave // ignore: cast_nullable_to_non_nullable
               as int,
+      stockProduct: null == stockProduct
+          ? _value.stockProduct
+          : stockProduct // ignore: cast_nullable_to_non_nullable
+              as int,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double,
+      numberPhone: null == numberPhone
+          ? _value.numberPhone
+          : numberPhone // ignore: cast_nullable_to_non_nullable
+              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as LocationModel,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -192,12 +283,18 @@ class __$$DetailProductModelImplCopyWithImpl<$Res>
 class _$DetailProductModelImpl implements _DetailProductModel {
   const _$DetailProductModelImpl(
       {required this.idProduct,
-      required this.categoryProduct,
       required this.namaProduct,
+      required this.sellerName,
+      required this.addressProduct,
+      required this.categoryProduct,
       required this.hargaProduct,
       required this.jumTerjual,
       required this.jumSave,
+      required this.stockProduct,
       required this.rating,
+      required this.discount,
+      required this.numberPhone,
+      required this.location,
       this.imageUrl});
 
   factory _$DetailProductModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -206,9 +303,13 @@ class _$DetailProductModelImpl implements _DetailProductModel {
   @override
   final String idProduct;
   @override
-  final String categoryProduct;
-  @override
   final String namaProduct;
+  @override
+  final String sellerName;
+  @override
+  final String addressProduct;
+  @override
+  final String categoryProduct;
   @override
   final double hargaProduct;
   @override
@@ -216,13 +317,21 @@ class _$DetailProductModelImpl implements _DetailProductModel {
   @override
   final int jumSave;
   @override
+  final int stockProduct;
+  @override
   final double rating;
+  @override
+  final double discount;
+  @override
+  final String numberPhone;
+  @override
+  final LocationModel location;
   @override
   final String? imageUrl;
 
   @override
   String toString() {
-    return 'DetailProductModel(idProduct: $idProduct, categoryProduct: $categoryProduct, namaProduct: $namaProduct, hargaProduct: $hargaProduct, jumTerjual: $jumTerjual, jumSave: $jumSave, rating: $rating, imageUrl: $imageUrl)';
+    return 'DetailProductModel(idProduct: $idProduct, namaProduct: $namaProduct, sellerName: $sellerName, addressProduct: $addressProduct, categoryProduct: $categoryProduct, hargaProduct: $hargaProduct, jumTerjual: $jumTerjual, jumSave: $jumSave, stockProduct: $stockProduct, rating: $rating, discount: $discount, numberPhone: $numberPhone, location: $location, imageUrl: $imageUrl)';
   }
 
   @override
@@ -232,24 +341,50 @@ class _$DetailProductModelImpl implements _DetailProductModel {
             other is _$DetailProductModelImpl &&
             (identical(other.idProduct, idProduct) ||
                 other.idProduct == idProduct) &&
-            (identical(other.categoryProduct, categoryProduct) ||
-                other.categoryProduct == categoryProduct) &&
             (identical(other.namaProduct, namaProduct) ||
                 other.namaProduct == namaProduct) &&
+            (identical(other.sellerName, sellerName) ||
+                other.sellerName == sellerName) &&
+            (identical(other.addressProduct, addressProduct) ||
+                other.addressProduct == addressProduct) &&
+            (identical(other.categoryProduct, categoryProduct) ||
+                other.categoryProduct == categoryProduct) &&
             (identical(other.hargaProduct, hargaProduct) ||
                 other.hargaProduct == hargaProduct) &&
             (identical(other.jumTerjual, jumTerjual) ||
                 other.jumTerjual == jumTerjual) &&
             (identical(other.jumSave, jumSave) || other.jumSave == jumSave) &&
+            (identical(other.stockProduct, stockProduct) ||
+                other.stockProduct == stockProduct) &&
             (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
+            (identical(other.numberPhone, numberPhone) ||
+                other.numberPhone == numberPhone) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, idProduct, categoryProduct,
-      namaProduct, hargaProduct, jumTerjual, jumSave, rating, imageUrl);
+  int get hashCode => Object.hash(
+      runtimeType,
+      idProduct,
+      namaProduct,
+      sellerName,
+      addressProduct,
+      categoryProduct,
+      hargaProduct,
+      jumTerjual,
+      jumSave,
+      stockProduct,
+      rating,
+      discount,
+      numberPhone,
+      location,
+      imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -269,12 +404,18 @@ class _$DetailProductModelImpl implements _DetailProductModel {
 abstract class _DetailProductModel implements DetailProductModel {
   const factory _DetailProductModel(
       {required final String idProduct,
-      required final String categoryProduct,
       required final String namaProduct,
+      required final String sellerName,
+      required final String addressProduct,
+      required final String categoryProduct,
       required final double hargaProduct,
       required final int jumTerjual,
       required final int jumSave,
+      required final int stockProduct,
       required final double rating,
+      required final double discount,
+      required final String numberPhone,
+      required final LocationModel location,
       final String? imageUrl}) = _$DetailProductModelImpl;
 
   factory _DetailProductModel.fromJson(Map<String, dynamic> json) =
@@ -283,9 +424,13 @@ abstract class _DetailProductModel implements DetailProductModel {
   @override
   String get idProduct;
   @override
-  String get categoryProduct;
-  @override
   String get namaProduct;
+  @override
+  String get sellerName;
+  @override
+  String get addressProduct;
+  @override
+  String get categoryProduct;
   @override
   double get hargaProduct;
   @override
@@ -293,7 +438,15 @@ abstract class _DetailProductModel implements DetailProductModel {
   @override
   int get jumSave;
   @override
+  int get stockProduct;
+  @override
   double get rating;
+  @override
+  double get discount;
+  @override
+  String get numberPhone;
+  @override
+  LocationModel get location;
   @override
   String? get imageUrl;
   @override

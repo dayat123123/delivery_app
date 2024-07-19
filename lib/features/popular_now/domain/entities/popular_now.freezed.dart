@@ -22,6 +22,7 @@ PopularNowModel _$PopularNowModelFromJson(Map<String, dynamic> json) {
 mixin _$PopularNowModel {
   String get idProduct => throw _privateConstructorUsedError;
   String get namaProduct => throw _privateConstructorUsedError;
+  String get sellerName => throw _privateConstructorUsedError;
   double get hargaProduct => throw _privateConstructorUsedError;
   int get jumTerjual => throw _privateConstructorUsedError;
   int get jumSave => throw _privateConstructorUsedError;
@@ -43,6 +44,7 @@ abstract class $PopularNowModelCopyWith<$Res> {
   $Res call(
       {String idProduct,
       String namaProduct,
+      String sellerName,
       double hargaProduct,
       int jumTerjual,
       int jumSave,
@@ -65,6 +67,7 @@ class _$PopularNowModelCopyWithImpl<$Res, $Val extends PopularNowModel>
   $Res call({
     Object? idProduct = null,
     Object? namaProduct = null,
+    Object? sellerName = null,
     Object? hargaProduct = null,
     Object? jumTerjual = null,
     Object? jumSave = null,
@@ -79,6 +82,10 @@ class _$PopularNowModelCopyWithImpl<$Res, $Val extends PopularNowModel>
       namaProduct: null == namaProduct
           ? _value.namaProduct
           : namaProduct // ignore: cast_nullable_to_non_nullable
+              as String,
+      sellerName: null == sellerName
+          ? _value.sellerName
+          : sellerName // ignore: cast_nullable_to_non_nullable
               as String,
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
@@ -115,6 +122,7 @@ abstract class _$$PopularNowModelImplCopyWith<$Res>
   $Res call(
       {String idProduct,
       String namaProduct,
+      String sellerName,
       double hargaProduct,
       int jumTerjual,
       int jumSave,
@@ -135,6 +143,7 @@ class __$$PopularNowModelImplCopyWithImpl<$Res>
   $Res call({
     Object? idProduct = null,
     Object? namaProduct = null,
+    Object? sellerName = null,
     Object? hargaProduct = null,
     Object? jumTerjual = null,
     Object? jumSave = null,
@@ -149,6 +158,10 @@ class __$$PopularNowModelImplCopyWithImpl<$Res>
       namaProduct: null == namaProduct
           ? _value.namaProduct
           : namaProduct // ignore: cast_nullable_to_non_nullable
+              as String,
+      sellerName: null == sellerName
+          ? _value.sellerName
+          : sellerName // ignore: cast_nullable_to_non_nullable
               as String,
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
@@ -180,6 +193,7 @@ class _$PopularNowModelImpl implements _PopularNowModel {
   const _$PopularNowModelImpl(
       {required this.idProduct,
       required this.namaProduct,
+      required this.sellerName,
       required this.hargaProduct,
       required this.jumTerjual,
       required this.jumSave,
@@ -194,6 +208,8 @@ class _$PopularNowModelImpl implements _PopularNowModel {
   @override
   final String namaProduct;
   @override
+  final String sellerName;
+  @override
   final double hargaProduct;
   @override
   final int jumTerjual;
@@ -206,7 +222,7 @@ class _$PopularNowModelImpl implements _PopularNowModel {
 
   @override
   String toString() {
-    return 'PopularNowModel(idProduct: $idProduct, namaProduct: $namaProduct, hargaProduct: $hargaProduct, jumTerjual: $jumTerjual, jumSave: $jumSave, rating: $rating, imageUrl: $imageUrl)';
+    return 'PopularNowModel(idProduct: $idProduct, namaProduct: $namaProduct, sellerName: $sellerName, hargaProduct: $hargaProduct, jumTerjual: $jumTerjual, jumSave: $jumSave, rating: $rating, imageUrl: $imageUrl)';
   }
 
   @override
@@ -218,6 +234,8 @@ class _$PopularNowModelImpl implements _PopularNowModel {
                 other.idProduct == idProduct) &&
             (identical(other.namaProduct, namaProduct) ||
                 other.namaProduct == namaProduct) &&
+            (identical(other.sellerName, sellerName) ||
+                other.sellerName == sellerName) &&
             (identical(other.hargaProduct, hargaProduct) ||
                 other.hargaProduct == hargaProduct) &&
             (identical(other.jumTerjual, jumTerjual) ||
@@ -231,7 +249,7 @@ class _$PopularNowModelImpl implements _PopularNowModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, idProduct, namaProduct,
-      hargaProduct, jumTerjual, jumSave, rating, imageUrl);
+      sellerName, hargaProduct, jumTerjual, jumSave, rating, imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -252,6 +270,7 @@ abstract class _PopularNowModel implements PopularNowModel {
   const factory _PopularNowModel(
       {required final String idProduct,
       required final String namaProduct,
+      required final String sellerName,
       required final double hargaProduct,
       required final int jumTerjual,
       required final int jumSave,
@@ -265,6 +284,8 @@ abstract class _PopularNowModel implements PopularNowModel {
   String get idProduct;
   @override
   String get namaProduct;
+  @override
+  String get sellerName;
   @override
   double get hargaProduct;
   @override

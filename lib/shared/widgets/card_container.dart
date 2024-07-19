@@ -20,6 +20,7 @@ class CardContainer extends StatelessWidget {
   final CardContainerShape shape;
   final bool isLoading;
   final bool withBorder;
+  final bool withBottomMargin;
   const CardContainer(
       {super.key,
       required this.child,
@@ -36,38 +37,38 @@ class CardContainer extends StatelessWidget {
       this.splashColor,
       this.shape = CardContainerShape.rounded,
       this.isLoading = false,
-      this.withBorder = true});
+      this.withBorder = true,
+      this.withBottomMargin = true});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 5),
-      decoration: _boxDecoration(context, withBorder),
-      child: Material(
-          shape: _shapeBorder(),
-          color: !withBorder
-              ? null
-              : color ?? context.themeColors.appContainerBackground,
-          borderRadius: _borderRadiusGeometry(),
-          clipBehavior: Clip.antiAlias,
-          child: InkWell(
-              onTap: onTap,
-              onLongPress: onLongPress,
-              splashColor:
-                  splashColor ?? context.theme.primaryColor.withOpacity(0.05),
-              hoverColor:
-                  splashColor ?? context.theme.primaryColor.withOpacity(0.05),
-              highlightColor:
-                  splashColor ?? context.theme.primaryColor.withOpacity(0.05),
-              splashFactory: InkSplash.splashFactory,
-              child: Container(
-                  padding: padding,
-                  alignment: alignment,
-                  constraints: constraints,
-                  width: width,
-                  height: height,
-                  child: isLoading ? _isLoadingwidget(context) : child))),
-    );
+        margin: withBottomMargin ? const EdgeInsets.only(bottom: 3) : null,
+        decoration: _boxDecoration(context, withBorder),
+        child: Material(
+            shape: _shapeBorder(),
+            color: !withBorder
+                ? null
+                : color ?? context.themeColors.appContainerBackground,
+            borderRadius: _borderRadiusGeometry(),
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
+                onTap: onTap,
+                onLongPress: onLongPress,
+                splashColor:
+                    splashColor ?? context.theme.primaryColor.withOpacity(0.05),
+                hoverColor:
+                    splashColor ?? context.theme.primaryColor.withOpacity(0.05),
+                highlightColor:
+                    splashColor ?? context.theme.primaryColor.withOpacity(0.05),
+                splashFactory: InkSplash.splashFactory,
+                child: Container(
+                    padding: padding,
+                    alignment: alignment,
+                    constraints: constraints,
+                    width: width,
+                    height: height,
+                    child: isLoading ? _isLoadingwidget(context) : child))));
   }
 
   Widget _isLoadingwidget(BuildContext context) {
@@ -114,7 +115,7 @@ class CardContainer extends StatelessWidget {
                       context.themeColors.appContainerShadow.withOpacity(0.1),
                   spreadRadius: 1,
                   blurRadius: 8,
-                  offset: const Offset(1, 1))
+                  offset: const Offset(2, 2))
             ],
             border: withBorder
                 ? Border.all(width: 0.5, color: context.themeColors.border)

@@ -51,4 +51,13 @@ extension StringExtensions on String {
         RegExp(r"^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$|^(\d{1,3}\.){3}\d{1,3}$");
     return hostRegExp.hasMatch(uri.host);
   }
+
+  bool get isValidImageFile {
+    if (isEmpty) return false;
+
+    final filePathRegExp =
+        RegExp(r'^(\/?([A-Za-z0-9-_+]+\/)*[A-Za-z0-9]+\.[A-Za-z0-9]+)$');
+
+    return filePathRegExp.hasMatch(this);
+  }
 }

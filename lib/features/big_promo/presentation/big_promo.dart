@@ -14,7 +14,6 @@ class BigPromo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BigPromoBloc>(
-        lazy: false,
         create: (context) => bigPromoBloc,
         child:
             BlocBuilder<BigPromoBloc, BigPromoState>(builder: (context, state) {

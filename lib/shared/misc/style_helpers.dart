@@ -11,6 +11,7 @@ class StyleHelpers {
       BorderRadius.all(Radius.circular(borderRadius));
   static EdgeInsets verticalPadding =
       EdgeInsets.symmetric(vertical: Platform.isAndroid ? 5 : 15);
+  static EdgeInsets bottomPaddingInside = const EdgeInsets.only(bottom: 5);
   static const double allPaddingNumber = 15;
   static const EdgeInsets allPadding = EdgeInsets.all(allPaddingNumber);
   static const double horizontalPaddingnumber = 15;

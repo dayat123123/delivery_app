@@ -76,32 +76,6 @@ class FirebaseUserRepository implements UserRepository {
   }
 
   @override
-  Future<Result<User>> updateUserBalance(
-      {required String uid, required int balance}) async {
-    DocumentReference<Map<String, dynamic>> documentReference =
-        _firebaseFirestore.doc('users/$uid');
-    DocumentSnapshot<Map<String, dynamic>> result =
-        await documentReference.get();
-    if (result.exists) {
-      await documentReference.update({'balance': balance});
-      DocumentSnapshot<Map<String, dynamic>> updatedResult =
-          await documentReference.get();
-      if (updatedResult.exists) {
-        User updatedUser = User.fromJson(updatedResult.data()!);
-        if (updatedUser.balance == balance) {
-          return Result.success(updatedUser);
-        } else {
-          return const Result.failed('Failed to update user balance');
-        }
-      } else {
-        return const Result.failed('Failed to retrieve user balance');
-      }
-    } else {
-      return const Result.failed('User not found');
-    }
-  }
-
-  @override
   Future<Result<User>> uploadProfilePicture(
       {required User user, required File imageFile}) async {
     String filePath = basename(imageFile.path);
@@ -118,19 +92,6 @@ class FirebaseUserRepository implements UserRepository {
       }
     } on FirebaseException catch (e) {
       return Result.failed(e.message ?? "Failed to upload picture");
-    }
-  }
-
-  @override
-  Future<Result<int>> getUserBalance({required String uid}) async {
-    DocumentReference<Map<String, dynamic>> documentReference =
-        _firebaseFirestore.doc('users/$uid');
-    DocumentSnapshot<Map<String, dynamic>> result =
-        await documentReference.get();
-    if (result.exists) {
-      return Result.success(result.data()!['balance']);
-    } else {
-      return const Result.failed('Failed to get user balance');
     }
   }
 }

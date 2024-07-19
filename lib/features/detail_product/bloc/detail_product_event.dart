@@ -1,3 +1,15 @@
-abstract class DetailProductEvent {}
+import 'package:equatable/equatable.dart';
 
-class FetchDetailProducts extends DetailProductEvent {}
+abstract class DetailProductEvent extends Equatable {
+  const DetailProductEvent();
+  @override
+  List<Object> get props => [];
+}
+
+class LoadDetailProduct extends DetailProductEvent {
+  final String idProduct;
+  const LoadDetailProduct(this.idProduct);
+
+  @override
+  List<Object> get props => [idProduct];
+}

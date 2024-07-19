@@ -3,7 +3,7 @@ import 'package:delivery_app/features/home/presentation/widgets/bottomnavigatorb
 import 'package:delivery_app/features/order/presentation/order_page.dart';
 import 'package:delivery_app/features/wishlist/presentation/pages/wishlist_page.dart';
 import 'package:delivery_app/injector.dart';
-import 'package:delivery_app/shared/features/bottomsheet/save_product/bloc/favorite_bloc.dart';
+import 'package:delivery_app/shared/features/save_and_remove_favorit/bloc/favorite_bloc.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 

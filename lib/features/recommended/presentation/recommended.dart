@@ -12,7 +12,6 @@ class Recommended extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      lazy: false,
       create: (context) => recommendedBloc,
       child: BlocBuilder<RecommendedBloc, RecommendedState>(
         builder: (context, state) {

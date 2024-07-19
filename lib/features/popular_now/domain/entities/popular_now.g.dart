@@ -11,6 +11,7 @@ _$PopularNowModelImpl _$$PopularNowModelImplFromJson(
     _$PopularNowModelImpl(
       idProduct: json['idProduct'] as String,
       namaProduct: json['namaProduct'] as String,
+      sellerName: json['sellerName'] as String,
       hargaProduct: (json['hargaProduct'] as num).toDouble(),
       jumTerjual: (json['jumTerjual'] as num).toInt(),
       jumSave: (json['jumSave'] as num).toInt(),
@@ -23,6 +24,7 @@ Map<String, dynamic> _$$PopularNowModelImplToJson(
     <String, dynamic>{
       'idProduct': instance.idProduct,
       'namaProduct': instance.namaProduct,
+      'sellerName': instance.sellerName,
       'hargaProduct': instance.hargaProduct,
       'jumTerjual': instance.jumTerjual,
       'jumSave': instance.jumSave,

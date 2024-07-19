@@ -51,9 +51,9 @@ ThemeData get darkTheme {
         centerTitle: false,
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        toolbarHeight: Platform.isAndroid ? 65 : 30,
+        toolbarHeight: Platform.isAndroid ? 70 : 35,
         color: Colors.transparent,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
+        systemOverlayStyle: Platform.isIOS ? SystemUiOverlayStyle.light : null,
         titleTextStyle: headline1.copyWith(
             fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.white)),
     dialogTheme: DialogTheme(

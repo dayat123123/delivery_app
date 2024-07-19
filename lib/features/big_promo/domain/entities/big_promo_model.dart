@@ -8,8 +8,9 @@ class BigPromoModel with _$BigPromoModel {
   const factory BigPromoModel(
       {required String idProduct,
       required String namaProduct,
+      required String sellerName,
       required double hargaProduct,
-      required double discon,
+      required double discount,
       required int terjual,
       String? imageUrl}) = _BigPromoModel;
 

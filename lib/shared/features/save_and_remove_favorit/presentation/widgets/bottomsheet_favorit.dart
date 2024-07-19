@@ -4,8 +4,8 @@ import 'package:delivery_app/core/utils/local_database/local_database_helper.dar
 import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
-import 'package:delivery_app/shared/features/bottomsheet/save_product/bloc/favorite_bloc.dart';
-import 'package:delivery_app/shared/features/bottomsheet/save_product/presentation/widgets/favorite_listtile.dart';
+import 'package:delivery_app/shared/features/save_and_remove_favorit/bloc/favorite_bloc.dart';
+import 'package:delivery_app/shared/features/save_and_remove_favorit/presentation/widgets/favorite_listtile.dart';
 import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:delivery_app/shared/widgets/card_container.dart';
@@ -13,8 +13,10 @@ import 'package:delivery_app/shared/widgets/network_image.dart';
 import 'package:delivery_app/shared/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 
-void showBottomSheetSaveProduct(BuildContext context, CartModel data,
-    {required TextEditingController controller}) {
+void showBottomSheetSaveProduct(
+  BuildContext context,
+  CartModel data,
+) {
   final themeColors = context.themeColors;
   final favoriteBloc = inject.get<FavoriteBloc>()
     ..add(LoadFavorites(data.productId));
@@ -80,6 +82,7 @@ void showBottomSheetSaveProduct(BuildContext context, CartModel data,
             leading: CardContainer(
                 width: 30,
                 height: 30,
+                withBottomMargin: false,
                 child: Icon(Icons.add, color: context.theme.primaryColor)))
       ]));
 }

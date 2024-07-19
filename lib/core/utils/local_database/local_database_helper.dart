@@ -131,7 +131,7 @@ class DatabaseHelper {
     int itemIndex = (groups[groupIndex].items ?? [])
         .indexWhere((element) => element.productId == newItem.productId);
     if (-1 != itemIndex) return false;
-    groups[groupIndex].items?.add(newItem);
+    groups[groupIndex].items?.insert(0, newItem);
     await box.put(LocalDatabaseKeys.groupWishlish, groups);
     return true;
   }

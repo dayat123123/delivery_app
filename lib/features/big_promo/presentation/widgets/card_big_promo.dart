@@ -34,8 +34,8 @@ class CardBigPromo extends StatelessWidget {
             : Row(children: [
                 Banner(
                     location: BannerLocation.topEnd,
-                    message:
-                        Formatter.disconPercentage(bigPromoModel?.discon ?? 0),
+                    message: Formatter.disconPercentage(
+                        bigPromoModel?.discount ?? 0),
                     color: context.theme.primaryColor,
                     layoutDirection: TextDirection.ltr,
                     textStyle: const TextStyle(
@@ -79,7 +79,7 @@ class CardBigPromo extends StatelessWidget {
                                 const SizedBox(width: 5),
                                 Text(
                                     Formatter.formatDiscon(
-                                        bigPromoModel?.discon ?? 0,
+                                        bigPromoModel?.discount ?? 0,
                                         bigPromoModel?.hargaProduct ?? 0),
                                     maxLines: 1,
                                     style: const TextStyle(

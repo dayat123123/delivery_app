@@ -22,8 +22,9 @@ BigPromoModel _$BigPromoModelFromJson(Map<String, dynamic> json) {
 mixin _$BigPromoModel {
   String get idProduct => throw _privateConstructorUsedError;
   String get namaProduct => throw _privateConstructorUsedError;
+  String get sellerName => throw _privateConstructorUsedError;
   double get hargaProduct => throw _privateConstructorUsedError;
-  double get discon => throw _privateConstructorUsedError;
+  double get discount => throw _privateConstructorUsedError;
   int get terjual => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
 
@@ -42,8 +43,9 @@ abstract class $BigPromoModelCopyWith<$Res> {
   $Res call(
       {String idProduct,
       String namaProduct,
+      String sellerName,
       double hargaProduct,
-      double discon,
+      double discount,
       int terjual,
       String? imageUrl});
 }
@@ -63,8 +65,9 @@ class _$BigPromoModelCopyWithImpl<$Res, $Val extends BigPromoModel>
   $Res call({
     Object? idProduct = null,
     Object? namaProduct = null,
+    Object? sellerName = null,
     Object? hargaProduct = null,
-    Object? discon = null,
+    Object? discount = null,
     Object? terjual = null,
     Object? imageUrl = freezed,
   }) {
@@ -77,13 +80,17 @@ class _$BigPromoModelCopyWithImpl<$Res, $Val extends BigPromoModel>
           ? _value.namaProduct
           : namaProduct // ignore: cast_nullable_to_non_nullable
               as String,
+      sellerName: null == sellerName
+          ? _value.sellerName
+          : sellerName // ignore: cast_nullable_to_non_nullable
+              as String,
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
           : hargaProduct // ignore: cast_nullable_to_non_nullable
               as double,
-      discon: null == discon
-          ? _value.discon
-          : discon // ignore: cast_nullable_to_non_nullable
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
               as double,
       terjual: null == terjual
           ? _value.terjual
@@ -108,8 +115,9 @@ abstract class _$$BigPromoModelImplCopyWith<$Res>
   $Res call(
       {String idProduct,
       String namaProduct,
+      String sellerName,
       double hargaProduct,
-      double discon,
+      double discount,
       int terjual,
       String? imageUrl});
 }
@@ -127,8 +135,9 @@ class __$$BigPromoModelImplCopyWithImpl<$Res>
   $Res call({
     Object? idProduct = null,
     Object? namaProduct = null,
+    Object? sellerName = null,
     Object? hargaProduct = null,
-    Object? discon = null,
+    Object? discount = null,
     Object? terjual = null,
     Object? imageUrl = freezed,
   }) {
@@ -141,13 +150,17 @@ class __$$BigPromoModelImplCopyWithImpl<$Res>
           ? _value.namaProduct
           : namaProduct // ignore: cast_nullable_to_non_nullable
               as String,
+      sellerName: null == sellerName
+          ? _value.sellerName
+          : sellerName // ignore: cast_nullable_to_non_nullable
+              as String,
       hargaProduct: null == hargaProduct
           ? _value.hargaProduct
           : hargaProduct // ignore: cast_nullable_to_non_nullable
               as double,
-      discon: null == discon
-          ? _value.discon
-          : discon // ignore: cast_nullable_to_non_nullable
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
               as double,
       terjual: null == terjual
           ? _value.terjual
@@ -167,8 +180,9 @@ class _$BigPromoModelImpl implements _BigPromoModel {
   const _$BigPromoModelImpl(
       {required this.idProduct,
       required this.namaProduct,
+      required this.sellerName,
       required this.hargaProduct,
-      required this.discon,
+      required this.discount,
       required this.terjual,
       this.imageUrl});
 
@@ -180,9 +194,11 @@ class _$BigPromoModelImpl implements _BigPromoModel {
   @override
   final String namaProduct;
   @override
+  final String sellerName;
+  @override
   final double hargaProduct;
   @override
-  final double discon;
+  final double discount;
   @override
   final int terjual;
   @override
@@ -190,7 +206,7 @@ class _$BigPromoModelImpl implements _BigPromoModel {
 
   @override
   String toString() {
-    return 'BigPromoModel(idProduct: $idProduct, namaProduct: $namaProduct, hargaProduct: $hargaProduct, discon: $discon, terjual: $terjual, imageUrl: $imageUrl)';
+    return 'BigPromoModel(idProduct: $idProduct, namaProduct: $namaProduct, sellerName: $sellerName, hargaProduct: $hargaProduct, discount: $discount, terjual: $terjual, imageUrl: $imageUrl)';
   }
 
   @override
@@ -202,9 +218,12 @@ class _$BigPromoModelImpl implements _BigPromoModel {
                 other.idProduct == idProduct) &&
             (identical(other.namaProduct, namaProduct) ||
                 other.namaProduct == namaProduct) &&
+            (identical(other.sellerName, sellerName) ||
+                other.sellerName == sellerName) &&
             (identical(other.hargaProduct, hargaProduct) ||
                 other.hargaProduct == hargaProduct) &&
-            (identical(other.discon, discon) || other.discon == discon) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
             (identical(other.terjual, terjual) || other.terjual == terjual) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl));
@@ -213,7 +232,7 @@ class _$BigPromoModelImpl implements _BigPromoModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, idProduct, namaProduct,
-      hargaProduct, discon, terjual, imageUrl);
+      sellerName, hargaProduct, discount, terjual, imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -233,8 +252,9 @@ abstract class _BigPromoModel implements BigPromoModel {
   const factory _BigPromoModel(
       {required final String idProduct,
       required final String namaProduct,
+      required final String sellerName,
       required final double hargaProduct,
-      required final double discon,
+      required final double discount,
       required final int terjual,
       final String? imageUrl}) = _$BigPromoModelImpl;
 
@@ -246,9 +266,11 @@ abstract class _BigPromoModel implements BigPromoModel {
   @override
   String get namaProduct;
   @override
+  String get sellerName;
+  @override
   double get hargaProduct;
   @override
-  double get discon;
+  double get discount;
   @override
   int get terjual;
   @override

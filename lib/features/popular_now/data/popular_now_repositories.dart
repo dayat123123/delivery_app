@@ -1,6 +1,5 @@
 import 'package:delivery_app/core/entities/result.dart';
 import 'package:delivery_app/features/popular_now/domain/entities/popular_now.dart';
-import 'package:delivery_app/shared/misc/file_paths.dart';
 
 abstract interface class PopularNowRepositories {
   Future<Result<List<PopularNowModel>>> getPolularnow();
@@ -15,43 +14,52 @@ class PopularNowRepositoriesImpl implements PopularNowRepositories {
           namaProduct: "Nasi Padang",
           hargaProduct: 15000,
           jumTerjual: 87,
+          sellerName: "Amat",
           jumSave: 65,
           rating: 5.0,
-          imageUrl: FilePaths.foodjpg),
+          imageUrl:
+              "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"),
       PopularNowModel(
           idProduct: '2',
           namaProduct: "Nasi Ketan",
           hargaProduct: 10000,
+          sellerName: "Amat",
           jumTerjual: 12,
           jumSave: 100,
           rating: 4.5,
-          imageUrl: FilePaths.drinkjpg),
+          imageUrl: "https://picsum.photos/200/300"),
       PopularNowModel(
           idProduct: '3',
           namaProduct: "Sate Padang",
           hargaProduct: 10000,
           jumTerjual: 12,
+          sellerName: "Amat",
           jumSave: 100,
           rating: 4.5,
-          imageUrl: FilePaths.property),
+          imageUrl:
+              "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8"),
       PopularNowModel(
           idProduct: '4',
           namaProduct: "Nasi Briyani",
+          sellerName: "Amat",
           hargaProduct: 10000,
           jumTerjual: 12,
           jumSave: 100,
           rating: 4.5,
-          imageUrl: FilePaths.alljpg),
+          imageUrl:
+              "https://images.unsplash.com/photo-1547721064-da6cfb341d50"),
       PopularNowModel(
           idProduct: '5',
           namaProduct: "Es Cendol",
           hargaProduct: 10000,
           jumTerjual: 12,
+          sellerName: "Amat",
           jumSave: 100,
           rating: 4.5,
-          imageUrl: FilePaths.foodjpg)
+          imageUrl:
+              "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg")
     ];
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
     return Result.success(list);
   }
 }

@@ -10,6 +10,9 @@ class CustomScaffold extends StatelessWidget {
   final Widget? bottomNavigationBar;
   final bool? drawerEnableOpenDragGesture;
   final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
+  final bool extendBody;
+  final bool extendBodyBehindAppBar;
   const CustomScaffold(
       {super.key,
       this.appbar,
@@ -19,11 +22,17 @@ class CustomScaffold extends StatelessWidget {
       this.drawer,
       this.bottomNavigationBar,
       this.drawerEnableOpenDragGesture,
-      this.floatingActionButton});
+      this.floatingActionButton,
+      this.floatingActionButtonLocation,
+      this.extendBody = false,
+      this.extendBodyBehindAppBar = false});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBody: extendBody,
+        extendBodyBehindAppBar: extendBodyBehindAppBar,
+        floatingActionButtonLocation: floatingActionButtonLocation,
         drawerEnableOpenDragGesture: drawerEnableOpenDragGesture ?? true,
         bottomNavigationBar: bottomNavigationBar,
         drawer: drawer,

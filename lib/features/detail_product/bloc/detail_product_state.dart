@@ -7,12 +7,10 @@ abstract class DetailProductState extends Equatable {
   List<Object> get props => [];
 }
 
-class DetailProductInitial extends DetailProductState {}
-
 class DetailProductLoading extends DetailProductState {}
 
 class DetailProductLoaded extends DetailProductState {
-  final List<DetailProductModel> detailproduct;
+  final DetailProductModel detailproduct;
 
   const DetailProductLoaded({required this.detailproduct});
   @override

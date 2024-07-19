@@ -29,14 +29,14 @@ class AuthenticationBloc
       required this.checkIsLoggedin,
       required this.getloggedinuser})
       : super(AuthenticationUninitialized()) {
-    on<AuthenticationCheckIsLoginEvent>(_onAppStarted);
+    on<CheckIsLoginEvent>(_onAppStarted);
     on<LoggedIn>(_onLoggedIn);
     on<LoggedOut>(_onLoggedOut);
     on<SignInButtonPressed>(_onSignInButtonPressed);
     on<SignInOnStarted>(_onSignInOnStarted);
   }
-  void _onAppStarted(AuthenticationCheckIsLoginEvent event,
-      Emitter<AuthenticationState> emit) async {
+  void _onAppStarted(
+      CheckIsLoginEvent event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
     await checkIsLoggedin(null).then((value) {
       if (value is Success) {
@@ -83,12 +83,13 @@ class AuthenticationBloc
         navigatorKey.currentState?.context.showCustomSnackbar(
             description: result.errorMessage ?? "",
             type: DialogAccentType.failed);
+        emit(AuthenticationUnauthenticated());
       }
     }).catchError((error) {
       navigatorKey.currentState?.context.showCustomSnackbar(
           description: error.toString(), type: DialogAccentType.failed);
+      emit(AuthenticationUnauthenticated());
     });
-    emit(AuthenticationUnauthenticated());
   }
 
   void _onSignInOnStarted(
@@ -110,13 +111,14 @@ class AuthenticationBloc
             type: DialogAccentType.failed);
         navigatorKey.currentState?.context
             .pushNamedAndRemoveUntil(RouteNames.loginpage);
+        emit(AuthenticationUnauthenticated());
       }
     }).catchError((error) {
       navigatorKey.currentState?.context.showCustomSnackbar(
           description: error.toString(), type: DialogAccentType.failed);
       navigatorKey.currentState?.context
           .pushNamedAndRemoveUntil(RouteNames.loginpage);
+      emit(AuthenticationUnauthenticated());
     });
-    emit(AuthenticationUnauthenticated());
   }
 }

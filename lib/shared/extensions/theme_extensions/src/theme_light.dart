@@ -54,7 +54,7 @@ ThemeData get lightTheme {
         centerTitle: false,
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        toolbarHeight: Platform.isAndroid ? 65 : 30,
+        toolbarHeight: Platform.isAndroid ? 70 : 35,
         color: Colors.transparent,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         titleTextStyle: headline1.copyWith(

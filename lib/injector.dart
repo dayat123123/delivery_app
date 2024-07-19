@@ -12,12 +12,14 @@ import 'package:delivery_app/features/authentication/domain/usecases/register/re
 import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
 import 'package:delivery_app/features/big_promo/data/big_promo_repositories.dart';
 import 'package:delivery_app/features/big_promo/domain/usecases/get_big_promo.dart';
+import 'package:delivery_app/features/detail_product/data/repositories/product_repositories_impl.dart';
+import 'package:delivery_app/features/detail_product/domain/usecases/get_product_detail/get_product_detail.dart';
 import 'package:delivery_app/features/popular_now/data/popular_now_repositories.dart';
 import 'package:delivery_app/features/popular_now/domain/usecases/get_popular_now/get_popular_now.dart';
 import 'package:delivery_app/features/recommended/data/get_recommended_repositories.dart';
 import 'package:delivery_app/features/recommended/domain/usecases/get_recommended/get_recommended.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
-import 'package:delivery_app/shared/features/bottomsheet/save_product/bloc/favorite_bloc.dart';
+import 'package:delivery_app/shared/features/save_and_remove_favorit/bloc/favorite_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
@@ -58,16 +60,7 @@ Future<void> initInjector() async {
   inject.registerLazySingleton<Getloggedinuser>(() => Getloggedinuser(
       authentication: inject.get<FirebaseAuthentication>(),
       userRepository: inject.get<FirebaseUserRepository>()));
-  //inject bloc
-  inject.registerSingleton<AuthenticationBloc>(AuthenticationBloc(
-      getloggedinuser: inject.get<Getloggedinuser>(),
-      checkIsLoggedin: inject.get<CheckIsLoggedin>(),
-      storageHelper: inject.get<StorageHelper>(),
-      login: inject.get<Login>(),
-      register: inject.get<Register>()));
-  inject.registerSingleton<FavoriteBloc>(
-      FavoriteBloc(databaseHelper: inject.get<DatabaseHelper>()));
-
+  //--------------INJECT REPOSITORIES----------------//
   // getpopular
   inject.registerLazySingleton<PopularNowRepositoriesImpl>(
       () => PopularNowRepositoriesImpl());
@@ -83,4 +76,16 @@ Future<void> initInjector() async {
       () => BigPromoRepositoriesImpl());
   inject.registerLazySingleton<GetBigPromo>(() => GetBigPromo(
       bigPromoRepositoriesImpl: inject.get<BigPromoRepositoriesImpl>()));
+  // get product detail
+  inject.registerLazySingleton<GetProductDetail>(() =>
+      GetProductDetail(networkProductRepositories: ProductRepositoriesImpl()));
+  //--------------------INJECT BLOC--------------------//
+  inject.registerSingleton<AuthenticationBloc>(AuthenticationBloc(
+      getloggedinuser: inject.get<Getloggedinuser>(),
+      checkIsLoggedin: inject.get<CheckIsLoggedin>(),
+      storageHelper: inject.get<StorageHelper>(),
+      login: inject.get<Login>(),
+      register: inject.get<Register>()));
+  inject.registerSingleton<FavoriteBloc>(
+      FavoriteBloc(databaseHelper: inject.get<DatabaseHelper>()));
 }

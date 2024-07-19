@@ -16,8 +16,7 @@ class _SplashPageState extends State<SplashPage> {
   final _authBloc = inject.get<AuthenticationBloc>();
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 1),
-        () => _authBloc.add(const AuthenticationCheckIsLoginEvent()));
+    _authBloc.add(const CheckIsLoginEvent());
     super.initState();
   }
 

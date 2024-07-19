@@ -26,8 +26,7 @@ class CardDetailWishlish extends StatelessWidget {
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
-              networkImgUrl:
-                  "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"),
+              networkImgUrl: data.productImage),
           Positioned(
               bottom: 5,
               left: 5,
