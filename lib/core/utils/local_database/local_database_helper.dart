@@ -27,10 +27,20 @@ class DatabaseHelper {
   DatabaseHelper._internal();
 
   Future<void> openBox(String name) async {
-    if (!Hive.isBoxOpen(name)) {
-      box = await Hive.openBox(name);
-    } else {
-      box = Hive.box(name);
+    try {
+      if (!Hive.isBoxOpen(name)) {
+        box = await Hive.openBox(name);
+      } else {
+        box = Hive.box(name);
+      }
+    } catch (e) {
+      print("Error opening box: $e");
+      await Hive.deleteBoxFromDisk(name);
+      try {
+        box = await Hive.openBox(name);
+      } catch (e) {
+        print("Error reopening box: $e");
+      }
     }
   }
 

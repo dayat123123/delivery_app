@@ -1,6 +1,7 @@
 import 'package:delivery_app/features/authentication/presentation/register_page.dart';
 import 'package:delivery_app/features/detail_category/presentation/detail_category.dart';
 import 'package:delivery_app/features/detail_product/presentation/detail_product.dart';
+import 'package:delivery_app/features/detail_toko/presentation/pages/detail_store.dart';
 import 'package:delivery_app/features/home/presentation/pages/main_page.dart';
 import 'package:delivery_app/features/notification/presentation/notification.dart';
 import 'package:delivery_app/features/order/presentation/order_page.dart';
@@ -34,9 +35,13 @@ class AppPages {
       case RouteNames.detailitempage:
         final data = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-            builder: (context) => DetailProductPage(
-                  data: data[ParamsKeys.cartProduct],
-                ));
+            builder: (context) =>
+                DetailProductPage(data: data[ParamsKeys.cartProduct]));
+      case RouteNames.DetailStorepage:
+        final data = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+            builder: (context) =>
+                DetailStore(sellerId: data[ParamsKeys.sellerIdKey]));
       case RouteNames.searchpage:
         return MaterialPageRoute(builder: (context) => const SearchPage());
       case RouteNames.orderpage:
@@ -77,4 +82,5 @@ class RouteNames {
   static const String detailwishlistpage = '/detailwishlistpage';
   static const String orderpage = '/orderpage';
   static const String notificationpage = '/notificationpage';
+  static const String DetailStorepage = '/DetailStorepage';
 }

@@ -22,6 +22,7 @@ DetailProductModel _$DetailProductModelFromJson(Map<String, dynamic> json) {
 mixin _$DetailProductModel {
   String get idProduct => throw _privateConstructorUsedError;
   String get namaProduct => throw _privateConstructorUsedError;
+  String get sellerId => throw _privateConstructorUsedError;
   String get sellerName => throw _privateConstructorUsedError;
   String get addressProduct => throw _privateConstructorUsedError;
   String get categoryProduct => throw _privateConstructorUsedError;
@@ -50,6 +51,7 @@ abstract class $DetailProductModelCopyWith<$Res> {
   $Res call(
       {String idProduct,
       String namaProduct,
+      String sellerId,
       String sellerName,
       String addressProduct,
       String categoryProduct,
@@ -81,6 +83,7 @@ class _$DetailProductModelCopyWithImpl<$Res, $Val extends DetailProductModel>
   $Res call({
     Object? idProduct = null,
     Object? namaProduct = null,
+    Object? sellerId = null,
     Object? sellerName = null,
     Object? addressProduct = null,
     Object? categoryProduct = null,
@@ -102,6 +105,10 @@ class _$DetailProductModelCopyWithImpl<$Res, $Val extends DetailProductModel>
       namaProduct: null == namaProduct
           ? _value.namaProduct
           : namaProduct // ignore: cast_nullable_to_non_nullable
+              as String,
+      sellerId: null == sellerId
+          ? _value.sellerId
+          : sellerId // ignore: cast_nullable_to_non_nullable
               as String,
       sellerName: null == sellerName
           ? _value.sellerName
@@ -174,6 +181,7 @@ abstract class _$$DetailProductModelImplCopyWith<$Res>
   $Res call(
       {String idProduct,
       String namaProduct,
+      String sellerId,
       String sellerName,
       String addressProduct,
       String categoryProduct,
@@ -204,6 +212,7 @@ class __$$DetailProductModelImplCopyWithImpl<$Res>
   $Res call({
     Object? idProduct = null,
     Object? namaProduct = null,
+    Object? sellerId = null,
     Object? sellerName = null,
     Object? addressProduct = null,
     Object? categoryProduct = null,
@@ -225,6 +234,10 @@ class __$$DetailProductModelImplCopyWithImpl<$Res>
       namaProduct: null == namaProduct
           ? _value.namaProduct
           : namaProduct // ignore: cast_nullable_to_non_nullable
+              as String,
+      sellerId: null == sellerId
+          ? _value.sellerId
+          : sellerId // ignore: cast_nullable_to_non_nullable
               as String,
       sellerName: null == sellerName
           ? _value.sellerName
@@ -284,6 +297,7 @@ class _$DetailProductModelImpl implements _DetailProductModel {
   const _$DetailProductModelImpl(
       {required this.idProduct,
       required this.namaProduct,
+      required this.sellerId,
       required this.sellerName,
       required this.addressProduct,
       required this.categoryProduct,
@@ -304,6 +318,8 @@ class _$DetailProductModelImpl implements _DetailProductModel {
   final String idProduct;
   @override
   final String namaProduct;
+  @override
+  final String sellerId;
   @override
   final String sellerName;
   @override
@@ -331,7 +347,7 @@ class _$DetailProductModelImpl implements _DetailProductModel {
 
   @override
   String toString() {
-    return 'DetailProductModel(idProduct: $idProduct, namaProduct: $namaProduct, sellerName: $sellerName, addressProduct: $addressProduct, categoryProduct: $categoryProduct, hargaProduct: $hargaProduct, jumTerjual: $jumTerjual, jumSave: $jumSave, stockProduct: $stockProduct, rating: $rating, discount: $discount, numberPhone: $numberPhone, location: $location, imageUrl: $imageUrl)';
+    return 'DetailProductModel(idProduct: $idProduct, namaProduct: $namaProduct, sellerId: $sellerId, sellerName: $sellerName, addressProduct: $addressProduct, categoryProduct: $categoryProduct, hargaProduct: $hargaProduct, jumTerjual: $jumTerjual, jumSave: $jumSave, stockProduct: $stockProduct, rating: $rating, discount: $discount, numberPhone: $numberPhone, location: $location, imageUrl: $imageUrl)';
   }
 
   @override
@@ -343,6 +359,8 @@ class _$DetailProductModelImpl implements _DetailProductModel {
                 other.idProduct == idProduct) &&
             (identical(other.namaProduct, namaProduct) ||
                 other.namaProduct == namaProduct) &&
+            (identical(other.sellerId, sellerId) ||
+                other.sellerId == sellerId) &&
             (identical(other.sellerName, sellerName) ||
                 other.sellerName == sellerName) &&
             (identical(other.addressProduct, addressProduct) ||
@@ -373,6 +391,7 @@ class _$DetailProductModelImpl implements _DetailProductModel {
       runtimeType,
       idProduct,
       namaProduct,
+      sellerId,
       sellerName,
       addressProduct,
       categoryProduct,
@@ -405,6 +424,7 @@ abstract class _DetailProductModel implements DetailProductModel {
   const factory _DetailProductModel(
       {required final String idProduct,
       required final String namaProduct,
+      required final String sellerId,
       required final String sellerName,
       required final String addressProduct,
       required final String categoryProduct,
@@ -425,6 +445,8 @@ abstract class _DetailProductModel implements DetailProductModel {
   String get idProduct;
   @override
   String get namaProduct;
+  @override
+  String get sellerId;
   @override
   String get sellerName;
   @override

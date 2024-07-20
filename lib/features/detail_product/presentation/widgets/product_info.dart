@@ -57,7 +57,8 @@ class ProductInfo extends StatelessWidget {
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
             const SizedBox(height: 7),
-            sellerNameWidget(context, detailProduct.sellerName),
+            sellerNameWidget(
+                context, detailProduct.sellerName, detailProduct.sellerId),
             const SizedBox(height: 7),
             locationWidget(detailProduct.location, context),
             const SizedBox(height: 7),

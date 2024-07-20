@@ -1,6 +1,8 @@
 import 'package:delivery_app/core/utils/location/location_model.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
+import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/misc/formatter.dart';
+import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/widgets/card_container.dart';
 import 'package:flutter/material.dart';
 
@@ -21,20 +23,26 @@ Widget locationWidget(LocationModel location, BuildContext context,
       ]);
 }
 
-Widget sellerNameWidget(BuildContext context, String sellerName,
+Widget sellerNameWidget(
+    BuildContext context, String sellerName, String sellerId,
     {TextStyle? style}) {
-  return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(Icons.storefront, color: context.theme.primaryColor),
-        const SizedBox(width: 5),
-        Expanded(
-            child: Text(sellerName,
-                maxLines: 2,
-                style: style ??
-                    const TextStyle(fontSize: 15, fontWeight: FontWeight.w400)))
-      ]);
+  return GestureDetector(
+    onTap: () => context.pushNamed(RouteNames.DetailStorepage,
+        arguments: {ParamsKeys.sellerIdKey: sellerId}),
+    child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(Icons.storefront, color: context.theme.primaryColor),
+          const SizedBox(width: 5),
+          Expanded(
+              child: Text(sellerName,
+                  maxLines: 2,
+                  style: style ??
+                      const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w400)))
+        ]),
+  );
 }
 
 Widget ratingWidget(BuildContext context, {required double rating}) {

@@ -7,4 +7,5 @@ class ParamsKeys {
   static const emailKey = 'emailKey';
   static const passwordKey = 'passwordKey';
   static const groupCartModel = "groupCartModel";
+  static const sellerIdKey = "sellerIdKey";
 }

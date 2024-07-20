@@ -9,6 +9,7 @@ class DetailProductModel with _$DetailProductModel {
   const factory DetailProductModel({
     required String idProduct,
     required String namaProduct,
+    required String sellerId,
     required String sellerName,
     required String addressProduct,
     required String categoryProduct,

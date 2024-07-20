@@ -20,21 +20,18 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => inject.get<AuthenticationBloc>()),
         BlocProvider(create: (context) => inject.get<FavoriteBloc>()),
       ],
-      child: BlocBuilder<ThemeCubit, ThemeData>(
-        builder: (context, state) {
-          final overlayStyle = state.appBarTheme.systemOverlayStyle!;
-          return AnnotatedRegion<SystemUiOverlayStyle>(
+      child: BlocBuilder<ThemeCubit, ThemeData>(builder: (context, state) {
+        final overlayStyle = state.appBarTheme.systemOverlayStyle!;
+        return AnnotatedRegion<SystemUiOverlayStyle>(
             value: overlayStyle,
             child: MaterialApp(
-              theme: state,
-              debugShowCheckedModeBanner: false,
-              navigatorKey: navigatorKey,
-              initialRoute: RouteNames.root,
-              onGenerateRoute: (settings) => AppPages.generateRoute(settings),
-            ),
-          );
-        },
-      ),
+                theme: state,
+                debugShowCheckedModeBanner: false,
+                navigatorKey: navigatorKey,
+                initialRoute: RouteNames.root,
+                onGenerateRoute: (settings) =>
+                    AppPages.generateRoute(settings)));
+      }),
     );
   }
 }

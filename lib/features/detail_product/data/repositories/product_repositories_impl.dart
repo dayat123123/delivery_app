@@ -59,6 +59,7 @@ class ProductRepositoriesImpl implements ProductRepositories {
         jumTerjual: 100,
         jumSave: 85,
         rating: 4.5,
+        sellerId: "4",
         sellerName: "Toko berkat",
         addressProduct: "Jalan setia budi",
         imageUrl:

@@ -11,6 +11,7 @@ _$DetailProductModelImpl _$$DetailProductModelImplFromJson(
     _$DetailProductModelImpl(
       idProduct: json['idProduct'] as String,
       namaProduct: json['namaProduct'] as String,
+      sellerId: json['sellerId'] as String,
       sellerName: json['sellerName'] as String,
       addressProduct: json['addressProduct'] as String,
       categoryProduct: json['categoryProduct'] as String,
@@ -31,6 +32,7 @@ Map<String, dynamic> _$$DetailProductModelImplToJson(
     <String, dynamic>{
       'idProduct': instance.idProduct,
       'namaProduct': instance.namaProduct,
+      'sellerId': instance.sellerId,
       'sellerName': instance.sellerName,
       'addressProduct': instance.addressProduct,
       'categoryProduct': instance.categoryProduct,

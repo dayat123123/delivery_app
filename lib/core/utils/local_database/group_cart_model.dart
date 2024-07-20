@@ -11,8 +11,5 @@ class GroupCartModel {
   @HiveField(1)
   List<CartModel>? items;
 
-  GroupCartModel({
-    required this.groupCartName,
-    this.items,
-  });
+  GroupCartModel({required this.groupCartName, this.items});
 }
