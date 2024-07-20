@@ -46,14 +46,10 @@ class LandingPage extends StatelessWidget {
 }
 
 final List<Widget> listwidgetLanding = [
-  Container(
-    child: Center(
-      child: SvgPicture.asset(FilePaths.signInimagessvg),
-    ),
+  Center(
+    child: SvgPicture.asset(FilePaths.signInimagessvg),
   ),
-  Container(
-    child: Center(
-      child: SvgPicture.asset(FilePaths.signUpimagessvg),
-    ),
+  Center(
+    child: SvgPicture.asset(FilePaths.signUpimagessvg),
   ),
 ];

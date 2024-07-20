@@ -50,7 +50,7 @@ class ProductRepositoriesImpl implements ProductRepositories {
   @override
   Future<Result<DetailProductModel>> getProductDetail(
       {required String idProduct}) async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     return Result.success(DetailProductModel(
         idProduct: idProduct,
         categoryProduct: 'All',

@@ -5,6 +5,7 @@ import 'package:delivery_app/shared/features/save_and_remove_favorit/presentatio
 import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/misc/style_helpers.dart';
+import 'package:delivery_app/shared/widgets/progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
@@ -12,50 +13,67 @@ import 'package:delivery_app/shared/widgets/card_container.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class WishlistPage extends StatelessWidget {
+class WishlistPage extends StatefulWidget {
   const WishlistPage({super.key});
 
   @override
+  State<WishlistPage> createState() => _WishlistPageState();
+}
+
+class _WishlistPageState extends State<WishlistPage> {
+  late TextEditingController _controllerText;
+  final _store = inject.get<DatabaseHelper>();
+  final _favoriteBloc = inject.get<FavoriteBloc>();
+  @override
+  void initState() {
+    _controllerText = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controllerText.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final store = inject.get<DatabaseHelper>();
-    final favoriteBloc = inject.get<FavoriteBloc>();
     return CustomScaffold(
         margin: StyleHelpers.verticalPadding,
         appbar: AppBar(title: const Text('Wishlist'), actions: [
           CardContainer(
-                  height: 40,
-                  alignment: Alignment.center,
-                  width: 80,
-                  onTap: () => showBottomSheetCreateNewFavorit(context,
-                          onDone: (p0, p1) {
-                        if (p0) {
-                          context.pop();
-                          context.showCustomSnackbar(
-                              type: DialogAccentType.success,
-                              description: "Saved new collection");
-                          favoriteBloc.add(const LoadAllFavorites());
-                        } else {
-                          context.showCustomSnackbar(
-                              type: DialogAccentType.failed,
-                              description: "Group $p1 is exist");
-                        }
-                      }),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.add, color: context.theme.primaryColor),
-                        Text("Group",
-                            style: TextStyle(color: context.theme.primaryColor))
-                      ]))
-              .spaceH(
-                  before: false, spacing: StyleHelpers.horizontalPaddingnumber)
+              withBottomMargin: false,
+              height: 35,
+              alignment: Alignment.center,
+              width: 80,
+              onTap: () =>
+                  showBottomSheetCreateNewFavorit(context, onDone: (p0, p1) {
+                    if (p0) {
+                      context.pop();
+                      context.showCustomSnackbar(
+                          type: DialogAccentType.success,
+                          description: "Saved new collection");
+                      _favoriteBloc.add(const LoadAllFavorites());
+                    } else {
+                      context.showCustomSnackbar(
+                          type: DialogAccentType.failed,
+                          description: "Group $p1 is exist");
+                    }
+                  }, controller: _controllerText),
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add, color: context.theme.primaryColor),
+                    Text("Group",
+                        style: TextStyle(color: context.theme.primaryColor))
+                  ])).marginOnly(right: StyleHelpers.horizontalPaddingnumber)
         ]),
         body: BlocBuilder<FavoriteBloc, FavoriteState>(
-            bloc: favoriteBloc,
+            bloc: _favoriteBloc,
             builder: (context, state) {
               if (state is FavoritesLoading) {
-                return const Center(child: CircularProgressIndicator())
+                return Center(child: progressIndicatorWidget(context: context))
                     .marginOnly(top: 10);
               } else if (state is AllFavoritesLoaded) {
                 if (state.favorites.isEmpty) {
@@ -79,13 +97,13 @@ class WishlistPage extends StatelessWidget {
                               RouteNames.detailwishlistpage,
                               arguments: {ParamsKeys.groupCartModel: item},
                               onComplete: () =>
-                                  favoriteBloc.add(const LoadAllFavorites())),
+                                  _favoriteBloc.add(const LoadAllFavorites())),
                           onLongPress: () {
                             context.showDialogCustom(
                                 content: "Delete group $groupName",
                                 onPressed: () async {
-                                  await store.removeGroupWithMember(groupName);
-                                  favoriteBloc.add(const LoadAllFavorites());
+                                  await _store.removeGroupWithMember(groupName);
+                                  _favoriteBloc.add(const LoadAllFavorites());
                                 });
                           },
                           child: Column(

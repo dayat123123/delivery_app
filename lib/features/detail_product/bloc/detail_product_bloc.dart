@@ -11,6 +11,7 @@ class DetailProductBloc extends Bloc<DetailProductEvent, DetailProductState> {
   DetailProductBloc({required this.getProductDetail})
       : super(DetailProductLoading()) {
     on<LoadDetailProduct>(_onLoadDetailProduct);
+    on<RefreshDetailProduct>(_onRefreshDetailProduct);
   }
 
   void _onLoadDetailProduct(
@@ -18,7 +19,6 @@ class DetailProductBloc extends Bloc<DetailProductEvent, DetailProductState> {
     try {
       emit(DetailProductLoading());
       final result = await getProductDetail.call(event.idProduct);
-      print(result);
       if (result is Success) {
         emit(DetailProductLoaded(detailproduct: result.resultValue!));
       } else {
@@ -26,6 +26,24 @@ class DetailProductBloc extends Bloc<DetailProductEvent, DetailProductState> {
       }
     } catch (e) {
       emit(DetailProductError(error: "Error : $e"));
+    }
+  }
+
+  void _onRefreshDetailProduct(
+      RefreshDetailProduct event, Emitter<DetailProductState> emit) async {
+    try {
+      emit(DetailProductLoading());
+      final result = await getProductDetail.call(event.idProduct);
+      if (result is Success) {
+        emit(DetailProductLoaded(detailproduct: result.resultValue!));
+        event.controller.refreshCompleted();
+      } else {
+        emit(DetailProductError(error: result.errorMessage!));
+        event.controller.refreshFailed();
+      }
+    } catch (e) {
+      emit(DetailProductError(error: "Error : $e"));
+      event.controller.refreshFailed();
     }
   }
 }

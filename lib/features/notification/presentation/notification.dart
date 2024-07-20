@@ -8,9 +8,9 @@ class NotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold(
       appbar: AppBar(
-        title: Text("Notification"),
+        title: const Text("Notification"),
       ),
-      body: Column(
+      body: const Column(
         children: [],
       ),
     );

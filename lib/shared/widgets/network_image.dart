@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery_app/shared/extensions/string_extensions.dart';
 import 'package:delivery_app/shared/misc/file_paths.dart';
+import 'package:delivery_app/shared/widgets/progress_indicator.dart';
 import 'package:flutter/material.dart';
 
 class CustomNetworkImage extends StatelessWidget {
@@ -68,10 +69,14 @@ class CustomNetworkImage extends StatelessWidget {
                 fit: fit,
                 width: width,
                 height: height,
-                placeholder: (context, url) => Center(
-                    child: isshowProgressOnLoading
-                        ? const CircularProgressIndicator()
-                        : Container()),
+                progressIndicatorBuilder: (context, url, downloadProgress) {
+                  return Center(
+                      child: isshowProgressOnLoading
+                          ? progressIndicatorWidget(
+                              context: context,
+                              value: downloadProgress.progress)
+                          : Container());
+                },
                 errorWidget: (context, url, error) => _assetImage())
             : _assetImage();
 

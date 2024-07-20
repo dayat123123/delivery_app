@@ -6,6 +6,7 @@ import 'package:delivery_app/features/authentication/domain/usecases/login/login
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
+import 'package:delivery_app/shared/widgets/progress_indicator.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:delivery_app/shared/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                   text: "\nPlease sign in to continue",
                   style: context.textTheme.headlineLarge
                       ?.copyWith(fontSize: 16, height: 1.5)),
-            ])).centerLeft.spaceV(before: false, after: true, spacing: 5),
+            ])).centerLeft.marginOnly(bottom: 15),
             Form(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formKey,
@@ -65,27 +66,29 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomTextField(
-                      onTapOutside: () {
-                        if (_emailController.text.isNotEmpty) {
-                          _focusNodePassword.canRequestFocus = true;
-                          _focusNodePassword.requestFocus();
-                        }
-                      },
-                      onFieldSubmitted: (val) {
-                        if (val.isNotEmpty) {
-                          _focusNodePassword.canRequestFocus = true;
-                          _focusNodePassword.requestFocus();
-                        }
-                      },
-                      focusNode: _focusNodeEmail,
-                      validator: (val) => emailValidator(val),
-                      textFieldType: TextFieldType.email,
-                      controller: _emailController),
+                          onTapOutside: () {
+                            if (_emailController.text.isNotEmpty) {
+                              _focusNodePassword.canRequestFocus = true;
+                              _focusNodePassword.requestFocus();
+                            }
+                          },
+                          onFieldSubmitted: (val) {
+                            if (val.isNotEmpty) {
+                              _focusNodePassword.canRequestFocus = true;
+                              _focusNodePassword.requestFocus();
+                            }
+                          },
+                          focusNode: _focusNodeEmail,
+                          validator: (val) => emailValidator(val),
+                          textFieldType: TextFieldType.email,
+                          controller: _emailController)
+                      .marginOnly(bottom: 15),
                   CustomTextField(
-                      focusNode: _focusNodePassword,
-                      validator: (val) => passwordValidator(val),
-                      textFieldType: TextFieldType.password,
-                      controller: _passwordController),
+                          focusNode: _focusNodePassword,
+                          validator: (val) => passwordValidator(val),
+                          textFieldType: TextFieldType.password,
+                          controller: _passwordController)
+                      .marginOnly(bottom: 10),
                   CustomButton(
                     text: 'Forget Password?',
                     height: 40,
@@ -95,11 +98,12 @@ class _LoginPageState extends State<LoginPage> {
                           description: "Coming soon",
                           type: DialogAccentType.info);
                     },
-                  ).spaceV(before: false, spacing: 10, after: true),
+                  ).marginOnly(bottom: 15),
                   BlocBuilder<AuthenticationBloc, AuthenticationState>(
                     builder: (context, state) {
                       if (state is AuthenticationLoading) {
-                        return const CircularProgressIndicator(strokeWidth: 2)
+                        return progressIndicatorWidget(
+                                strokeWidth: 2, context: context)
                             .center;
                       } else {
                         return CustomButton(
@@ -107,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                             height: 50,
                             fontsize: 18,
                             fontWeight: FontWeight.bold,
-                            width: context.fullWidth * 1,
+                            width: context.fullWidth,
                             onPressed: () {
                               if (_formKey.currentState?.validate() ?? false) {
                                 _authBloc.add(SignInButtonPressed(

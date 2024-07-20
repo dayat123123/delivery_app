@@ -58,6 +58,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         CartModel member = CartModel(
             productId: event.data.productId,
             productName: event.data.productName,
+            productPrice: event.data.productPrice,
             productImage: event.data.productImage);
         bool success = await databaseHelper.addItemToGroupCart(
             selectedGroup.groupCartName, member);

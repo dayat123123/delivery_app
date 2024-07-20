@@ -2,6 +2,7 @@ import 'package:delivery_app/core/utils/local_database/cart_model.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/features/save_and_remove_favorit/bloc/favorite_bloc.dart';
 import 'package:delivery_app/shared/widgets/checkbox_listtile.dart';
+import 'package:delivery_app/shared/widgets/progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:delivery_app/injector.dart';
@@ -16,7 +17,7 @@ class FavoriteListTile extends StatelessWidget {
         bloc: favoriteBloc,
         builder: (context, state) {
           if (state is FavoritesLoading) {
-            return const Center(child: CircularProgressIndicator())
+            return Center(child: progressIndicatorWidget(context: context))
                 .marginOnly(top: 10);
           } else if (state is FavoritesLoaded) {
             return ListView.builder(

@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/card_container.dart';
+import 'package:delivery_app/shared/widgets/progress_indicator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 enum ButtonType {
@@ -69,12 +72,13 @@ class CustomButton extends StatelessWidget {
             width: 45,
             height: 45,
             onTap: () => context.pop(),
-            child: const Icon(Icons.arrow_back_ios_new));
+            child: Icon(
+                Platform.isIOS ? Icons.arrow_back_ios_new : Icons.arrow_back));
       case ButtonType.savebutton:
         return CardContainer(
             shape: CardContainerShape.circle,
-            width: 45,
-            height: 45,
+            width: width,
+            height: height,
             onTap: onPressed,
             child: Icon(isFavorit ? Icons.favorite : Icons.favorite_border));
       case ButtonType.animatedbutton:
@@ -103,24 +107,22 @@ class CustomButton extends StatelessWidget {
     switch (buttonType) {
       case ButtonType.textbutton:
         return ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-              side: side ?? BorderSide.none,
-              borderRadius: BorderRadius.circular(8)),
-          padding: padding,
-        );
+            shape: RoundedRectangleBorder(
+                side: side ?? BorderSide.none,
+                borderRadius: BorderRadius.circular(8)),
+            padding: padding);
       case ButtonType.basic:
       default:
         return ElevatedButton.styleFrom(
-          foregroundColor: fgcolor,
-          backgroundColor: bgcolor ?? Theme.of(context).primaryColor,
-          fixedSize: (width != 0 && height != 0)
-              ? Size(width ?? 100, height ?? 30)
-              : null,
-          shape: RoundedRectangleBorder(
-              side: side ?? BorderSide.none,
-              borderRadius: BorderRadius.circular(radius ?? 8)),
-          padding: padding,
-        );
+            foregroundColor: fgcolor,
+            backgroundColor: bgcolor ?? Theme.of(context).primaryColor,
+            fixedSize: (width != 0 && height != 0)
+                ? Size(width ?? 100, height ?? 30)
+                : null,
+            shape: RoundedRectangleBorder(
+                side: side ?? BorderSide.none,
+                borderRadius: BorderRadius.circular(radius ?? 8)),
+            padding: padding);
     }
   }
 }
@@ -178,7 +180,9 @@ class _AnimatedButtonState extends State<AnimatedButton>
         setState(() {});
       });
     } catch (e) {
-      print("Closed");
+      if (kDebugMode) {
+        print("Closed");
+      }
     }
   }
 
@@ -199,7 +203,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
                     ? SizedBox(
                         height: widget.sizeWhileLoading,
                         width: widget.sizeWhileLoading,
-                        child: const CircularProgressIndicator().center)
+                        child: progressIndicatorWidget(context: context).center)
                     : widget.child ??
                         Icon(widget.icon ?? Icons.refresh,
                             color: context.theme.primaryColor)))

@@ -13,10 +13,8 @@ import 'package:delivery_app/shared/widgets/network_image.dart';
 import 'package:delivery_app/shared/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 
-void showBottomSheetSaveProduct(
-  BuildContext context,
-  CartModel data,
-) {
+void showBottomSheetSaveProduct(BuildContext context, CartModel data,
+    {required TextEditingController controller}) {
   final themeColors = context.themeColors;
   final favoriteBloc = inject.get<FavoriteBloc>()
     ..add(LoadFavorites(data.productId));
@@ -25,6 +23,7 @@ void showBottomSheetSaveProduct(
           data: CartModel(
               productId: data.productId,
               productName: data.productName,
+              productPrice: data.productPrice,
               productImage: data.productImage)),
       header: Column(children: [
         Container(
@@ -77,7 +76,7 @@ void showBottomSheetSaveProduct(
                         type: DialogAccentType.failed,
                         description: "Group $p1 is exist");
                   }
-                }),
+                }, controller: controller),
             title: const Text("Create group"),
             leading: CardContainer(
                 width: 30,
@@ -88,11 +87,11 @@ void showBottomSheetSaveProduct(
 }
 
 void showBottomSheetCreateNewFavorit(BuildContext context,
-    {void Function(bool, String)? onDone}) {
+    {void Function(bool, String)? onDone,
+    required TextEditingController controller}) {
   final themeColors = context.themeColors;
   final store = inject.get<DatabaseHelper>();
   final formKey = GlobalKey<FormState>();
-  final controller = TextEditingController();
   context.showBottomSheet(
       showDragHandle: true,
       initialChildSize: 1,

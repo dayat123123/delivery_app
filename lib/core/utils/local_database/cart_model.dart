@@ -13,6 +13,12 @@ class CartModel {
   @HiveField(3)
   final String? productImage;
 
+  @HiveField(4)
+  final double productPrice;
+
   CartModel(
-      {required this.productId, required this.productName, this.productImage});
+      {required this.productId,
+      required this.productName,
+      required this.productPrice,
+      this.productImage});
 }

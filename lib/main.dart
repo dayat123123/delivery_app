@@ -13,6 +13,5 @@ void main() async {
   await initInjector();
   await openStore();
   runApp(const App());
-
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }

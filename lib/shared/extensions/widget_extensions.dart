@@ -57,28 +57,4 @@ extension WidgetUtility on Widget {
       SizedBox(width: context.fullWidth, child: this);
 
   Widget height(double value) => SizedBox(height: value, child: this);
-
-  Widget spaceV(
-      {double spacing = 10.0, bool before = true, bool after = true}) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (before) SizedBox(height: spacing),
-        this,
-        if (after) SizedBox(height: spacing),
-      ],
-    );
-  }
-
-  Widget spaceH(
-      {double spacing = 10.0, bool before = true, bool after = true}) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (before) SizedBox(width: spacing),
-        this,
-        if (after) SizedBox(width: spacing),
-      ],
-    );
-  }
 }

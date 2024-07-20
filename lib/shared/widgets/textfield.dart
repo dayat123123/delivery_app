@@ -89,7 +89,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           counterText: '',
           icon: iconTextfield(),
           suffixIcon: suffixiconTextfield()),
-    ).spaceV(after: true);
+    ).marginOnly(right: 10);
   }
 
   bool obscureText() {

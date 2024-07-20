@@ -10,7 +10,7 @@ class RecommendedRepositoriesImpl implements RecommendedRepositories {
   @override
   Future<Result<List<RecommendedModel>>> getRecommended() async {
     List<RecommendedModel> list = [
-      RecommendedModel(
+      const RecommendedModel(
           idProduct: '1',
           namaProduct: "Soto Makassar",
           hargaProduct: 35000,
@@ -18,7 +18,7 @@ class RecommendedRepositoriesImpl implements RecommendedRepositories {
           jumSave: 65,
           rating: 5.0,
           imageUrl: FilePaths.alljpg),
-      RecommendedModel(
+      const RecommendedModel(
           idProduct: '2',
           namaProduct: "Cincang Ayam",
           hargaProduct: 20000,
@@ -26,7 +26,7 @@ class RecommendedRepositoriesImpl implements RecommendedRepositories {
           jumSave: 66,
           rating: 3.9,
           imageUrl: FilePaths.foodjpg),
-      RecommendedModel(
+      const RecommendedModel(
           idProduct: '3',
           namaProduct: "Sate Madura",
           hargaProduct: 25000,
@@ -34,7 +34,7 @@ class RecommendedRepositoriesImpl implements RecommendedRepositories {
           jumSave: 100,
           rating: 4.5,
           imageUrl: FilePaths.alljpg),
-      RecommendedModel(
+      const RecommendedModel(
           idProduct: '4',
           namaProduct: "Sop Buntut",
           hargaProduct: 50000,
@@ -42,7 +42,7 @@ class RecommendedRepositoriesImpl implements RecommendedRepositories {
           jumSave: 100,
           rating: 4.5,
           imageUrl: FilePaths.foodjpg),
-      RecommendedModel(
+      const RecommendedModel(
           idProduct: '5',
           namaProduct: "Matrabak Mesir",
           hargaProduct: 30000,
@@ -51,7 +51,7 @@ class RecommendedRepositoriesImpl implements RecommendedRepositories {
           rating: 4.5,
           imageUrl: FilePaths.foodjpg)
     ];
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     return Result.success(list);
   }
 }

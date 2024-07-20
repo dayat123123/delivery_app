@@ -51,7 +51,7 @@ ThemeData get darkTheme {
         centerTitle: false,
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        toolbarHeight: Platform.isAndroid ? 70 : 35,
+        toolbarHeight: Platform.isAndroid ? 65 : 45,
         color: Colors.transparent,
         systemOverlayStyle: Platform.isIOS ? SystemUiOverlayStyle.light : null,
         titleTextStyle: headline1.copyWith(

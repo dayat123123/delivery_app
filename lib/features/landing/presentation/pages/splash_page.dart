@@ -1,7 +1,7 @@
 import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
-import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
+import 'package:delivery_app/shared/widgets/progress_indicator.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -25,8 +25,8 @@ class _SplashPageState extends State<SplashPage> {
     return CustomScaffold(
         body: Transform.scale(
                 scale: 1.5,
-                child: CircularProgressIndicator(
-                    strokeWidth: 5, color: context.theme.primaryColor))
+                child:
+                    progressIndicatorWidget(strokeWidth: 5, context: context))
             .center);
   }
 }

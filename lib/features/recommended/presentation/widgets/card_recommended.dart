@@ -27,6 +27,7 @@ class CardRecommended extends StatelessWidget {
               ParamsKeys.cartProduct: CartModel(
                   productId: recommendedModel!.idProduct,
                   productName: recommendedModel!.namaProduct,
+                  productPrice: recommendedModel!.hargaProduct,
                   productImage: recommendedModel!.imageUrl)
             });
           }
@@ -53,7 +54,7 @@ class CardRecommended extends StatelessWidget {
             Row(children: [
               ...[
                 Icon(Icons.star, color: context.themeColors.neutral, size: 20)
-                    .spaceH(before: false, after: true, spacing: 5),
+                    .marginOnly(right: 5),
                 Text("${recommendedModel?.rating ?? 0}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

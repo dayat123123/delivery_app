@@ -27,7 +27,11 @@ class DatabaseHelper {
   DatabaseHelper._internal();
 
   Future<void> openBox(String name) async {
-    box = await Hive.openBox(name);
+    if (!Hive.isBoxOpen(name)) {
+      box = await Hive.openBox(name);
+    } else {
+      box = Hive.box(name);
+    }
   }
 
   //---------------Favorite Product Local-----------------//

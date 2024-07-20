@@ -114,16 +114,16 @@ class CardContainer extends StatelessWidget {
                   color:
                       context.themeColors.appContainerShadow.withOpacity(0.1),
                   spreadRadius: 1,
-                  blurRadius: 8,
-                  offset: const Offset(2, 2))
+                  blurRadius: 5,
+                  offset: const Offset(1, 1))
             ],
             border: withBorder
-                ? Border.all(width: 0.5, color: context.themeColors.border)
+                ? Border.all(width: 0.25, color: context.themeColors.border)
                 : null,
             borderRadius: BorderRadius.circular(borderRadius));
       default:
+        return null;
     }
-    return null;
   }
 }
 

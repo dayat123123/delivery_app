@@ -1,5 +1,6 @@
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
+import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -21,7 +22,7 @@ class CustomShimmer extends StatelessWidget {
                     height: height ?? 20,
                     decoration: BoxDecoration(
                         color: context.themeColors.appContainerBackground,
-                        borderRadius: BorderRadius.circular(3)),
+                        borderRadius: StyleHelpers.borderRadiusGeometry),
                     width: width)
                 .centerLeft);
   }

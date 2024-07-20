@@ -27,6 +27,7 @@ class CardPopular extends StatelessWidget {
               ParamsKeys.cartProduct: CartModel(
                   productId: produkModel!.idProduct,
                   productName: produkModel!.namaProduct,
+                  productPrice: produkModel!.hargaProduct,
                   productImage: produkModel!.imageUrl)
             });
           }

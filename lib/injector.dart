@@ -32,7 +32,7 @@ Future<void> initInjector() async {
   });
   inject.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
   await inject.isReady<StorageHelper>();
-  inject.registerSingleton<ThemeCubit>(ThemeCubit());
+  inject.registerSingleton<ThemeCubit>(ThemeCubit(inject.get<StorageHelper>()));
   inject.registerLazySingleton<FirebaseFirestore>(
       () => FirebaseFirestore.instance);
   inject.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);

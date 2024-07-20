@@ -53,4 +53,12 @@ class Formatter {
     }
     return formatted;
   }
+
+  static String formatRatingWithTotal(double rating, int total) {
+    return "$rating ($total)";
+  }
+
+  static String formatEstimationTime(int estimationTime) {
+    return "$estimationTime Min";
+  }
 }

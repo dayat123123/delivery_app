@@ -13,19 +13,19 @@ class SearchPage extends StatelessWidget {
     return CustomScaffold(
       margin: StyleHelpers.verticalPadding,
       padding: EdgeInsets.zero,
-      appbar: AppBar(title: Text('Search')),
+      appbar: AppBar(title: const Text('Search')),
       body: ListView(
         children: [
           const SearchTextField(autofocus: true).marginSymmetric(
               horizontal: StyleHelpers.horizontalPaddingnumber),
           const SizedBox(height: 20),
-          Text('Your history search',
+          const Text('Your history search',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500))
               .centerLeft
               .marginSymmetric(
                   horizontal: StyleHelpers.horizontalPaddingnumber),
           const SizedBox(height: 15),
-          HistorySearch(),
+          const HistorySearch(),
         ],
       ),
     );

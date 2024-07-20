@@ -25,6 +25,7 @@ class CardBigPromo extends StatelessWidget {
               ParamsKeys.cartProduct: CartModel(
                   productId: bigPromoModel!.idProduct,
                   productName: bigPromoModel!.namaProduct,
+                  productPrice: bigPromoModel!.hargaProduct,
                   productImage: bigPromoModel!.imageUrl)
             });
           }
