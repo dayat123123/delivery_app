@@ -17,6 +17,7 @@ class CustomNetworkImage extends StatelessWidget {
   final double radius;
   final bool isshowProgressOnLoading;
   final CustomNetworkImageSource sourceImageFrom;
+  final BorderRadiusGeometry? borderRadiusCustom;
 
   const CustomNetworkImage(
       {super.key,
@@ -30,7 +31,8 @@ class CustomNetworkImage extends StatelessWidget {
       this.radius = 40,
       this.isshowProgressOnLoading = true,
       this.sourceImageFrom = CustomNetworkImageSource.network,
-      this.fileImgURl});
+      this.fileImgURl,
+      this.borderRadiusCustom});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,9 @@ class CustomNetworkImage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(110), child: _image()));
       case CustomNetworkImageShape.rounded:
         return ClipRRect(
-            borderRadius: BorderRadius.circular(borderRadius), child: _image());
+            borderRadius:
+                borderRadiusCustom ?? BorderRadius.circular(borderRadius),
+            child: _image());
     }
   }
 

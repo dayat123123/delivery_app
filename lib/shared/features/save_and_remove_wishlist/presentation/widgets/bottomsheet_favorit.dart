@@ -1,11 +1,10 @@
 import 'package:delivery_app/core/utils/local_database/cart_model.dart';
 import 'package:delivery_app/core/utils/local_database/group_cart_model.dart';
-import 'package:delivery_app/core/utils/local_database/local_database_helper.dart';
 import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
-import 'package:delivery_app/shared/features/save_and_remove_favorit/bloc/favorite_bloc.dart';
-import 'package:delivery_app/shared/features/save_and_remove_favorit/presentation/widgets/favorite_listtile.dart';
+import 'package:delivery_app/shared/features/save_and_remove_wishlist/bloc/favorite_bloc.dart';
+import 'package:delivery_app/shared/features/save_and_remove_wishlist/presentation/widgets/favorite_listtile.dart';
 import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:delivery_app/shared/widgets/card_container.dart';
@@ -63,20 +62,24 @@ void showBottomSheetSaveProduct(BuildContext context, CartModel data,
                       child: const Icon(Icons.favorite_border).centerRight)
                 ])),
         ListTile(
-            onTap: () =>
-                showBottomSheetCreateNewFavorit(context, onDone: (p0, p1) {
-                  if (p0) {
-                    context.pop();
-                    context.showCustomSnackbar(
-                        type: DialogAccentType.success,
-                        description: "Saved new group");
-                    favoriteBloc.add(LoadFavorites(data.productId));
-                  } else {
-                    context.showCustomSnackbar(
-                        type: DialogAccentType.failed,
-                        description: "Group $p1 is exist");
-                  }
-                }, controller: controller),
+            onTap: () => showBottomSheetCreateNewFavorit(onSubmit: () {
+                  favoriteBloc.add(CreateNewGroupFavoriteWithId(
+                      productId: data.productId,
+                      data: GroupCartModel(groupCartName: controller.text),
+                      onDone: (p0, p1) {
+                        if (p0) {
+                          context.pop();
+                          controller.clear();
+                          context.showCustomSnackbar(
+                              type: DialogAccentType.success,
+                              description: "Saved new collection");
+                        } else {
+                          context.showCustomSnackbar(
+                              type: DialogAccentType.failed,
+                              description: "Group $p1 is exist");
+                        }
+                      }));
+                }, context, controller: controller),
             title: const Text("Create group"),
             leading: CardContainer(
                 width: 30,
@@ -87,10 +90,9 @@ void showBottomSheetSaveProduct(BuildContext context, CartModel data,
 }
 
 void showBottomSheetCreateNewFavorit(BuildContext context,
-    {void Function(bool, String)? onDone,
-    required TextEditingController controller}) {
+    {required TextEditingController controller,
+    required void Function() onSubmit}) {
   final themeColors = context.themeColors;
-  final store = inject.get<DatabaseHelper>();
   final formKey = GlobalKey<FormState>();
   context.showBottomSheet(
       showDragHandle: true,
@@ -148,9 +150,7 @@ void showBottomSheetCreateNewFavorit(BuildContext context,
                 child: CustomButton(
                   onPressed: () async {
                     if ((formKey.currentState?.validate() ?? false)) {
-                      bool state = await store.createNewGroupFavorit(
-                          GroupCartModel(groupCartName: controller.text));
-                      onDone?.call(state, controller.text);
+                      onSubmit();
                     }
                   },
                   fontsize: 16,

@@ -30,7 +30,7 @@ class _DetailCategoryState extends State<DetailCategory> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        margin: StyleHelpers.verticalPadding,
+        margin: StyleHelpers.topMarginScaffold,
         padding: EdgeInsets.zero,
         appbar: AppBar(title: Text(widget.category)),
         body: ListView(children: [

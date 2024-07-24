@@ -11,7 +11,10 @@ enum ButtonType {
   textbutton,
   arrowbackbutton,
   savebutton,
-  animatedbutton
+  animatedbutton,
+  cartButton,
+  incrementAndDecrementButton,
+  buttonWithTextAndIcon
 }
 
 class CustomButton extends StatelessWidget {
@@ -20,6 +23,7 @@ class CustomButton extends StatelessWidget {
   final double? height;
   final double? width;
   final double? fontsize;
+  final double? iconsize;
   final EdgeInsetsGeometry? padding;
   final ButtonType? buttonType;
   final Color? textColor;
@@ -30,6 +34,8 @@ class CustomButton extends StatelessWidget {
   final Widget? widgetChild;
   final IconData? iconAnimated;
   final bool? withAnimation;
+  final int? initialValue;
+  final void Function(int)? onChangedIncDecrButton;
   const CustomButton(
       {super.key,
       this.onPressed,
@@ -46,7 +52,10 @@ class CustomButton extends StatelessWidget {
       this.isFavorit = false,
       this.widgetChild,
       this.iconAnimated,
-      this.withAnimation});
+      this.withAnimation,
+      this.initialValue,
+      this.onChangedIncDecrButton,
+      this.iconsize});
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +98,53 @@ class CustomButton extends StatelessWidget {
             onPressed: onPressed,
             icon: iconAnimated,
             child: widgetChild);
+      case ButtonType.cartButton:
+        return CardContainer(
+            onTap: onPressed,
+            alignment: Alignment.center,
+            height: context.fullHeight,
+            width: 50,
+            child: Stack(alignment: Alignment.center, children: [
+              const Positioned(
+                  bottom: 5, child: Icon(Icons.shopping_cart_rounded)),
+              Positioned(
+                  top: 5,
+                  right: 0,
+                  child: CircleAvatar(
+                      radius: 10,
+                      backgroundColor: context.theme.primaryColor,
+                      child: Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: FittedBox(
+                              fit: BoxFit.cover, child: Text(text ?? "0")))))
+            ]));
+      case ButtonType.incrementAndDecrementButton:
+        return _QuantityIncAndDecButton(
+            key: key,
+            onChanged: onChangedIncDecrButton,
+            initialValue: initialValue ?? 0,
+            quantitySize: fontsize,
+            height: height ?? 25,
+            width: width ?? 100);
+      case ButtonType.buttonWithTextAndIcon:
+        return CardContainer(
+            onTap: onPressed,
+            withBottomMargin: false,
+            height: height ?? 35,
+            alignment: Alignment.center,
+            width: width ?? 80,
+            child: widgetChild ??
+                Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(iconAnimated,
+                          color: buttonColor ?? context.theme.primaryColor,
+                          size: iconsize),
+                      const SizedBox(width: 5),
+                      Text(text ?? "",
+                          style: const TextStyle(fontWeight: FontWeight.w500))
+                    ]));
       case ButtonType.basic:
       default:
         return ElevatedButton(
@@ -217,5 +273,86 @@ class _AnimatedButtonState extends State<AnimatedButton>
             child: widget.child ??
                 Icon(widget.icon ?? Icons.refresh,
                     color: context.theme.primaryColor));
+  }
+}
+
+class _QuantityIncAndDecButton extends StatefulWidget {
+  final double width;
+  final double height;
+  final int initialValue;
+  final double? quantitySize;
+  final void Function(int)? onChanged;
+
+  const _QuantityIncAndDecButton(
+      {super.key,
+      this.width = 100,
+      this.height = 25,
+      this.initialValue = 0,
+      this.onChanged,
+      this.quantitySize});
+
+  @override
+  State<_QuantityIncAndDecButton> createState() =>
+      __QuantityIncAndDecButtonState();
+}
+
+class __QuantityIncAndDecButtonState extends State<_QuantityIncAndDecButton> {
+  late int value;
+
+  @override
+  void initState() {
+    value = widget.initialValue;
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(_QuantityIncAndDecButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialValue != widget.initialValue) {
+      setState(() {
+        value = widget.initialValue;
+      });
+    }
+  }
+
+  void _onIncrement() {
+    setState(() {
+      value += 1;
+    });
+    widget.onChanged?.call(value);
+  }
+
+  void _onDecrement() {
+    if (value > 0) {
+      setState(() {
+        value -= 1;
+      });
+      widget.onChanged?.call(value);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CardContainer(
+        height: widget.height,
+        width: widget.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CardContainer(
+                onTap: () => _onDecrement(),
+                withBottomMargin: false,
+                child: const Icon(Icons.remove)),
+            Text(value.toString(),
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: widget.quantitySize)),
+            CardContainer(
+                onTap: () => _onIncrement(),
+                withBottomMargin: false,
+                child: const Icon(Icons.add))
+          ],
+        ));
   }
 }

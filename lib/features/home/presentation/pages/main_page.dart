@@ -1,9 +1,10 @@
+import 'package:delivery_app/features/cart_order/bloc/cart_order_bloc.dart';
 import 'package:delivery_app/features/home/presentation/pages/home_page.dart';
 import 'package:delivery_app/features/home/presentation/widgets/bottomnavigatorbar.dart';
 import 'package:delivery_app/features/order/presentation/order_page.dart';
 import 'package:delivery_app/features/wishlist/presentation/pages/wishlist_page.dart';
 import 'package:delivery_app/injector.dart';
-import 'package:delivery_app/shared/features/save_and_remove_favorit/bloc/favorite_bloc.dart';
+import 'package:delivery_app/shared/features/save_and_remove_wishlist/bloc/favorite_bloc.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -16,12 +17,19 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+  final List<Widget> _pages = [
+    const HomePage(),
+    const OrderPage(),
+    const WishlistPage()
+  ];
+
   void _onItemTapped(int index) {
     if (_selectedIndex != index) {
       switch (index) {
         case 0:
           break;
         case 1:
+          inject.get<CartOrderBloc>().add(LoadCartOrder());
           break;
         case 2:
           inject.get<FavoriteBloc>().add(const LoadAllFavorites());
@@ -32,12 +40,6 @@ class _MainPageState extends State<MainPage> {
       });
     }
   }
-
-  final List<Widget> _pages = [
-    const HomePage(),
-    const OrderPage(),
-    const WishlistPage()
-  ];
 
   @override
   Widget build(BuildContext context) {

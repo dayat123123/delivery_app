@@ -1,4 +1,7 @@
+import 'package:delivery_app/shared/extensions/context_extensions.dart';
+import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/misc/constans.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Formatter {
@@ -59,6 +62,77 @@ class Formatter {
   }
 
   static String formatEstimationTime(int estimationTime) {
-    return "$estimationTime Min";
+    //in minutes
+    if (estimationTime >= 60) {
+      if (estimationTime % 60 == 0) {
+        int hours = estimationTime ~/ 60;
+        return "$hours hours";
+      } else {
+        int hours = estimationTime ~/ 60;
+        int remainingMinutes = estimationTime % 60;
+        return "$hours hours $remainingMinutes mins";
+      }
+    } else {
+      return "$estimationTime mins";
+    }
+  }
+
+  static Widget formatRating(BuildContext context,
+      {double iconSize = 20,
+      double? fontSize,
+      required double rating,
+      Color? fontColor}) {
+    return Row(children: [
+      Icon(Icons.star, color: context.themeColors.neutral, size: iconSize)
+          .marginOnly(right: 5),
+      Text(rating.toString(),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.w500,
+              color: fontColor))
+    ]);
+  }
+
+  static Widget formatIsDiscon(BuildContext context,
+      {required double price,
+      required double discount,
+      double? fontSize,
+      int maxLines = 2}) {
+    if (discount > 0.0) {
+      return RichText(
+          maxLines: maxLines,
+          text: TextSpan(
+              text: formatPrice(price),
+              style: TextStyle(
+                  decoration: TextDecoration.lineThrough,
+                  color: context.textTheme.bodyLarge?.color,
+                  fontSize: fontSize),
+              children: [
+                TextSpan(
+                    text: " ${formatDiscon(discount, price)}",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.none,
+                        color: context.textTheme.bodyLarge?.color,
+                        fontSize: fontSize))
+              ]));
+    } else {
+      return Text(formatPrice(price),
+          style: TextStyle(
+              color: context.textTheme.bodyLarge?.color,
+              fontWeight: FontWeight.w500,
+              fontSize: fontSize));
+    }
+  }
+
+  static String obscureName(String name, {bool isHide = true}) {
+    if (!isHide) return name;
+    if (name.length <= 2) return name;
+    String firstChar = name[0];
+    String lastChar = name[name.length - 1];
+    String obscuredPart = '*' * (name.length - 2);
+    return '$firstChar$obscuredPart$lastChar';
   }
 }

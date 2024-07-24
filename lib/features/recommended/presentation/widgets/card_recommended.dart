@@ -52,22 +52,13 @@ class CardRecommended extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.w500))
                 .centerLeft,
             Row(children: [
-              ...[
-                Icon(Icons.star, color: context.themeColors.neutral, size: 20)
-                    .marginOnly(right: 5),
-                Text("${recommendedModel?.rating ?? 0}",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontWeight: FontWeight.w500))
-                    .centerLeft,
-                const Spacer(),
-                Text(
-                        Formatter.formatTotalSell(
-                            recommendedModel?.jumTerjual ?? 0),
-                        maxLines: 1,
-                        style: const TextStyle(fontWeight: FontWeight.w500))
-                    .centerLeft
-              ]
+              Formatter.formatRating(context,
+                  rating: recommendedModel?.rating ?? 0),
+              const Spacer(),
+              Text(Formatter.formatTotalSell(recommendedModel?.jumTerjual ?? 0),
+                      maxLines: 1,
+                      style: const TextStyle(fontWeight: FontWeight.w500))
+                  .centerLeft
             ])
           ]).paddingAll(StyleHelpers.allPaddingNumber)
         ]));

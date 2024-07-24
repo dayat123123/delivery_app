@@ -1,3 +1,6 @@
+// ignore_for_file: invalid_use_of_protected_member
+
+// import 'package:delivery_app/app.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme.dart';
 import 'package:delivery_app/shared/widgets/dialog_widget.dart';
 import 'package:delivery_app/shared/widgets/modal_bottom_sheet.dart';
@@ -42,11 +45,13 @@ extension ContextExtensions on BuildContext {
             icon: icon,
             useIcon: useIcon)
         .show(this);
+    // navigatorKey.currentState?.setState(() {});
   }
 
   void showBottomSheet(
       {Widget? header,
-      required Widget child,
+      Widget? basicBottomSheet,
+      Widget? child,
       bool showDragHandle = true,
       bool isScrollControlled = false,
       double? initialChildSize,
@@ -62,13 +67,15 @@ extension ContextExtensions on BuildContext {
         sheetAnimationStyle: AnimationStyle()
             .copyWith(reverseDuration: const Duration(milliseconds: 100)),
         backgroundColor: themeColors.appContainerBackground,
-        builder: (BuildContext context) => CustomModalBottomSheet(
-            header: header,
-            initialChildSize: initialChildSize,
-            minChildSize: minChildSize,
-            maxChildSize: maxChildSize,
-            isScrollChild: isScrollChild,
-            child: child));
+        builder: (BuildContext context) =>
+            basicBottomSheet ??
+            CustomModalBottomSheet(
+                header: header,
+                initialChildSize: initialChildSize,
+                minChildSize: minChildSize,
+                maxChildSize: maxChildSize,
+                isScrollChild: isScrollChild,
+                child: child ?? const SizedBox.shrink()));
   }
 
   void push(Widget destination, {Object? arguments}) {

@@ -22,6 +22,24 @@ class LoadAllFavorites extends FavoriteEvent {
   List<Object> get props => [];
 }
 
+class CreateNewGroupFavorite extends FavoriteEvent {
+  final GroupCartModel data;
+  final void Function(bool, String) onDone;
+  const CreateNewGroupFavorite({required this.data, required this.onDone});
+  @override
+  List<Object> get props => [data, onDone];
+}
+
+class CreateNewGroupFavoriteWithId extends FavoriteEvent {
+  final GroupCartModel data;
+  final void Function(bool, String) onDone;
+  final String productId;
+  const CreateNewGroupFavoriteWithId(
+      {required this.data, required this.onDone, required this.productId});
+  @override
+  List<Object> get props => [data, onDone, productId];
+}
+
 class ToggleFavorite extends FavoriteEvent {
   final int index;
   final CartModel data;
@@ -30,6 +48,15 @@ class ToggleFavorite extends FavoriteEvent {
 
   @override
   List<Object> get props => [index, data];
+}
+
+class RemoveGroupFavorit extends FavoriteEvent {
+  final String groupFavoritName;
+
+  const RemoveGroupFavorit({required this.groupFavoritName});
+
+  @override
+  List<Object> get props => [groupFavoritName];
 }
 
 class RemoveProductId extends FavoriteEvent {

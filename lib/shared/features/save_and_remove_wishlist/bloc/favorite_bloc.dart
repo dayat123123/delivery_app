@@ -14,6 +14,9 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     on<LoadFavorites>(_onLoadFavorites);
     on<LoadAllFavorites>(_onLoadAllFavorites);
     on<ToggleFavorite>(_onToggleFavorite);
+    on<CreateNewGroupFavorite>(_onCreateGroupFavorit);
+    on<CreateNewGroupFavoriteWithId>(_onCreateNewGroupFavoriteWithId);
+    on<RemoveGroupFavorit>(_onRemoveGroupFavorit);
   }
 
   void _onLoadFavorites(
@@ -67,9 +70,70 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
           return;
         }
       }
-
       updatedIsFavorite[event.index] = !statebool;
       emit(FavoritesLoaded(currentState.favorites, updatedIsFavorite));
+    }
+  }
+
+  void _onCreateGroupFavorit(
+      CreateNewGroupFavorite event, Emitter<FavoriteState> emit) async {
+    if (state is AllFavoritesLoaded) {
+      final currentState = state as AllFavoritesLoaded;
+      emit(FavoritesLoading());
+      bool isSuccess = await databaseHelper.createNewGroupFavorit(event.data);
+      event.onDone(isSuccess, event.data.groupCartName);
+      if (isSuccess) {
+        final List<GroupCartModel> updatedFavorites =
+            List.from(currentState.favorites);
+        updatedFavorites.insert(0, event.data);
+        emit(AllFavoritesLoaded(updatedFavorites));
+      } else {
+        emit(AllFavoritesLoaded(currentState.favorites));
+      }
+    }
+  }
+
+  void _onCreateNewGroupFavoriteWithId(
+      CreateNewGroupFavoriteWithId event, Emitter<FavoriteState> emit) async {
+    if (state is FavoritesLoaded) {
+      final currentState = state as FavoritesLoaded;
+      emit(FavoritesLoading());
+      bool isSuccess = await databaseHelper.createNewGroupFavorit(event.data);
+      event.onDone(isSuccess, event.data.groupCartName);
+      if (isSuccess) {
+        final List<GroupCartModel> updatedFavorites =
+            List.from(currentState.favorites);
+        updatedFavorites.insert(0, event.data);
+        final updatedIsFavorite = List<bool>.from(currentState.databool);
+        updatedIsFavorite.insert(0, false);
+        emit(FavoritesLoaded(updatedFavorites, updatedIsFavorite));
+      } else {
+        final List<GroupCartModel> updatedFavorites =
+            List.from(currentState.favorites);
+        final updatedIsFavorite = List<bool>.from(currentState.databool);
+        emit(FavoritesLoaded(updatedFavorites, updatedIsFavorite));
+      }
+    }
+  }
+
+  void _onRemoveGroupFavorit(
+      RemoveGroupFavorit event, Emitter<FavoriteState> emit) async {
+    if (state is AllFavoritesLoaded) {
+      final currentState = state as AllFavoritesLoaded;
+      emit(FavoritesLoading());
+      bool isSuccess =
+          await databaseHelper.removeGroupWithMember(event.groupFavoritName);
+      if (isSuccess) {
+        final List<GroupCartModel> updatedFavorites =
+            List.from(currentState.favorites);
+        updatedFavorites.removeWhere(
+            (element) => element.groupCartName == event.groupFavoritName);
+        emit(AllFavoritesLoaded(updatedFavorites));
+      } else {
+        final List<GroupCartModel> updatedFavorites =
+            List.from(currentState.favorites);
+        emit(AllFavoritesLoaded(updatedFavorites));
+      }
     }
   }
 }

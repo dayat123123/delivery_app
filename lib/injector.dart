@@ -12,14 +12,17 @@ import 'package:delivery_app/features/authentication/domain/usecases/register/re
 import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
 import 'package:delivery_app/features/big_promo/data/big_promo_repositories.dart';
 import 'package:delivery_app/features/big_promo/domain/usecases/get_big_promo.dart';
+import 'package:delivery_app/features/cart_order/bloc/cart_order_bloc.dart';
 import 'package:delivery_app/features/detail_product/data/repositories/product_repositories_impl.dart';
 import 'package:delivery_app/features/detail_product/domain/usecases/get_product_detail/get_product_detail.dart';
+import 'package:delivery_app/features/detail_toko/data/repositories/detail_toko_repositories_impl.dart';
+import 'package:delivery_app/features/detail_toko/domain/usecases/get_detail_toko/get_detail_toko.dart';
 import 'package:delivery_app/features/popular_now/data/popular_now_repositories.dart';
 import 'package:delivery_app/features/popular_now/domain/usecases/get_popular_now/get_popular_now.dart';
 import 'package:delivery_app/features/recommended/data/get_recommended_repositories.dart';
 import 'package:delivery_app/features/recommended/domain/usecases/get_recommended/get_recommended.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
-import 'package:delivery_app/shared/features/save_and_remove_favorit/bloc/favorite_bloc.dart';
+import 'package:delivery_app/shared/features/save_and_remove_wishlist/bloc/favorite_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
@@ -33,10 +36,12 @@ Future<void> initInjector() async {
   inject.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
   await inject.isReady<StorageHelper>();
   inject.registerSingleton<ThemeCubit>(ThemeCubit(inject.get<StorageHelper>()));
+
+  //--------------INJECT REPOSITORIES----------------//
+  //authentication
   inject.registerLazySingleton<FirebaseFirestore>(
       () => FirebaseFirestore.instance);
   inject.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
-
   inject.registerLazySingleton<FirebaseAuthentication>(() =>
       FirebaseAuthentication(
           firebaseAuth: inject.get<FirebaseAuth>(),
@@ -50,7 +55,6 @@ Future<void> initInjector() async {
       firebaseFirestore: inject.get<FirebaseFirestore>()));
   inject.registerLazySingleton<CheckIsLoggedin>(
       () => CheckIsLoggedin(authentication: inject.get<Authentication>()));
-  //authentication
   inject.registerLazySingleton<Login>(() => Login(
       authentication: inject.get<FirebaseAuthentication>(),
       userRepository: inject.get<FirebaseUserRepository>()));
@@ -60,25 +64,21 @@ Future<void> initInjector() async {
   inject.registerLazySingleton<Getloggedinuser>(() => Getloggedinuser(
       authentication: inject.get<FirebaseAuthentication>(),
       userRepository: inject.get<FirebaseUserRepository>()));
-  //--------------INJECT REPOSITORIES----------------//
   // getpopular
-  inject.registerLazySingleton<PopularNowRepositoriesImpl>(
-      () => PopularNowRepositoriesImpl());
-  inject.registerLazySingleton<GetPopularNow>(() => GetPopularNow(
-      popularNowRepositoriesImpl: inject.get<PopularNowRepositoriesImpl>()));
+  inject.registerLazySingleton<GetPopularNow>(() =>
+      GetPopularNow(popularNowRepositoriesImpl: PopularNowRepositoriesImpl()));
   // getrecommended
-  inject.registerLazySingleton<RecommendedRepositoriesImpl>(
-      () => RecommendedRepositoriesImpl());
-  inject.registerLazySingleton<GetRecommended>(() => GetRecommended(
-      recommendedRepositories: inject.get<RecommendedRepositoriesImpl>()));
+  inject.registerLazySingleton<GetRecommended>(() =>
+      GetRecommended(recommendedRepositories: RecommendedRepositoriesImpl()));
   // getbigpromo
-  inject.registerLazySingleton<BigPromoRepositoriesImpl>(
-      () => BigPromoRepositoriesImpl());
-  inject.registerLazySingleton<GetBigPromo>(() => GetBigPromo(
-      bigPromoRepositoriesImpl: inject.get<BigPromoRepositoriesImpl>()));
+  inject.registerLazySingleton<GetBigPromo>(
+      () => GetBigPromo(bigPromoRepositoriesImpl: BigPromoRepositoriesImpl()));
   // get product detail
   inject.registerLazySingleton<GetProductDetail>(() =>
       GetProductDetail(networkProductRepositories: ProductRepositoriesImpl()));
+  //get detail toko
+  inject.registerLazySingleton<GetDetailToko>(() =>
+      GetDetailToko(detailTokoRepositoriesImpl: DetailTokoRepositoriesImpl()));
   //--------------------INJECT BLOC--------------------//
   inject.registerSingleton<AuthenticationBloc>(AuthenticationBloc(
       getloggedinuser: inject.get<Getloggedinuser>(),
@@ -88,4 +88,6 @@ Future<void> initInjector() async {
       register: inject.get<Register>()));
   inject.registerSingleton<FavoriteBloc>(
       FavoriteBloc(databaseHelper: inject.get<DatabaseHelper>()));
+  inject.registerSingleton<CartOrderBloc>(
+      CartOrderBloc(databaseHelper: inject.get<DatabaseHelper>()));
 }

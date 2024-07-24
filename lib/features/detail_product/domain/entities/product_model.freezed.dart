@@ -31,9 +31,12 @@ mixin _$DetailProductModel {
   int get jumSave => throw _privateConstructorUsedError;
   int get stockProduct => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
+  int get totalReviewers => throw _privateConstructorUsedError;
   double get discount => throw _privateConstructorUsedError;
   String get numberPhone => throw _privateConstructorUsedError;
   LocationModel get location => throw _privateConstructorUsedError;
+  int get estimationTime => throw _privateConstructorUsedError;
+  List<CommentModel>? get listComments => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -60,9 +63,12 @@ abstract class $DetailProductModelCopyWith<$Res> {
       int jumSave,
       int stockProduct,
       double rating,
+      int totalReviewers,
       double discount,
       String numberPhone,
       LocationModel location,
+      int estimationTime,
+      List<CommentModel>? listComments,
       String? imageUrl});
 
   $LocationModelCopyWith<$Res> get location;
@@ -92,9 +98,12 @@ class _$DetailProductModelCopyWithImpl<$Res, $Val extends DetailProductModel>
     Object? jumSave = null,
     Object? stockProduct = null,
     Object? rating = null,
+    Object? totalReviewers = null,
     Object? discount = null,
     Object? numberPhone = null,
     Object? location = null,
+    Object? estimationTime = null,
+    Object? listComments = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -142,6 +151,10 @@ class _$DetailProductModelCopyWithImpl<$Res, $Val extends DetailProductModel>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
+      totalReviewers: null == totalReviewers
+          ? _value.totalReviewers
+          : totalReviewers // ignore: cast_nullable_to_non_nullable
+              as int,
       discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
@@ -154,6 +167,14 @@ class _$DetailProductModelCopyWithImpl<$Res, $Val extends DetailProductModel>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as LocationModel,
+      estimationTime: null == estimationTime
+          ? _value.estimationTime
+          : estimationTime // ignore: cast_nullable_to_non_nullable
+              as int,
+      listComments: freezed == listComments
+          ? _value.listComments
+          : listComments // ignore: cast_nullable_to_non_nullable
+              as List<CommentModel>?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -190,9 +211,12 @@ abstract class _$$DetailProductModelImplCopyWith<$Res>
       int jumSave,
       int stockProduct,
       double rating,
+      int totalReviewers,
       double discount,
       String numberPhone,
       LocationModel location,
+      int estimationTime,
+      List<CommentModel>? listComments,
       String? imageUrl});
 
   @override
@@ -221,9 +245,12 @@ class __$$DetailProductModelImplCopyWithImpl<$Res>
     Object? jumSave = null,
     Object? stockProduct = null,
     Object? rating = null,
+    Object? totalReviewers = null,
     Object? discount = null,
     Object? numberPhone = null,
     Object? location = null,
+    Object? estimationTime = null,
+    Object? listComments = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_$DetailProductModelImpl(
@@ -271,6 +298,10 @@ class __$$DetailProductModelImplCopyWithImpl<$Res>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
+      totalReviewers: null == totalReviewers
+          ? _value.totalReviewers
+          : totalReviewers // ignore: cast_nullable_to_non_nullable
+              as int,
       discount: null == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
@@ -283,6 +314,14 @@ class __$$DetailProductModelImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as LocationModel,
+      estimationTime: null == estimationTime
+          ? _value.estimationTime
+          : estimationTime // ignore: cast_nullable_to_non_nullable
+              as int,
+      listComments: freezed == listComments
+          ? _value._listComments
+          : listComments // ignore: cast_nullable_to_non_nullable
+              as List<CommentModel>?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -306,10 +345,14 @@ class _$DetailProductModelImpl implements _DetailProductModel {
       required this.jumSave,
       required this.stockProduct,
       required this.rating,
+      required this.totalReviewers,
       required this.discount,
       required this.numberPhone,
       required this.location,
-      this.imageUrl});
+      required this.estimationTime,
+      final List<CommentModel>? listComments,
+      this.imageUrl})
+      : _listComments = listComments;
 
   factory _$DetailProductModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$DetailProductModelImplFromJson(json);
@@ -337,17 +380,31 @@ class _$DetailProductModelImpl implements _DetailProductModel {
   @override
   final double rating;
   @override
+  final int totalReviewers;
+  @override
   final double discount;
   @override
   final String numberPhone;
   @override
   final LocationModel location;
   @override
+  final int estimationTime;
+  final List<CommentModel>? _listComments;
+  @override
+  List<CommentModel>? get listComments {
+    final value = _listComments;
+    if (value == null) return null;
+    if (_listComments is EqualUnmodifiableListView) return _listComments;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
   final String? imageUrl;
 
   @override
   String toString() {
-    return 'DetailProductModel(idProduct: $idProduct, namaProduct: $namaProduct, sellerId: $sellerId, sellerName: $sellerName, addressProduct: $addressProduct, categoryProduct: $categoryProduct, hargaProduct: $hargaProduct, jumTerjual: $jumTerjual, jumSave: $jumSave, stockProduct: $stockProduct, rating: $rating, discount: $discount, numberPhone: $numberPhone, location: $location, imageUrl: $imageUrl)';
+    return 'DetailProductModel(idProduct: $idProduct, namaProduct: $namaProduct, sellerId: $sellerId, sellerName: $sellerName, addressProduct: $addressProduct, categoryProduct: $categoryProduct, hargaProduct: $hargaProduct, jumTerjual: $jumTerjual, jumSave: $jumSave, stockProduct: $stockProduct, rating: $rating, totalReviewers: $totalReviewers, discount: $discount, numberPhone: $numberPhone, location: $location, estimationTime: $estimationTime, listComments: $listComments, imageUrl: $imageUrl)';
   }
 
   @override
@@ -375,12 +432,18 @@ class _$DetailProductModelImpl implements _DetailProductModel {
             (identical(other.stockProduct, stockProduct) ||
                 other.stockProduct == stockProduct) &&
             (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.totalReviewers, totalReviewers) ||
+                other.totalReviewers == totalReviewers) &&
             (identical(other.discount, discount) ||
                 other.discount == discount) &&
             (identical(other.numberPhone, numberPhone) ||
                 other.numberPhone == numberPhone) &&
             (identical(other.location, location) ||
                 other.location == location) &&
+            (identical(other.estimationTime, estimationTime) ||
+                other.estimationTime == estimationTime) &&
+            const DeepCollectionEquality()
+                .equals(other._listComments, _listComments) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl));
   }
@@ -400,9 +463,12 @@ class _$DetailProductModelImpl implements _DetailProductModel {
       jumSave,
       stockProduct,
       rating,
+      totalReviewers,
       discount,
       numberPhone,
       location,
+      estimationTime,
+      const DeepCollectionEquality().hash(_listComments),
       imageUrl);
 
   @JsonKey(ignore: true)
@@ -433,9 +499,12 @@ abstract class _DetailProductModel implements DetailProductModel {
       required final int jumSave,
       required final int stockProduct,
       required final double rating,
+      required final int totalReviewers,
       required final double discount,
       required final String numberPhone,
       required final LocationModel location,
+      required final int estimationTime,
+      final List<CommentModel>? listComments,
       final String? imageUrl}) = _$DetailProductModelImpl;
 
   factory _DetailProductModel.fromJson(Map<String, dynamic> json) =
@@ -464,11 +533,17 @@ abstract class _DetailProductModel implements DetailProductModel {
   @override
   double get rating;
   @override
+  int get totalReviewers;
+  @override
   double get discount;
   @override
   String get numberPhone;
   @override
   LocationModel get location;
+  @override
+  int get estimationTime;
+  @override
+  List<CommentModel>? get listComments;
   @override
   String? get imageUrl;
   @override

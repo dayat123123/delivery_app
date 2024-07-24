@@ -1,21 +1,24 @@
 import 'package:delivery_app/core/utils/local_database/cart_model.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/misc/formatter.dart';
-import 'package:delivery_app/shared/widgets/button.dart';
-
 import 'package:flutter/material.dart';
 
 class OrderFloating extends StatelessWidget {
-  final void Function()? onPressed;
+  final void Function()? onTapChat;
+  final void Function()? onTapCart;
+  final void Function()? onTapBuy;
   final CartModel data;
-  const OrderFloating({super.key, this.onPressed, required this.data});
+  const OrderFloating(
+      {super.key,
+      this.onTapChat,
+      required this.data,
+      this.onTapCart,
+      this.onTapBuy});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 25).copyWith(top: 7),
-        height: 70,
-        alignment: Alignment.topCenter,
+        padding: const EdgeInsets.only(bottom: 30),
+        height: 85,
         width: context.fullWidth,
         decoration: BoxDecoration(
             color: context.themeColors.appContainerBackground,
@@ -24,21 +27,47 @@ class OrderFloating extends StatelessWidget {
                   spreadRadius: 1,
                   color:
                       context.themeColors.appContainerShadow.withOpacity(0.1),
-                  blurRadius: 10,
-                  offset: const Offset(2, -2))
+                  blurRadius: 1,
+                  offset: const Offset(1, -1))
             ]),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(Formatter.formatPrice(data.productPrice),
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w500)),
-              CustomButton(
-                  height: 45,
-                  width: context.fullWidth * 0.35,
-                  text: "Add to cart",
-                  onPressed: onPressed)
-            ]));
+        child: Container(
+            decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+                        width: 1,
+                        color: context.themeColors.appContainerShadow))),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                      onTap: onTapChat,
+                      child: Container(
+                          color: context.themeColors.appContainerBackground,
+                          height: context.fullHeight,
+                          width: context.fullWidth * 0.25,
+                          child: const Icon(Icons.chat))),
+                  VerticalDivider(
+                      thickness: 1,
+                      color: context.themeColors.appContainerShadow),
+                  GestureDetector(
+                      onTap: onTapCart,
+                      child: Container(
+                          color: context.themeColors.appContainerBackground,
+                          height: context.fullHeight,
+                          width: context.fullWidth * 0.25,
+                          child: const Icon(Icons.add_shopping_cart))),
+                  Expanded(
+                      flex: 4,
+                      child: GestureDetector(
+                          onTap: onTapBuy,
+                          child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: context.themeColors.downward),
+                              child: const Text("BUY NOW",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w500)))))
+                ])));
   }
 }

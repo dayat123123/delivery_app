@@ -9,6 +9,8 @@ class StyleHelpers {
   static const double borderRadius = 10;
   static const BorderRadiusGeometry borderRadiusGeometry =
       BorderRadius.all(Radius.circular(borderRadius));
+  static EdgeInsets topMarginScaffold =
+      EdgeInsets.only(top: Platform.isAndroid ? 5 : 15);
   static EdgeInsets verticalPadding =
       EdgeInsets.symmetric(vertical: Platform.isAndroid ? 5 : 15);
   static EdgeInsets bottomPaddingInside = const EdgeInsets.only(bottom: 5);

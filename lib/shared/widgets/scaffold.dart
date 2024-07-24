@@ -13,6 +13,7 @@ class CustomScaffold extends StatelessWidget {
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final bool extendBody;
   final bool extendBodyBehindAppBar;
+  final Color? backgroundColor;
   const CustomScaffold(
       {super.key,
       this.appbar,
@@ -25,7 +26,8 @@ class CustomScaffold extends StatelessWidget {
       this.floatingActionButton,
       this.floatingActionButtonLocation,
       this.extendBody = false,
-      this.extendBodyBehindAppBar = false});
+      this.extendBodyBehindAppBar = false,
+      this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class CustomScaffold extends StatelessWidget {
         drawer: drawer,
         resizeToAvoidBottomInset: false,
         appBar: appbar,
+        backgroundColor: backgroundColor,
         floatingActionButton: floatingActionButton,
         body: Container(
             margin: margin,

@@ -8,4 +8,8 @@ class ParamsKeys {
   static const passwordKey = 'passwordKey';
   static const groupCartModel = "groupCartModel";
   static const sellerIdKey = "sellerIdKey";
+  static const sellerNameKey = "sellerNameKey";
+  static const indexImageKey = "indexImageKey";
+  static const commentDataKey = "commentDataKey";
+  static const checkoutdatakey = "checkoutdatakey";
 }

@@ -12,6 +12,8 @@ class CustomCarousel extends StatefulWidget {
   final bool animateView;
   final bool isShowIndicator;
   final int durationAnimateinseconds;
+  final bool withPadding;
+  final int? initialIndex;
   const CustomCarousel(
       {super.key,
       required this.listwidget,
@@ -20,7 +22,9 @@ class CustomCarousel extends StatefulWidget {
       this.widgetPositioned,
       this.animateView = false,
       this.isShowIndicator = true,
-      this.durationAnimateinseconds = 8});
+      this.durationAnimateinseconds = 8,
+      this.withPadding = true,
+      this.initialIndex});
 
   @override
   State<CustomCarousel> createState() => _CustomCarouselState();
@@ -32,10 +36,11 @@ class _CustomCarouselState extends State<CustomCarousel>
   late final int _itemCount;
   late final List<Widget> _listCarouselwidget;
   late Timer _timer;
-  int _currentIndex = 0;
+  late int _currentIndex;
   @override
   void initState() {
     super.initState();
+    _currentIndex = widget.initialIndex ?? 0;
     _itemCount = widget.listwidget.length;
     _listCarouselwidget = widget.listwidget;
     _tabController = widget.tabController ??
@@ -81,13 +86,16 @@ class _CustomCarouselState extends State<CustomCarousel>
   Widget build(BuildContext context) {
     return Stack(alignment: Alignment.center, children: [
       TabBarView(
-          clipBehavior: Clip.antiAlias,
-          controller: _tabController,
-          children: List.generate(
-              growable: false,
-              _listCarouselwidget.length,
-              (index) => _listCarouselwidget[index].paddingSymmetric(
-                  horizontal: StyleHelpers.horizontalPaddingnumber))),
+        clipBehavior: Clip.antiAlias,
+        controller: _tabController,
+        children: List.generate(
+            growable: false,
+            _listCarouselwidget.length,
+            (index) => widget.withPadding
+                ? _listCarouselwidget[index].paddingSymmetric(
+                    horizontal: StyleHelpers.horizontalPaddingnumber)
+                : _listCarouselwidget[index]),
+      ),
       if (widget.isShowIndicator)
         Positioned(
             bottom: widget.positionedIndicatorBottom,

@@ -11,7 +11,7 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      margin: StyleHelpers.verticalPadding,
+      margin: StyleHelpers.topMarginScaffold,
       padding: EdgeInsets.zero,
       appbar: AppBar(title: const Text('Search')),
       body: ListView(

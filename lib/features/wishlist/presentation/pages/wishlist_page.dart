@@ -1,10 +1,12 @@
-import 'package:delivery_app/core/utils/local_database/local_database_helper.dart';
+import 'package:delivery_app/core/utils/local_database/group_cart_model.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/features/save_and_remove_favorit/bloc/favorite_bloc.dart';
-import 'package:delivery_app/shared/features/save_and_remove_favorit/presentation/widgets/bottomsheet_favorit.dart';
+import 'package:delivery_app/shared/features/save_and_remove_wishlist/bloc/favorite_bloc.dart';
+import 'package:delivery_app/shared/features/save_and_remove_wishlist/presentation/widgets/bottomsheet_favorit.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/misc/style_helpers.dart';
+import 'package:delivery_app/shared/widgets/button.dart';
+import 'package:delivery_app/shared/widgets/dropdown_button.dart';
 import 'package:delivery_app/shared/widgets/progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:delivery_app/injector.dart';
@@ -22,7 +24,6 @@ class WishlistPage extends StatefulWidget {
 
 class _WishlistPageState extends State<WishlistPage> {
   late TextEditingController _controllerText;
-  final _store = inject.get<DatabaseHelper>();
   final _favoriteBloc = inject.get<FavoriteBloc>();
   @override
   void initState() {
@@ -39,35 +40,30 @@ class _WishlistPageState extends State<WishlistPage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        margin: StyleHelpers.verticalPadding,
+        margin: StyleHelpers.topMarginScaffold,
         appbar: AppBar(title: const Text('Wishlist'), actions: [
-          CardContainer(
-              withBottomMargin: false,
-              height: 35,
-              alignment: Alignment.center,
-              width: 80,
-              onTap: () =>
-                  showBottomSheetCreateNewFavorit(context, onDone: (p0, p1) {
+          CustomButton(
+            onPressed: () => showBottomSheetCreateNewFavorit(onSubmit: () {
+              _favoriteBloc.add(CreateNewGroupFavorite(
+                  onDone: (p0, p1) {
                     if (p0) {
                       context.pop();
+                      _controllerText.clear();
                       context.showCustomSnackbar(
                           type: DialogAccentType.success,
                           description: "Saved new collection");
-                      _favoriteBloc.add(const LoadAllFavorites());
                     } else {
                       context.showCustomSnackbar(
                           type: DialogAccentType.failed,
                           description: "Group $p1 is exist");
                     }
-                  }, controller: _controllerText),
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.add, color: context.theme.primaryColor),
-                    Text("Group",
-                        style: TextStyle(color: context.theme.primaryColor))
-                  ])).marginOnly(right: StyleHelpers.horizontalPaddingnumber)
+                  },
+                  data: GroupCartModel(groupCartName: _controllerText.text)));
+            }, context, controller: _controllerText),
+            text: "Group",
+            iconAnimated: Icons.add,
+            buttonType: ButtonType.buttonWithTextAndIcon,
+          ).marginOnly(right: StyleHelpers.horizontalPaddingnumber)
         ]),
         body: BlocBuilder<FavoriteBloc, FavoriteState>(
             bloc: _favoriteBloc,
@@ -102,19 +98,50 @@ class _WishlistPageState extends State<WishlistPage> {
                             context.showDialogCustom(
                                 content: "Delete group $groupName",
                                 onPressed: () async {
-                                  await _store.removeGroupWithMember(groupName);
-                                  _favoriteBloc.add(const LoadAllFavorites());
+                                  _favoriteBloc.add(RemoveGroupFavorit(
+                                      groupFavoritName: item.groupCartName));
                                 });
                           },
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(groupName,
-                                    style: const TextStyle(fontSize: 16)),
-                                Text("${item.items?.length ?? 0} items",
-                                    style: const TextStyle(fontSize: 15))
-                              ]));
+                          child: Row(children: [
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(groupName,
+                                      style: const TextStyle(fontSize: 16)),
+                                  Text("${item.items?.length ?? 0} items",
+                                      style: const TextStyle(fontSize: 15))
+                                ]),
+                            const Spacer(),
+                            CustomDropDownButton(
+                              constraints:
+                                  const BoxConstraints.tightFor(height: 120),
+                              popupmenuitem: [
+                                PopupMenuItemCustom(
+                                    onTap: () => context.showDialogCustom(
+                                        content: "Delete group $groupName",
+                                        onPressed: () async {
+                                          _favoriteBloc.add(RemoveGroupFavorit(
+                                              groupFavoritName:
+                                                  item.groupCartName));
+                                        }),
+                                    widget: const Text("Delete",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400))
+                                        .center),
+                                PopupMenuItemCustom(
+                                    widget: const Text("Edit Name",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400))
+                                        .center)
+                              ],
+                              child: const CardContainer(
+                                  withBottomMargin: false,
+                                  width: 35,
+                                  height: 35,
+                                  child: Icon(Icons.more_horiz)),
+                            )
+                          ]));
                     });
               } else if (state is FavoritesError) {
                 return Center(child: Text(state.message));

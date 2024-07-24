@@ -40,7 +40,7 @@ class _DetailWishlistState extends State<DetailWishlist> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        margin: StyleHelpers.verticalPadding,
+        margin: StyleHelpers.topMarginScaffold,
         appbar: AppBar(title: Text(widget.data.groupCartName)),
         body: GridView.builder(
             itemCount: memberData.length,

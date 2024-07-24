@@ -42,6 +42,15 @@ extension WidgetExtensions on Widget {
           child: this);
 
   Widget get paddingZero => Padding(padding: EdgeInsets.zero, child: this);
+
+  Widget wrapWithBanner({required bool isWrap, required String messageBanner}) {
+    if (isWrap) {
+      return Banner(
+          message: messageBanner, location: BannerLocation.topEnd, child: this);
+    } else {
+      return this;
+    }
+  }
 }
 
 extension WidgetUtility on Widget {

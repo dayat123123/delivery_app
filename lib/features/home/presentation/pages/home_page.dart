@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      margin: StyleHelpers.verticalPadding,
+      margin: StyleHelpers.topMarginScaffold,
       appbar: customAppBar(context, authBloc: authBloc, themeCubit: themeCubit),
       padding: EdgeInsets.zero,
       body: CustomScrollBar(

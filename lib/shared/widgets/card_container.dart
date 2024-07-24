@@ -1,4 +1,6 @@
+import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
+import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:delivery_app/shared/widgets/shimmer.dart';
@@ -75,10 +77,7 @@ class CardContainer extends StatelessWidget {
     return Column(children: [
       Expanded(
           child: CustomShimmer(
-              width: context.fullWidth,
-              child: Container(
-                color: Colors.black,
-              ))),
+              width: context.fullWidth, child: Container(color: Colors.black))),
       Wrap(children: [
         CustomShimmer(width: context.fullWidth * 0.2),
         const SizedBox(height: 25),
@@ -106,15 +105,17 @@ class CardContainer extends StatelessWidget {
   }
 
   BoxDecoration? _boxDecoration(BuildContext context, bool withBorder) {
+    final isDarkmode = inject.get<ThemeCubit>().isDarkTheme;
     switch (shape) {
       case CardContainerShape.rounded:
         return BoxDecoration(
+            color: color,
             boxShadow: [
               BoxShadow(
                   color:
                       context.themeColors.appContainerShadow.withOpacity(0.1),
-                  spreadRadius: 1,
-                  blurRadius: 5,
+                  spreadRadius: isDarkmode ? 0 : 1,
+                  blurRadius: isDarkmode ? 0 : 10,
                   offset: const Offset(1, 1))
             ],
             border: withBorder

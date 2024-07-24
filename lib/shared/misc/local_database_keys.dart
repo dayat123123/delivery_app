@@ -3,4 +3,5 @@ class LocalDatabaseKeys {
 
   static const String cartModelBox = "cartBox";
   static const String groupWishlish = "groupWishlish";
+  static const String groupOrderCart = "groupOrderCart";
 }

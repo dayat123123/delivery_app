@@ -8,13 +8,14 @@ import 'button.dart';
 class CustomSliverAppbar extends StatefulWidget {
   final List<CustomTabModel> listtab;
   final Widget backgroundAppbar;
-  final String? title;
-
+  final Widget? title;
+  final List<Widget>? actions;
   const CustomSliverAppbar(
       {super.key,
       required this.listtab,
       this.title,
-      required this.backgroundAppbar});
+      required this.backgroundAppbar,
+      this.actions});
 
   @override
   State<CustomSliverAppbar> createState() => _CustomSliverAppbarState();
@@ -33,15 +34,15 @@ class _CustomSliverAppbarState extends State<CustomSliverAppbar>
       ..addListener(() {
         if (_tabController.indexIsChanging) {
           int newIndex = _tabController.index;
-          widget.listtab[newIndex].onTap();
+          _callOnTap(newIndex);
         }
       });
-    _initFirstTab();
+    _callOnTap(0);
   }
 
-  _initFirstTab() {
+  _callOnTap(int index) {
     if (widget.listtab.isNotEmpty) {
-      widget.listtab[0].onTap();
+      widget.listtab[index].onTap?.call();
     }
   }
 
@@ -54,72 +55,56 @@ class _CustomSliverAppbarState extends State<CustomSliverAppbar>
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      padding: EdgeInsets.zero,
-      body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                backgroundColor: context.theme.scaffoldBackgroundColor,
-                leading: CustomButton(
-                  width: 50,
-                  buttonType: ButtonType.arrowbackbutton,
-                  onPressed: () => context.pop(),
-                ).marginOnly(left: 10),
-                title: _title(),
-                pinned: true,
-                floating: false,
-                expandedHeight: 250.0,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: widget.backgroundAppbar,
-                  stretchModes: const [StretchMode.zoomBackground],
-                ),
-              ),
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: _SliverAppBarDelegate(
-                  TabBar(
-                    overlayColor:
-                        const WidgetStatePropertyAll(Colors.transparent),
-                    controller: _tabController,
-                    labelStyle: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w500),
-                    tabs: _tab(),
-                    splashFactory: NoSplash.splashFactory,
-                    indicatorColor: context.theme.primaryColor,
-                    labelColor: context.textTheme.titleLarge?.color,
-                    unselectedLabelColor: context.themeColors.unselectedLabel,
-                    dividerColor: context.themeColors.appContainerShadow,
-                  ),
-                ),
-              ),
-            ];
-          },
-          body: TabBarView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: _tabController,
-              children: _tabChild())),
-    );
-  }
-
-  Widget? _title() {
-    if (widget.title != null) {
-      return Text(widget.title!);
-    }
-    return null;
+        padding: EdgeInsets.zero,
+        body: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                    actions: widget.actions,
+                    backgroundColor: context.theme.scaffoldBackgroundColor,
+                    leading: CustomButton(
+                      width: 50,
+                      buttonType: ButtonType.arrowbackbutton,
+                      onPressed: () => context.pop(),
+                    ).marginOnly(left: 10),
+                    title: widget.title,
+                    pinned: true,
+                    floating: false,
+                    expandedHeight: 250.0,
+                    flexibleSpace: FlexibleSpaceBar(
+                        background: widget.backgroundAppbar,
+                        stretchModes: const [StretchMode.zoomBackground])),
+                SliverPersistentHeader(
+                    pinned: true,
+                    delegate: _SliverAppBarDelegate(TabBar(
+                        overlayColor:
+                            const WidgetStatePropertyAll(Colors.transparent),
+                        controller: _tabController,
+                        labelStyle: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                        tabs: _tab(),
+                        splashFactory: NoSplash.splashFactory,
+                        indicatorColor: context.theme.primaryColor,
+                        labelColor: context.textTheme.titleLarge?.color,
+                        unselectedLabelColor:
+                            context.themeColors.unselectedLabel,
+                        dividerColor: context.themeColors.appContainerShadow)))
+              ];
+            },
+            body: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: _tabController,
+                children: _tabChild())));
   }
 
   List<Widget> _tab() {
     return List.generate(
-      tabLength,
-      (index) => Tab(text: widget.listtab[index].title),
-    );
+        tabLength, (index) => Tab(text: widget.listtab[index].title));
   }
 
   List<Widget> _tabChild() {
-    return List.generate(
-      tabLength,
-      (index) => widget.listtab[index].child,
-    );
+    return List.generate(tabLength, (index) => widget.listtab[index].child);
   }
 }
 
@@ -149,11 +134,11 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 class CustomTabModel {
   final String title;
   final Widget child;
-  final void Function() onTap;
+  final void Function()? onTap;
 
   CustomTabModel({
     required this.title,
     required this.child,
-    required this.onTap,
+    this.onTap,
   });
 }

@@ -1,7 +1,6 @@
 import 'package:delivery_app/core/utils/local_database/cart_model.dart';
 import 'package:delivery_app/features/big_promo/domain/entities/big_promo_model.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
-import 'package:delivery_app/shared/extensions/text_extensions.dart';
 import 'package:delivery_app/shared/misc/formatter.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
@@ -71,21 +70,9 @@ class CardBigPromo extends StatelessWidget {
                                   maxLines: 1,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500)),
-                              Row(children: [
-                                Formatter.formatPrice(
-                                        bigPromoModel?.hargaProduct ?? 0)
-                                    .textWithStrip(
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w500)),
-                                const SizedBox(width: 5),
-                                Text(
-                                    Formatter.formatDiscon(
-                                        bigPromoModel?.discount ?? 0,
-                                        bigPromoModel?.hargaProduct ?? 0),
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w500))
-                              ])
+                              Formatter.formatIsDiscon(context,
+                                  price: bigPromoModel?.hargaProduct ?? 0,
+                                  discount: bigPromoModel?.discount ?? 0)
                             ])))
               ]));
   }

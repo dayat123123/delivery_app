@@ -1,6 +1,10 @@
 import 'package:delivery_app/features/authentication/presentation/register_page.dart';
+import 'package:delivery_app/features/cart_order/presentation/pages/cart_order.dart';
+import 'package:delivery_app/features/checkout_order/presentation/pages/checkout_order.dart';
 import 'package:delivery_app/features/detail_category/presentation/detail_category.dart';
-import 'package:delivery_app/features/detail_product/presentation/detail_product.dart';
+import 'package:delivery_app/features/detail_product/presentation/pages/comments_showmore.dart';
+import 'package:delivery_app/features/detail_product/presentation/pages/detail_product.dart';
+import 'package:delivery_app/features/detail_product/presentation/pages/focus_comment.dart';
 import 'package:delivery_app/features/detail_toko/presentation/pages/detail_store.dart';
 import 'package:delivery_app/features/home/presentation/pages/main_page.dart';
 import 'package:delivery_app/features/notification/presentation/notification.dart';
@@ -37,11 +41,29 @@ class AppPages {
         return MaterialPageRoute(
             builder: (context) =>
                 DetailProductPage(data: data[ParamsKeys.cartProduct]));
-      case RouteNames.DetailStorepage:
+      case RouteNames.focustcommentpage:
+        final data = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+            builder: (context) => FocusComment(
+                indexImage: data[ParamsKeys.indexImageKey],
+                data: data[ParamsKeys.commentDataKey]));
+      case RouteNames.showmorecomments:
+        final data = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+            builder: (context) => CommentsShowmore(
+                productId: data[ParamsKeys.idProduct],
+                sellerId: data[ParamsKeys.sellerIdKey]));
+      case RouteNames.detailstorepage:
+        final data = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+            builder: (context) => DetailStore(
+                sellerId: data[ParamsKeys.sellerIdKey],
+                sellerName: data[ParamsKeys.sellerNameKey]));
+      case RouteNames.checkoutorderpage:
         final data = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
             builder: (context) =>
-                DetailStore(sellerId: data[ParamsKeys.sellerIdKey]));
+                CheckoutOrder(data: data[ParamsKeys.checkoutdatakey]));
       case RouteNames.searchpage:
         return MaterialPageRoute(builder: (context) => const SearchPage());
       case RouteNames.orderpage:
@@ -61,6 +83,8 @@ class AppPages {
         return MaterialPageRoute(
             builder: (context) =>
                 DetailCategory(category: data[ParamsKeys.title]));
+      case RouteNames.cartorderpage:
+        return MaterialPageRoute(builder: (context) => const CartOrder());
       default:
         return MaterialPageRoute(builder: (context) => const SizedBox.shrink());
     }
@@ -76,11 +100,15 @@ class RouteNames {
   static const String homepage = '/homepage';
   static const String mainpage = '/mainpage';
   static const String detailitempage = '/detailitempage';
+  static const String focustcommentpage = '/focustcommentpage';
+  static const String showmorecomments = '/showmorecomments';
   static const String detailcategory = '/detailcategory';
   static const String searchpage = '/searchpage';
   static const String wishlistpage = '/wishlistpage';
   static const String detailwishlistpage = '/detailwishlistpage';
   static const String orderpage = '/orderpage';
   static const String notificationpage = '/notificationpage';
-  static const String DetailStorepage = '/DetailStorepage';
+  static const String detailstorepage = '/detailstorepage';
+  static const String cartorderpage = '/cartorderpage';
+  static const String checkoutorderpage = '/checkoutorderpage';
 }
