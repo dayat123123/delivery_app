@@ -1,10 +1,13 @@
 import 'package:delivery_app/core/entities/result.dart';
-import 'package:delivery_app/features/cart_order/data/cart_order_repositories_impl.dart';
+import 'package:delivery_app/features/cart_order/domain/repositories/cart_order_repository.dart';
 import 'package:delivery_app/features/cart_order/domain/usecases/get_list_order_cart/get_list_order_cart.dart';
 import 'package:delivery_app/features/cart_order/domain/usecases/get_total_product_in_cart/get_total_product_in_cart.dart';
+import 'package:delivery_app/features/cart_order/domain/usecases/remove_group_order_cart/remove_group_order_cart.dart';
+import 'package:delivery_app/features/cart_order/domain/usecases/remove_item_in_group_order_cart/remove_item_in_group_order_cart.dart';
+import 'package:delivery_app/features/cart_order/domain/usecases/update_items_in_group_order_cart/update_items_in_group_order_cart.dart';
+import 'package:delivery_app/features/cart_order/domain/usecases/utils/group_order_cart_params.dart';
 import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/features/cart_order/domain/entities/group_order_cart_model.dart';
-import 'package:delivery_app/core/utils/local_database/local_database_helper.dart';
 import 'package:delivery_app/features/cart_order/domain/entities/order_cart_model.dart';
 import 'package:delivery_app/shared/misc/formatter.dart';
 import 'package:equatable/equatable.dart';
@@ -15,25 +18,25 @@ part 'cart_order_event.dart';
 part 'cart_order_state.dart';
 
 class CartOrderBloc extends Bloc<CartOrderEvent, CartOrderState> {
-  final DatabaseHelper databaseHelper = inject.get<DatabaseHelper>();
-  final GetListOrderCart getListOrderCart =
-      GetListOrderCart(inject.get<CartOrderRepositoriesImpl>());
-  final GetTotalProductInCart getTotalProductInCart =
-      GetTotalProductInCart(inject.get<CartOrderRepositoriesImpl>());
+  static final _repository = inject.get<CartOrderRepository>();
+  final getListOrderCart = GetListOrderCartUseCase(_repository);
+  final getTotalProductInCart = GetTotalProductInOrderCartUseCase(_repository);
+  final removeGroupCartOrder = RemoveGroupOrderCart(_repository);
+  final updateItemsInGroupOrderCart = UpdateItemsInGroupOrderCart(_repository);
+  final removeItemInGroupOrderCart = RemoveItemInGroupOrderCart(_repository);
   CartOrderBloc() : super(CartOrderLoading()) {
     on<LoadCartOrder>(_onLoadCartOrder);
     on<ReloadLoadCartOrder>(_onReloadCartOrder);
-    on<UpdateItemsInCartOrderGroup>(_onUpdateItemInGroupCart);
-    on<RemoveItemsOnCartOrderGroup>(_onRemoveItemInGroupCart);
-    on<RemoveCartOrderGroup>(_onRemoveOrderCartGroup);
+    on<UpdateItemsInCartOrderGroup>(_onUpdateItemInGroupCartOrder);
+    on<RemoveItemsOnCartOrderGroup>(_onRemoveItemInGroupCartOrder);
+    on<RemoveCartOrderGroup>(_onRemoveGroupCartOrder);
   }
-  //new
   void _onLoadCartOrder(
       LoadCartOrder event, Emitter<CartOrderState> emit) async {
     emit(CartOrderLoading());
-    final result = await getListOrderCart.call(null);
+    final result = await getListOrderCart.call();
     if (result is Success) {
-      final intLength = await getTotalProductInCart.call(null);
+      final intLength = await getTotalProductInCart.call();
       final isSuccess = intLength as Success;
       emit(CartOrderLoaded(
           dataList: result.resultValue!,
@@ -45,19 +48,24 @@ class CartOrderBloc extends Bloc<CartOrderEvent, CartOrderState> {
     }
   }
 
-  // new
   _onReloadCartOrder(
       ReloadLoadCartOrder event, Emitter<CartOrderState> emit) async {
     emit(CartOrderLoading());
-    final result = await getListOrderCart.call(null);
+    final result = await getListOrderCart.call();
     if (result is Success) {
-      final intLength = await getTotalProductInCart.call(null);
-      final isSuccess = intLength as Success;
-      await Future.delayed(const Duration(seconds: 1));
-      event.controller.refreshCompleted();
-      emit(CartOrderLoaded(
-          dataList: result.resultValue!,
-          lengthProductGroup: isSuccess.resultValue));
+      final datalist = result.resultValue!;
+      final resultLength = await getTotalProductInCart.call();
+      if (resultLength is Success) {
+        await Future.delayed(const Duration(seconds: 1));
+        event.controller.refreshCompleted();
+        emit(CartOrderLoaded(
+            dataList: datalist, lengthProductGroup: resultLength.resultValue!));
+      } else {
+        event.controller.refreshCompleted();
+        emit(CartOrderError(
+            error: Formatter.errorMessageCatchException(
+                resultLength.errorMessage.toString())));
+      }
     } else {
       event.controller.refreshCompleted();
       emit(CartOrderError(
@@ -66,69 +74,72 @@ class CartOrderBloc extends Bloc<CartOrderEvent, CartOrderState> {
     }
   }
 
-  void _onRemoveOrderCartGroup(
+  void _onRemoveGroupCartOrder(
       RemoveCartOrderGroup event, Emitter<CartOrderState> emit) async {
-    if (state is CartOrderLoaded) {
-      final currentState = state as CartOrderLoaded;
-      try {
-        bool isSuccess = await databaseHelper.removeOrderCartGroup(
-            groupCartOrderId: event.cartOrderGroupId);
-        if (isSuccess) {
-          List<GroupOrderCartModel> updatedDataList =
-              List.from(currentState.dataList);
-          updatedDataList.removeWhere(
-              (element) => element.groupOrderCartId == event.cartOrderGroupId);
-          final int length = await databaseHelper.getLengthProductInCart();
-          emit(CartOrderLoaded(
-              dataList: updatedDataList, lengthProductGroup: length));
-        }
-      } catch (e) {
-        emit(CartOrderError(error: e.toString()));
+    final result = await removeGroupCartOrder.call(event.cartOrderGroupId);
+    if (result is Success) {
+      final datalist = result.resultValue!;
+      final resultLength = await getTotalProductInCart.call();
+      if (resultLength is Success) {
+        emit(CartOrderLoaded(
+            dataList: datalist, lengthProductGroup: resultLength.resultValue!));
+      } else {
+        emit(CartOrderError(
+            error: Formatter.errorMessageCatchException(
+                resultLength.errorMessage.toString())));
       }
+    } else {
+      emit(CartOrderError(
+          error: Formatter.errorMessageCatchException(
+              result.errorMessage.toString())));
     }
   }
 
-  void _onUpdateItemInGroupCart(
+  void _onUpdateItemInGroupCartOrder(
       UpdateItemsInCartOrderGroup event, Emitter<CartOrderState> emit) async {
-    if (state is CartOrderLoaded) {
-      try {
-        await databaseHelper.updateItemsInCartOrderGroup(
-            newItem: event.newItem, groupData: event.groupData);
-      } catch (e) {
-        emit(CartOrderError(error: e.toString()));
+    final result = await updateItemsInGroupOrderCart.call(
+        OrderCartAndGroupCartParam(
+            orderCartModel: event.newItem,
+            groupOrderCartModel: event.groupData));
+    if (result is Success) {
+      final datalist = result.resultValue!;
+      final resultLength = await getTotalProductInCart.call();
+      if (resultLength is Success) {
+        emit(CartOrderLoaded(
+            dataList: datalist, lengthProductGroup: resultLength.resultValue!));
+      } else {
+        emit(CartOrderError(
+            error: Formatter.errorMessageCatchException(
+                resultLength.errorMessage.toString())));
       }
+    } else {
+      emit(CartOrderError(
+          error: Formatter.errorMessageCatchException(
+              result.errorMessage.toString())));
     }
   }
 
-  void _onRemoveItemInGroupCart(
+  void _onRemoveItemInGroupCartOrder(
       RemoveItemsOnCartOrderGroup event, Emitter<CartOrderState> emit) async {
-    if (state is CartOrderLoaded) {
-      try {
-        bool isSuccess = await databaseHelper.removeItemsInCartOrderGroup(
-            newItem: event.deleteItem, groupData: event.groupData);
-        if (isSuccess) {
-          final currentState = state as CartOrderLoaded;
-          List<GroupOrderCartModel> updatedDataList =
-              List.from(currentState.dataList);
-          int groupIndex = updatedDataList.indexWhere((element) =>
-              element.groupOrderCartId == event.groupData.groupOrderCartId);
-          if (groupIndex == -1) return;
-
-          GroupOrderCartModel groupData = updatedDataList[groupIndex];
-          List<OrderCartModel> items = List.from(groupData.items);
-
-          items.removeWhere(
-              (element) => element.productId == event.deleteItem.productId);
-          updatedDataList[groupIndex] =
-              groupData.copyWith(items: items.isNotEmpty ? items : []);
-
-          final int length = await databaseHelper.getLengthProductInCart();
-          emit(CartOrderLoaded(
-              dataList: updatedDataList, lengthProductGroup: length));
-        }
-      } catch (e) {
-        emit(CartOrderError(error: e.toString()));
+    final result = await removeItemInGroupOrderCart.call(
+        OrderCartAndGroupCartParam(
+            orderCartModel: event.deleteItem,
+            groupOrderCartModel: event.groupData));
+    if (result is Success) {
+      final datalist = result.resultValue!;
+      final resultLength = await getTotalProductInCart.call();
+      if (resultLength is Success) {
+        emit(CartOrderLoaded(
+            dataList: datalist, lengthProductGroup: resultLength.resultValue!));
+      } else {
+        emit(CartOrderError(
+            error: Formatter.errorMessageCatchException(
+                resultLength.errorMessage.toString())));
       }
+    } else {
+      emit(CartOrderError(
+          error: Formatter.errorMessageCatchException(
+              result.errorMessage.toString())));
     }
   }
 }

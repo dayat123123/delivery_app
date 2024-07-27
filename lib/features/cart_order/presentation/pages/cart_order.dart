@@ -1,5 +1,4 @@
 import 'package:delivery_app/features/cart_order/domain/entities/group_order_cart_model.dart';
-import 'package:delivery_app/core/utils/local_database/local_database_helper.dart';
 import 'package:delivery_app/features/cart_order/domain/entities/order_cart_model.dart';
 import 'package:delivery_app/features/cart_order/presentation/bloc/cart_order_bloc.dart';
 import 'package:delivery_app/features/cart_order/presentation/widgets/card_cart.dart';
@@ -25,40 +24,9 @@ class CartOrder extends StatefulWidget {
 
 class _CartOrderState extends State<CartOrder> {
   final _cartOrderBloc = inject.get<CartOrderBloc>();
-  final _databaseHelper = inject.get<DatabaseHelper>();
-
   @override
   void initState() {
-    // dummiesData();
     super.initState();
-  }
-
-  void dummiesData() async {
-    await _databaseHelper.createNewOrderGroupCart(GroupOrderCartModel(
-        groupOrderCartId: "2",
-        groupOrderCartName: "New 2",
-        items: [
-          OrderCartModel(
-              productId: "1",
-              productName: "Ayam 1",
-              productPrice: 1234,
-              quantity: 5),
-          OrderCartModel(
-              productId: "2",
-              productName: "Ayam 2",
-              productPrice: 1221,
-              quantity: 6),
-          OrderCartModel(
-              productId: "3",
-              productName: "Ayam 3",
-              productPrice: 5555,
-              quantity: 7),
-          OrderCartModel(
-              productId: "4",
-              productName: "Ayam 4",
-              productPrice: 6666,
-              quantity: 8)
-        ]));
   }
 
   _onTapDeleteGroupCart(GroupOrderCartModel data) => context.showDialogCustom(

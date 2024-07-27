@@ -1,14 +1,12 @@
 import 'package:delivery_app/core/entities/result.dart';
-import 'package:delivery_app/core/usecases/usecases.dart';
-import 'package:delivery_app/features/cart_order/data/cart_order_repositories_impl.dart';
+import 'package:delivery_app/features/cart_order/domain/repositories/cart_order_repository.dart';
 
-class GetTotalProductInCart implements UseCase<Result<int>, void> {
-  final CartOrderRepositoriesImpl cartOrderRepositoriesImpl;
+class GetTotalProductInOrderCartUseCase {
+  final CartOrderRepository _repository;
 
-  GetTotalProductInCart(this.cartOrderRepositoriesImpl);
+  GetTotalProductInOrderCartUseCase(this._repository);
 
-  @override
-  Future<Result<int>> call(void params) async {
-    return await cartOrderRepositoriesImpl.getTotalProductInOrderCart();
+  Future<Result<int>> call() async {
+    return await _repository.getTotalProductInOrderCart();
   }
 }
