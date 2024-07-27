@@ -3,7 +3,7 @@ import 'package:delivery_app/features/big_promo/domain/repositories/big_promo_re
 import 'package:delivery_app/features/big_promo/presentation/bloc/big_promo_event.dart';
 import 'package:delivery_app/features/big_promo/domain/entities/big_promo_model.dart';
 import 'package:delivery_app/features/big_promo/domain/usecases/get_big_promo.dart';
-import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/dependency_injection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

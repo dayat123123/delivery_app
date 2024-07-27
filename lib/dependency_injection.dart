@@ -31,41 +31,47 @@ import 'package:delivery_app/features/wishlish/presentation/bloc/favorite_bloc.d
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
+//=========registerSingleton==========
+///Gunakan ketika Anda ingin satu instance dari dependency untuk seluruh aplikasi dan ingin segera menginisialisasi
+/// objek tersebut saat pendaftaran. Cocok untuk objek yang perlu tersedia segera setelah aplikasi dimulai.
+
+//==========registerFactory==========
+///Gunakan ketika Anda ingin objek baru setiap kali dependency tersebut diminta.
+///Cocok untuk objek yang stateless atau tidak perlu mempertahankan status antar panggilan.
+
+//==========registerLazySingleton==========
+///Gunakan ketika Anda ingin satu instance dari dependency untuk seluruh aplikasi, tetapi hanya ingin menginisialisasi objek
+///tersebut saat pertama kali diminta.Efisien untuk objek yang berat atau mahal untuk dibuat.
+
 final GetIt inject = GetIt.I;
 
 Future<void> initInjector() async {
-  inject.registerSingletonAsync<StorageHelper>(() async {
-    final storageHelper = StorageHelper();
-    return storageHelper;
-  });
+  inject.registerSingletonAsync<StorageHelper>(() async => StorageHelper());
   inject.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
   await inject.isReady<StorageHelper>();
-  inject.registerSingleton<ThemeCubit>(ThemeCubit(inject.get<StorageHelper>()));
   //--------------INJECT REPOSITORIES----------------//
   //authentication
   inject.registerLazySingleton<FirebaseFirestore>(
       () => FirebaseFirestore.instance);
   inject.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
-  inject.registerLazySingleton<FirebaseAuthentication>(() =>
-      FirebaseAuthentication(
-          firebaseAuth: inject.get<FirebaseAuth>(),
-          fluterSecureStorage: inject.get<StorageHelper>()));
-  inject.registerLazySingleton<FirebaseUserRepository>(() =>
-      FirebaseUserRepository(
-          firebaseFirestore: inject.get<FirebaseFirestore>()));
-  inject.registerLazySingleton<Authentication>(
-      () => FirebaseAuthentication(firebaseAuth: inject.get<FirebaseAuth>()));
-  inject.registerLazySingleton<UserRepository>(() => FirebaseUserRepository(
+  inject.registerFactory<FirebaseAuthentication>(() => FirebaseAuthentication(
+      firebaseAuth: inject.get<FirebaseAuth>(),
+      fluterSecureStorage: inject.get<StorageHelper>()));
+  inject.registerFactory<FirebaseUserRepository>(() => FirebaseUserRepository(
       firebaseFirestore: inject.get<FirebaseFirestore>()));
-  inject.registerLazySingleton<CheckIsLoggedin>(
+  inject.registerFactory<Authentication>(
+      () => FirebaseAuthentication(firebaseAuth: inject.get<FirebaseAuth>()));
+  inject.registerFactory<UserRepository>(() => FirebaseUserRepository(
+      firebaseFirestore: inject.get<FirebaseFirestore>()));
+  inject.registerFactory<CheckIsLoggedin>(
       () => CheckIsLoggedin(authentication: inject.get<Authentication>()));
-  inject.registerLazySingleton<Login>(() => Login(
+  inject.registerFactory<Login>(() => Login(
       authentication: inject.get<FirebaseAuthentication>(),
       userRepository: inject.get<FirebaseUserRepository>()));
-  inject.registerLazySingleton<Register>(() => Register(
+  inject.registerFactory<Register>(() => Register(
       authentication: inject.get<FirebaseAuthentication>(),
       userRepository: inject.get<FirebaseUserRepository>()));
-  inject.registerLazySingleton<Getloggedinuser>(() => Getloggedinuser(
+  inject.registerFactory<Getloggedinuser>(() => Getloggedinuser(
       authentication: inject.get<FirebaseAuthentication>(),
       userRepository: inject.get<FirebaseUserRepository>()));
   // favorite
@@ -74,10 +80,10 @@ Future<void> initInjector() async {
   inject.registerFactory<FavoriteRepository>(
       () => FavoriteRepositoryImpl(inject.get<FavoriteLocalDataSource>()));
   // popular now
-  inject.registerLazySingleton<PopularNowRepositoriesImpl>(
+  inject.registerFactory<PopularNowRepositoriesImpl>(
       () => PopularNowRepositoriesImpl());
   // recommended
-  inject.registerLazySingleton<RecommendedRepositoriesImpl>(
+  inject.registerFactory<RecommendedRepositoriesImpl>(
       () => RecommendedRepositoriesImpl());
   // big promo
   inject.registerFactory<BigPromoDataSource>(() => BigPromoDataSourceImpl());
@@ -90,7 +96,7 @@ Future<void> initInjector() async {
       DetailProductRepositoryImpl(
           inject.get<DetailProductNetworkDataSource>()));
   //detail toko
-  inject.registerLazySingleton<DetailTokoRepositoriesImpl>(
+  inject.registerFactory<DetailTokoRepositoriesImpl>(
       () => DetailTokoRepositoriesImpl());
   // cart order
   inject.registerFactory<CartOrderLocalDataSource>(
@@ -99,7 +105,8 @@ Future<void> initInjector() async {
       () => CartOrderRepositoryImpl(inject.get<CartOrderLocalDataSource>()));
 
   //--------------------INJECT BLOC--------------------//
-  inject.registerSingleton<AuthenticationBloc>(AuthenticationBloc());
-  inject.registerSingleton<FavoriteBloc>(FavoriteBloc());
-  inject.registerSingleton<CartOrderBloc>(CartOrderBloc());
+  inject.registerSingleton<ThemeCubit>(ThemeCubit(inject.get<StorageHelper>()));
+  inject.registerLazySingleton<AuthenticationBloc>(() => AuthenticationBloc());
+  inject.registerLazySingleton<FavoriteBloc>(() => FavoriteBloc());
+  inject.registerLazySingleton<CartOrderBloc>(() => CartOrderBloc());
 }

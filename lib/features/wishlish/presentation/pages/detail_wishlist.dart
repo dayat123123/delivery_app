@@ -1,7 +1,7 @@
 import 'package:delivery_app/features/wishlish/domain/entities/cart_model.dart';
 import 'package:delivery_app/features/wishlish/domain/entities/group_cart_model.dart';
 import 'package:delivery_app/features/wishlish/presentation/widgets/card_detail_wishlish.dart';
-import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/dependency_injection.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/features/wishlish/presentation/bloc/favorite_bloc.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';

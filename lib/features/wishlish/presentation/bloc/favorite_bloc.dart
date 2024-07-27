@@ -1,6 +1,6 @@
 import 'package:delivery_app/core/entities/result.dart';
 import 'package:delivery_app/features/wishlish/domain/repositories/favorite_repository.dart';
-import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/dependency_injection.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/features/wishlish/domain/entities/cart_model.dart';
 import 'package:delivery_app/features/wishlish/domain/entities/group_cart_model.dart';

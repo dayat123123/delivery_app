@@ -5,7 +5,7 @@ import 'package:delivery_app/shared/widgets/checkbox_listtile.dart';
 import 'package:delivery_app/shared/widgets/progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/dependency_injection.dart';
 
 class FavoriteListTile extends StatelessWidget {
   final CartModel data;

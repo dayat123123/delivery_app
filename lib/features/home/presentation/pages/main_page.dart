@@ -3,7 +3,7 @@ import 'package:delivery_app/features/home/presentation/pages/home_page.dart';
 import 'package:delivery_app/features/home/presentation/widgets/bottomnavigatorbar.dart';
 import 'package:delivery_app/features/order/presentation/pages/order_page.dart';
 import 'package:delivery_app/features/wishlish/presentation/pages/wishlist_page.dart';
-import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/dependency_injection.dart';
 import 'package:delivery_app/features/wishlish/presentation/bloc/favorite_bloc.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:flutter/material.dart';

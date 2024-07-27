@@ -1,7 +1,7 @@
 import 'package:delivery_app/features/wishlish/domain/entities/group_cart_model.dart';
 import 'package:delivery_app/features/cart_order/domain/entities/group_order_cart_model.dart';
 import 'package:delivery_app/features/cart_order/domain/entities/order_cart_model.dart';
-import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/dependency_injection.dart';
 import 'package:delivery_app/shared/misc/local_database_keys.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../features/wishlish/domain/entities/cart_model.dart';

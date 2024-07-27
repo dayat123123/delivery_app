@@ -6,7 +6,7 @@ import 'package:delivery_app/features/authentication/domain/usecases/checkisLogg
 import 'package:delivery_app/features/authentication/domain/usecases/getLoggedinUser/get_loggedin_user.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/login/login.dart';
 import 'package:delivery_app/features/authentication/domain/usecases/register/register.dart';
-import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/dependency_injection.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';

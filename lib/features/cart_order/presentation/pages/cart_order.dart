@@ -2,7 +2,7 @@ import 'package:delivery_app/features/cart_order/domain/entities/group_order_car
 import 'package:delivery_app/features/cart_order/domain/entities/order_cart_model.dart';
 import 'package:delivery_app/features/cart_order/presentation/bloc/cart_order_bloc.dart';
 import 'package:delivery_app/features/cart_order/presentation/widgets/card_cart.dart';
-import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/dependency_injection.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';

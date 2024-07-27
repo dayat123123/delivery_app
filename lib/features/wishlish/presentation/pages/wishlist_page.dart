@@ -9,7 +9,7 @@ import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:delivery_app/shared/widgets/pop_up_menu_button.dart';
 import 'package:delivery_app/shared/widgets/progress_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/dependency_injection.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/card_container.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';

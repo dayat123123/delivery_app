@@ -10,7 +10,7 @@ import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:delivery_app/shared/widgets/card_container.dart';
 import 'package:delivery_app/shared/widgets/network_image.dart';
 import 'package:delivery_app/shared/widgets/product_widgets.dart';
-import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/dependency_injection.dart';
 import 'package:flutter/material.dart';
 
 void addItemToCart(BuildContext context, {required DetailProductModel data}) {

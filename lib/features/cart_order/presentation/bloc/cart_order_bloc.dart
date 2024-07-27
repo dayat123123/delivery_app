@@ -7,7 +7,7 @@ import 'package:delivery_app/features/cart_order/domain/usecases/remove_group_or
 import 'package:delivery_app/features/cart_order/domain/usecases/remove_item_in_group_order_cart/remove_item_in_group_order_cart.dart';
 import 'package:delivery_app/features/cart_order/domain/usecases/update_items_in_group_order_cart/update_items_in_group_order_cart.dart';
 import 'package:delivery_app/features/cart_order/domain/usecases/utils/group_order_cart_params.dart';
-import 'package:delivery_app/injector.dart';
+import 'package:delivery_app/dependency_injection.dart';
 import 'package:delivery_app/features/cart_order/domain/entities/group_order_cart_model.dart';
 import 'package:delivery_app/features/cart_order/domain/entities/order_cart_model.dart';
 import 'package:delivery_app/shared/misc/formatter.dart';
