@@ -52,12 +52,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   void initState() {
+    if (widget.autoFocus ?? false) {
+      _selectAllExistingText();
+    }
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -76,7 +74,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
       },
       inputFormatters: [inputformatter()],
       onTapOutside: (event) {
-        FocusScope.of(context).unfocus();
+        if (widget.focusNode != null) {
+          widget.focusNode?.requestFocus();
+        } else {
+          FocusScope.of(context).unfocus();
+        }
         widget.onTapOutside?.call();
       },
       maxLength: lengthInput(),
@@ -90,6 +92,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
           icon: iconTextfield(),
           suffixIcon: suffixiconTextfield()),
     ).marginOnly(right: 10);
+  }
+
+  _selectAllExistingText() {
+    if (widget.controller != null) {
+      widget.controller?.selection = TextSelection(
+          baseOffset: 0, extentOffset: (widget.controller?.text.length ?? 0));
+    }
   }
 
   bool obscureText() {

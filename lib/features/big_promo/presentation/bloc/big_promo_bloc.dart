@@ -16,7 +16,7 @@ class BigPromoBloc extends Bloc<BigPromoEvent, BigPromoState> {
   BigPromoBloc() : super(BigPromoInitial()) {
     on<FetchBigPromo>((event, emit) async {
       emit(BigPromoLoading());
-      final result = await _getBigPromoUseCase.call();
+      final result = await _getBigPromoUseCase.call(null);
       if (result is Success) {
         final data = result.resultValue;
         emit(BigPromoLoaded(bigPromoProduct: data ?? []));

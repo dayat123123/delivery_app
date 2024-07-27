@@ -1,4 +1,4 @@
-import 'package:delivery_app/features/favorit/domain/entities/cart_model.dart';
+import 'package:delivery_app/features/wishlish/domain/entities/cart_model.dart';
 import 'package:delivery_app/features/detail_product/presentation/bloc/detail_product_bloc.dart';
 import 'package:delivery_app/features/detail_product/presentation/bloc/detail_product_event.dart';
 import 'package:delivery_app/features/detail_product/presentation/widgets/order_floating.dart';
@@ -6,7 +6,7 @@ import 'package:delivery_app/features/detail_product/presentation/widgets/produc
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/features/cart_order/presentation/widgets/bottom_sheet_add_to_cart.dart';
-import 'package:delivery_app/features/favorit/presentation/widgets/bottomsheet_and_dialog_favorit.dart';
+import 'package:delivery_app/features/wishlish/presentation/widgets/bottomsheet_and_dialog_favorit.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:delivery_app/shared/widgets/network_image.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';

@@ -1,6 +1,6 @@
 import 'package:delivery_app/features/cart_order/domain/entities/group_order_cart_model.dart';
-import 'package:delivery_app/core/utils/local_database/local_database_helper.dart';
 import 'package:delivery_app/features/cart_order/domain/entities/order_cart_model.dart';
+import 'package:delivery_app/features/cart_order/presentation/bloc/cart_order_bloc.dart';
 import 'package:delivery_app/features/detail_product/domain/entities/product_model.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
@@ -17,7 +17,7 @@ void addItemToCart(BuildContext context, {required DetailProductModel data}) {
   final themeColors = context.themeColors;
   int quantity = 1;
   double totalPrice = data.hargaProduct;
-  final databaseHelper = inject.get<DatabaseHelper>();
+  final cartOrderBloc = inject.get<CartOrderBloc>();
   context.showBottomSheet(
       initialChildSize: 0.8,
       isScrollControlled: false,
@@ -93,19 +93,13 @@ void addItemToCart(BuildContext context, {required DetailProductModel data}) {
                               fontWeight: FontWeight.w500, fontSize: 16))),
                   const SizedBox(height: 25),
                   CardContainer(
-                      onTap: () async {
-                        GroupOrderCartModel dataCart =
-                            generateDataCart(data, quantity);
-                        bool isSuccess = await databaseHelper
-                            .createNewOrderGroupCart(dataCart);
-                        if (isSuccess) {
-                          context.pop();
-                          context.showCustomSnackbar(
-                              type: DialogAccentType.success,
-                              title: "Success",
-                              description: "Add item to cart");
-                        }
-                      },
+                      onTap: () => cartOrderBloc.add(InsertItemToCart(() {
+                            context.pop();
+                            context.showCustomSnackbar(
+                                type: DialogAccentType.success,
+                                title: "Success",
+                                description: "Add item to cart");
+                          }, data: generateDataCart(data, quantity))),
                       borderRadius: 5,
                       color: themeColors.downward,
                       height: 50,

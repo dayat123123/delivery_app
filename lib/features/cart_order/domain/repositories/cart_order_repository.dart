@@ -17,7 +17,7 @@ abstract class CartOrderRepository {
       {required OrderCartModel newItem,
       required GroupOrderCartModel groupData});
   Future<Result<List<GroupOrderCartModel>>> removeItemsInCartOrderGroup(
-      {required OrderCartModel newItem,
+      {required OrderCartModel deleteItem,
       required GroupOrderCartModel groupData});
 }
 
@@ -32,7 +32,7 @@ class CartOrderRepositoryImpl implements CartOrderRepository {
       final carts = await _localDataSource.fetchGroupOrderCarts();
       return Result.success(carts);
     } catch (e) {
-      return Result.failed(e.toString());
+      return Result.failed(Formatter.errorMessageCatchException(e.toString()));
     }
   }
 
@@ -43,7 +43,7 @@ class CartOrderRepositoryImpl implements CartOrderRepository {
       int totalData = carts.fold(0, (sum, group) => sum + group.items.length);
       return Result.success(totalData);
     } catch (e) {
-      return Result.failed(e.toString());
+      return Result.failed(Formatter.errorMessageCatchException(e.toString()));
     }
   }
 
@@ -84,7 +84,7 @@ class CartOrderRepositoryImpl implements CartOrderRepository {
       await _localDataSource.saveGroupOrderCarts(groups);
       return Result.success(groups);
     } catch (e) {
-      return Result.failed(e.toString());
+      return Result.failed(Formatter.errorMessageCatchException(e.toString()));
     }
   }
 
@@ -104,7 +104,7 @@ class CartOrderRepositoryImpl implements CartOrderRepository {
       await _localDataSource.saveGroupOrderCarts(groups);
       return Result.success(groups);
     } catch (e) {
-      return Result.failed(e.toString());
+      return Result.failed(Formatter.errorMessageCatchException(e.toString()));
     }
   }
 
@@ -137,13 +137,13 @@ class CartOrderRepositoryImpl implements CartOrderRepository {
       await _localDataSource.saveGroupOrderCarts(groups);
       return Result.success(groups);
     } catch (e) {
-      return Result.failed(e.toString());
+      return Result.failed(Formatter.errorMessageCatchException(e.toString()));
     }
   }
 
   @override
   Future<Result<List<GroupOrderCartModel>>> removeItemsInCartOrderGroup(
-      {required OrderCartModel newItem,
+      {required OrderCartModel deleteItem,
       required GroupOrderCartModel groupData}) async {
     try {
       final groups = await _localDataSource.fetchGroupOrderCarts();
@@ -157,7 +157,7 @@ class CartOrderRepositoryImpl implements CartOrderRepository {
       final group = groups[groupIndex];
       final items = List<OrderCartModel>.from(group.items);
       final itemIndex =
-          items.indexWhere((item) => item.productId == newItem.productId);
+          items.indexWhere((item) => item.productId == deleteItem.productId);
 
       if (itemIndex == -1) {
         return const Result.failed(Formatter.errorMessageDataNotFound);

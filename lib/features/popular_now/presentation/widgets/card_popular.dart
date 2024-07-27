@@ -1,4 +1,4 @@
-import 'package:delivery_app/features/favorit/domain/entities/cart_model.dart';
+import 'package:delivery_app/features/wishlish/domain/entities/cart_model.dart';
 import 'package:delivery_app/features/popular_now/domain/entities/popular_now.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme.dart';

@@ -9,8 +9,8 @@ import 'package:delivery_app/features/detail_toko/presentation/pages/detail_stor
 import 'package:delivery_app/features/home/presentation/pages/main_page.dart';
 import 'package:delivery_app/features/notification/presentation/notification.dart';
 import 'package:delivery_app/features/order/presentation/pages/order_page.dart';
-import 'package:delivery_app/features/favorit/presentation/pages/detail_wishlist.dart';
-import 'package:delivery_app/features/favorit/presentation/pages/wishlist_page.dart';
+import 'package:delivery_app/features/wishlish/presentation/pages/detail_wishlist.dart';
+import 'package:delivery_app/features/wishlish/presentation/pages/wishlist_page.dart';
 import 'package:delivery_app/features/search/presentation/pages/search_page.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/features/home/presentation/pages/home_page.dart';

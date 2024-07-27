@@ -44,3 +44,11 @@ class UpdateItemsInCartOrderGroup extends CartOrderEvent {
   @override
   List<Object> get props => [newItem, groupData];
 }
+
+class InsertItemToCart extends CartOrderEvent {
+  final GroupOrderCartModel data;
+  final void Function() onDone;
+  const InsertItemToCart(this.onDone, {required this.data});
+  @override
+  List<Object> get props => [data];
+}

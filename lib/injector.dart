@@ -17,13 +17,17 @@ import 'package:delivery_app/features/cart_order/data/data_sources/cart_order_lo
 import 'package:delivery_app/features/cart_order/data/repositories/cart_order_local_repository_impl.dart';
 import 'package:delivery_app/features/cart_order/domain/repositories/cart_order_repository.dart';
 import 'package:delivery_app/features/cart_order/presentation/bloc/cart_order_bloc.dart';
-import 'package:delivery_app/features/detail_product/data/repositories/product_repositories_impl.dart';
+import 'package:delivery_app/features/detail_product/data/data_sources/detail_product_network_data_source.dart';
+import 'package:delivery_app/features/detail_product/data/repositories/detail_product_network_impl.dart';
+import 'package:delivery_app/features/detail_product/domain/repositories/detail_product_repository.dart';
 import 'package:delivery_app/features/detail_toko/data/repositories/detail_toko_repositories_impl.dart';
+import 'package:delivery_app/features/wishlish/data/data_sources/favorite_local_data_source.dart';
+import 'package:delivery_app/features/wishlish/data/repositories/favorite_local_impl.dart';
+import 'package:delivery_app/features/wishlish/domain/repositories/favorite_repository.dart';
 import 'package:delivery_app/features/popular_now/data/popular_now_repositories.dart';
 import 'package:delivery_app/features/recommended/data/get_recommended_repositories.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
-import 'package:delivery_app/features/favorit/data/favorite_respositories_impl.dart';
-import 'package:delivery_app/features/favorit/presentation/bloc/favorite_bloc.dart';
+import 'package:delivery_app/features/wishlish/presentation/bloc/favorite_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
@@ -65,8 +69,10 @@ Future<void> initInjector() async {
       authentication: inject.get<FirebaseAuthentication>(),
       userRepository: inject.get<FirebaseUserRepository>()));
   // favorite
-  inject.registerLazySingleton<FavoriteRespositoriesImpl>(() =>
-      FavoriteRespositoriesImpl(databaseHelper: inject.get<DatabaseHelper>()));
+  inject.registerFactory<FavoriteLocalDataSource>(
+      () => FavoriteLocalImpl(inject.get<DatabaseHelper>()));
+  inject.registerFactory<FavoriteRepository>(
+      () => FavoriteRepositoryImpl(inject.get<FavoriteLocalDataSource>()));
   // popular now
   inject.registerLazySingleton<PopularNowRepositoriesImpl>(
       () => PopularNowRepositoriesImpl());
@@ -77,10 +83,12 @@ Future<void> initInjector() async {
   inject.registerFactory<BigPromoDataSource>(() => BigPromoDataSourceImpl());
   inject.registerFactory<BigPromoRepository>(
       () => BigPromoRepositoryImpl(inject.get<BigPromoDataSource>()));
-
-  // produc detail
-  inject.registerLazySingleton<ProductRepositoriesImpl>(
-      () => ProductRepositoriesImpl());
+  // detail product
+  inject.registerFactory<DetailProductNetworkDataSource>(
+      () => DetailProductNetworkImpl());
+  inject.registerFactory<DetailProductRepository>(() =>
+      DetailProductRepositoryImpl(
+          inject.get<DetailProductNetworkDataSource>()));
   //detail toko
   inject.registerLazySingleton<DetailTokoRepositoriesImpl>(
       () => DetailTokoRepositoriesImpl());
