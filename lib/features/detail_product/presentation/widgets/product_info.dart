@@ -1,8 +1,9 @@
-import 'package:delivery_app/core/utils/local_database/cart_model.dart';
-import 'package:delivery_app/features/detail_product/bloc/detail_product_bloc.dart';
+import 'package:delivery_app/features/favorit/domain/entities/cart_model.dart';
+import 'package:delivery_app/features/detail_product/presentation/bloc/detail_product_bloc.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
+import 'package:delivery_app/shared/misc/formatter.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:delivery_app/shared/widgets/product_widgets.dart';
@@ -24,10 +25,19 @@ class ProductInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(data.productName,
-                maxLines: 2,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                      child: Text(data.productName,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w500))),
+                  const SizedBox(width: 15),
+                  const CustomShimmer(width: 120, height: 25)
+                ]),
             const SizedBox(height: 7),
             const CustomShimmer(width: 150, height: 24),
             const SizedBox(height: 7),
@@ -59,11 +69,25 @@ class ProductInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(data.productName,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(detailProduct.namaProduct,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w500)),
+                ),
+                const SizedBox(width: 15),
+                Text(Formatter.formatPrice(detailProduct.hargaProduct),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontSize: 19, fontWeight: FontWeight.w500))
+              ],
+            ),
             const SizedBox(height: 7),
             sellerNameWidget(
                 context, detailProduct.sellerName, detailProduct.sellerId),

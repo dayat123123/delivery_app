@@ -1,18 +1,15 @@
-import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
-import 'package:delivery_app/features/big_promo/bloc/big_promo_bloc.dart';
-import 'package:delivery_app/features/big_promo/bloc/big_promo_event.dart';
-import 'package:delivery_app/features/big_promo/domain/usecases/get_big_promo.dart';
-import 'package:delivery_app/features/big_promo/presentation/big_promo.dart';
-import 'package:delivery_app/features/category/presentation/category.dart';
+import 'package:delivery_app/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:delivery_app/features/big_promo/presentation/bloc/big_promo_bloc.dart';
+import 'package:delivery_app/features/big_promo/presentation/bloc/big_promo_event.dart';
+import 'package:delivery_app/features/big_promo/presentation/pages/big_promo.dart';
+import 'package:delivery_app/features/category/presentation/pages/category.dart';
 import 'package:delivery_app/features/home/presentation/widgets/appbar.dart';
-import 'package:delivery_app/features/popular_now/bloc/popular_now_bloc.dart';
-import 'package:delivery_app/features/popular_now/bloc/popular_now_event.dart';
-import 'package:delivery_app/features/popular_now/domain/usecases/get_popular_now/get_popular_now.dart';
-import 'package:delivery_app/features/popular_now/presentation/popular.dart';
-import 'package:delivery_app/features/recommended/bloc/recommended_bloc.dart';
-import 'package:delivery_app/features/recommended/bloc/recommended_event.dart';
-import 'package:delivery_app/features/recommended/domain/usecases/get_recommended/get_recommended.dart';
-import 'package:delivery_app/features/recommended/presentation/recommended.dart';
+import 'package:delivery_app/features/popular_now/presentation/bloc/popular_now_bloc.dart';
+import 'package:delivery_app/features/popular_now/presentation/bloc/popular_now_event.dart';
+import 'package:delivery_app/features/popular_now/presentation/pages/popular.dart';
+import 'package:delivery_app/features/recommended/presentation/bloc/recommended_bloc.dart';
+import 'package:delivery_app/features/recommended/presentation/bloc/recommended_event.dart';
+import 'package:delivery_app/features/recommended/presentation/pages/recommended.dart';
 import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
@@ -43,13 +40,9 @@ class _HomePageState extends State<HomePage> {
   int loop = 1;
   @override
   void initState() {
-    popularNowBloc = PopularNowBloc(getPopularNow: inject.get<GetPopularNow>())
-      ..add(FetchPopularNow());
-    recommendedBloc =
-        RecommendedBloc(getRecommended: inject.get<GetRecommended>())
-          ..add(FetchRecommended());
-    bigPromoBloc = BigPromoBloc(getBigPromo: inject.get<GetBigPromo>())
-      ..add(FetchBigPromo());
+    popularNowBloc = PopularNowBloc()..add(FetchPopularNow());
+    recommendedBloc = RecommendedBloc()..add(FetchRecommended());
+    bigPromoBloc = BigPromoBloc()..add(FetchBigPromo());
     super.initState();
   }
 

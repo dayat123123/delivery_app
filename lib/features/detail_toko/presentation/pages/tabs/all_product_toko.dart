@@ -13,7 +13,7 @@ class AllProductToko extends StatelessWidget {
     if (isLoading) {
       return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 0.8,
+                  childAspectRatio: 0.85,
                   crossAxisCount: 2,
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 5),

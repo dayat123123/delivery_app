@@ -1,21 +1,21 @@
-import 'package:delivery_app/features/authentication/presentation/register_page.dart';
+import 'package:delivery_app/features/authentication/presentation/pages/register_page.dart';
 import 'package:delivery_app/features/cart_order/presentation/pages/cart_order.dart';
 import 'package:delivery_app/features/checkout_order/presentation/pages/checkout_order.dart';
-import 'package:delivery_app/features/detail_category/presentation/detail_category.dart';
+import 'package:delivery_app/features/detail_category/presentation/pages/detail_category.dart';
 import 'package:delivery_app/features/detail_product/presentation/pages/comments_showmore.dart';
 import 'package:delivery_app/features/detail_product/presentation/pages/detail_product.dart';
 import 'package:delivery_app/features/detail_product/presentation/pages/focus_comment.dart';
 import 'package:delivery_app/features/detail_toko/presentation/pages/detail_store.dart';
 import 'package:delivery_app/features/home/presentation/pages/main_page.dart';
 import 'package:delivery_app/features/notification/presentation/notification.dart';
-import 'package:delivery_app/features/order/presentation/order_page.dart';
-import 'package:delivery_app/features/wishlist/presentation/pages/detail_wishlist.dart';
-import 'package:delivery_app/features/wishlist/presentation/pages/wishlist_page.dart';
-import 'package:delivery_app/features/search/presentation/search_page.dart';
+import 'package:delivery_app/features/order/presentation/pages/order_page.dart';
+import 'package:delivery_app/features/favorit/presentation/pages/detail_wishlist.dart';
+import 'package:delivery_app/features/favorit/presentation/pages/wishlist_page.dart';
+import 'package:delivery_app/features/search/presentation/pages/search_page.dart';
 import 'package:delivery_app/shared/misc/params_keys.dart';
 import 'package:delivery_app/features/home/presentation/pages/home_page.dart';
 import 'package:delivery_app/features/landing/presentation/pages/landing_page.dart';
-import 'package:delivery_app/features/authentication/presentation/login_page.dart';
+import 'package:delivery_app/features/authentication/presentation/pages/login_page.dart';
 import 'package:delivery_app/features/landing/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -73,8 +73,9 @@ class AppPages {
       case RouteNames.detailwishlistpage:
         final data = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-            builder: (context) =>
-                DetailWishlist(data: data[ParamsKeys.groupCartModel]));
+          builder: (context) =>
+              DetailWishlist(data: data[ParamsKeys.groupCartModel]),
+        );
       case RouteNames.notificationpage:
         return MaterialPageRoute(
             builder: (context) => const NotificationPage());

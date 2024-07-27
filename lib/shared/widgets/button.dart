@@ -18,6 +18,7 @@ enum ButtonType {
 }
 
 class CustomButton extends StatelessWidget {
+  final bool? isAllowZero;
   final void Function()? onPressed;
   final String? text;
   final double? height;
@@ -55,7 +56,8 @@ class CustomButton extends StatelessWidget {
       this.withAnimation,
       this.initialValue,
       this.onChangedIncDecrButton,
-      this.iconsize});
+      this.iconsize,
+      this.isAllowZero});
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +122,7 @@ class CustomButton extends StatelessWidget {
             ]));
       case ButtonType.incrementAndDecrementButton:
         return _QuantityIncAndDecButton(
-            key: key,
+            isAllowZero: isAllowZero ?? true,
             onChanged: onChangedIncDecrButton,
             initialValue: initialValue ?? 0,
             quantitySize: fontsize,
@@ -277,6 +279,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
 }
 
 class _QuantityIncAndDecButton extends StatefulWidget {
+  final bool isAllowZero;
   final double width;
   final double height;
   final int initialValue;
@@ -289,7 +292,8 @@ class _QuantityIncAndDecButton extends StatefulWidget {
       this.height = 25,
       this.initialValue = 0,
       this.onChanged,
-      this.quantitySize});
+      this.quantitySize,
+      this.isAllowZero = true});
 
   @override
   State<_QuantityIncAndDecButton> createState() =>
@@ -305,16 +309,6 @@ class __QuantityIncAndDecButtonState extends State<_QuantityIncAndDecButton> {
     super.initState();
   }
 
-  @override
-  void didUpdateWidget(_QuantityIncAndDecButton oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.initialValue != widget.initialValue) {
-      setState(() {
-        value = widget.initialValue;
-      });
-    }
-  }
-
   void _onIncrement() {
     setState(() {
       value += 1;
@@ -325,9 +319,11 @@ class __QuantityIncAndDecButtonState extends State<_QuantityIncAndDecButton> {
   void _onDecrement() {
     if (value > 0) {
       setState(() {
-        value -= 1;
+        int newValue = value - 1;
+        if (newValue == 0 && !widget.isAllowZero) return;
+        value = newValue;
+        widget.onChanged?.call(value);
       });
-      widget.onChanged?.call(value);
     }
   }
 

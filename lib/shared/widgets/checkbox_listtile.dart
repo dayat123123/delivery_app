@@ -29,7 +29,10 @@ class CustomCheckboxListtile extends StatelessWidget {
             controlAffinity: controlAffinity,
             contentPadding: contentPadding,
             subtitle: null != subtitle ? Text(subtitle!) : null,
-            title: titleChild ?? Text(title ?? ""),
+            title: titleChild ??
+                Text(title ?? "",
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w500)),
             value: value,
             onChanged: onChanged));
   }

@@ -12,4 +12,5 @@ class ParamsKeys {
   static const indexImageKey = "indexImageKey";
   static const commentDataKey = "commentDataKey";
   static const checkoutdatakey = "checkoutdatakey";
+  static const valueofkey = "valueofkey";
 }

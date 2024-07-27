@@ -18,16 +18,25 @@ extension ContextExtensions on BuildContext {
           DialogWidget.scaffoldMessenger(message, this, type: type));
   }
 
-  void showDialogCustom(
-      {String? title,
-      required String content,
-      bool alowDismiss = true,
-      void Function()? onPressed}) {
+  void showDialogCustom({
+    String? title,
+    String? content,
+    Widget? customContent,
+    String? aproveNameButton,
+    bool alowDismiss = true,
+    void Function()? onPressed,
+    void Function()? customOnpressed,
+  }) {
     showDialog(
         context: this,
         barrierDismissible: alowDismiss,
         builder: (BuildContext context) => DialogWidget.alertDialog(context,
-            content: content, onPressed: onPressed, title: title));
+            content: content,
+            onPressed: onPressed,
+            title: title,
+            customContent: customContent,
+            customOnpressed: customOnpressed,
+            aproveNameButton: aproveNameButton));
   }
 
   void showCustomSnackbar(
@@ -50,7 +59,6 @@ extension ContextExtensions on BuildContext {
 
   void showBottomSheet(
       {Widget? header,
-      Widget? basicBottomSheet,
       Widget? child,
       bool showDragHandle = true,
       bool isScrollControlled = false,
@@ -67,15 +75,13 @@ extension ContextExtensions on BuildContext {
         sheetAnimationStyle: AnimationStyle()
             .copyWith(reverseDuration: const Duration(milliseconds: 100)),
         backgroundColor: themeColors.appContainerBackground,
-        builder: (BuildContext context) =>
-            basicBottomSheet ??
-            CustomModalBottomSheet(
-                header: header,
-                initialChildSize: initialChildSize,
-                minChildSize: minChildSize,
-                maxChildSize: maxChildSize,
-                isScrollChild: isScrollChild,
-                child: child ?? const SizedBox.shrink()));
+        builder: (BuildContext context) => CustomModalBottomSheet(
+            header: header,
+            initialChildSize: initialChildSize,
+            minChildSize: minChildSize,
+            maxChildSize: maxChildSize,
+            isScrollChild: isScrollChild,
+            child: child ?? const SizedBox.shrink()));
   }
 
   void push(Widget destination, {Object? arguments}) {

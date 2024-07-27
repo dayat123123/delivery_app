@@ -24,6 +24,11 @@ class Formatter {
     return value;
   }
 
+  static const String errorMessageDataEmpty = "Data is empty";
+  static const String errorMessageDataNotFound = "Data not found";
+  static const String errorMessageDataIsExist = "Data is exist";
+  static String errorMessageCatchException(String error) => "Error : $error";
+
   static String formatPrice(double price) {
     String formatted = formatter.format(price);
     if (formatted.endsWith(',00')) {

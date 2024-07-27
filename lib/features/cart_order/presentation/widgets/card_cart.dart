@@ -1,5 +1,5 @@
-import 'package:delivery_app/core/utils/local_database/group_order_cart_model.dart';
-import 'package:delivery_app/core/utils/local_database/order_cart_model.dart';
+import 'package:delivery_app/features/cart_order/domain/entities/group_order_cart_model.dart';
+import 'package:delivery_app/features/cart_order/domain/entities/order_cart_model.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/misc/formatter.dart';
@@ -7,7 +7,7 @@ import 'package:delivery_app/shared/misc/style_helpers.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:delivery_app/shared/widgets/card_container.dart';
 import 'package:delivery_app/shared/widgets/checkbox_listtile.dart';
-import 'package:delivery_app/shared/widgets/dropdown_button.dart';
+import 'package:delivery_app/shared/widgets/pop_up_menu_button.dart';
 import 'package:delivery_app/shared/widgets/network_image.dart';
 import 'package:delivery_app/shared/widgets/product_widgets.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class _CardCartState extends State<CardCart> {
   @override
   void initState() {
     super.initState();
-    _listItems = List.from(widget.data.items ?? []);
+    _listItems = List.from(widget.data.items);
     _listBoolItem = List.generate((_listItems.length), (index) => false);
   }
 
@@ -49,7 +49,7 @@ class _CardCartState extends State<CardCart> {
     if (oldWidget.data.hasChanged(widget.data)) {
       setState(() {
         isCheck = false;
-        _listItems = List.from(widget.data.items ?? []);
+        _listItems = List.from(widget.data.items);
         _listBoolItem = List.generate((_listItems.length), (index) => false);
       });
     }
@@ -138,6 +138,10 @@ class _CardCartState extends State<CardCart> {
                                 fontWeight: FontWeight.w500)),
                         buttonType: ButtonType.buttonWithTextAndIcon))
               ]),
+              Divider(
+                  height: 15,
+                  thickness: 1,
+                  color: context.themeColors.appContainerShadow),
               if (_listItems.isNotEmpty)
                 ListView.separated(
                     padding: EdgeInsets.zero,
@@ -169,7 +173,8 @@ class _CardCartState extends State<CardCart> {
                         });
                       });
                     },
-                    separatorBuilder: (context, index) => const Divider(),
+                    separatorBuilder: (context, index) =>
+                        Divider(color: context.themeColors.appContainerShadow),
                     itemCount: _listItems.length)
             ]));
   }

@@ -1,7 +1,5 @@
-import 'package:delivery_app/features/detail_toko/bloc/detail_toko_bloc.dart';
-import 'package:delivery_app/features/detail_toko/domain/usecases/get_detail_toko/get_detail_toko.dart';
+import 'package:delivery_app/features/detail_toko/presentation/bloc/detail_toko_bloc.dart';
 import 'package:delivery_app/features/detail_toko/presentation/widgets/detail_toko_widgets.dart';
-import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/widgets/network_image.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
@@ -26,8 +24,7 @@ class _DetailStoreState extends State<DetailStore> {
   late DetailTokoBloc _detailTokoBloc;
   @override
   void initState() {
-    _detailTokoBloc =
-        DetailTokoBloc(getDetailToko: inject.get<GetDetailToko>());
+    _detailTokoBloc = DetailTokoBloc();
     super.initState();
   }
 
@@ -82,9 +79,4 @@ class _DetailStoreState extends State<DetailStore> {
               }
             })));
   }
-}
-
-void testRefetch(void Function() onDone) async {
-  await Future.delayed(Duration(seconds: 2));
-  onDone();
 }

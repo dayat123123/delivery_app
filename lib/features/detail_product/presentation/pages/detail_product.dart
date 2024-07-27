@@ -1,14 +1,12 @@
-import 'package:delivery_app/core/utils/local_database/cart_model.dart';
-import 'package:delivery_app/features/detail_product/bloc/detail_product_bloc.dart';
-import 'package:delivery_app/features/detail_product/bloc/detail_product_event.dart';
-import 'package:delivery_app/features/detail_product/domain/usecases/get_product_detail/get_product_detail.dart';
+import 'package:delivery_app/features/favorit/domain/entities/cart_model.dart';
+import 'package:delivery_app/features/detail_product/presentation/bloc/detail_product_bloc.dart';
+import 'package:delivery_app/features/detail_product/presentation/bloc/detail_product_event.dart';
 import 'package:delivery_app/features/detail_product/presentation/widgets/order_floating.dart';
 import 'package:delivery_app/features/detail_product/presentation/widgets/product_info.dart';
-import 'package:delivery_app/injector.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
-import 'package:delivery_app/shared/features/add_item_to_cart/presentation/widgets/bottom_sheet_add_to_cart.dart';
-import 'package:delivery_app/shared/features/save_and_remove_wishlist/presentation/widgets/bottomsheet_favorit.dart';
+import 'package:delivery_app/features/cart_order/presentation/widgets/bottom_sheet_add_to_cart.dart';
+import 'package:delivery_app/features/favorit/presentation/widgets/bottomsheet_and_dialog_favorit.dart';
 import 'package:delivery_app/shared/widgets/button.dart';
 import 'package:delivery_app/shared/widgets/network_image.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
@@ -34,9 +32,8 @@ class _DetailProductPageState extends State<DetailProductPage> {
   void initState() {
     super.initState();
     _controllerText = TextEditingController();
-    _detailProductBloc =
-        DetailProductBloc(getProductDetail: inject.get<GetProductDetail>())
-          ..add(LoadDetailProduct(widget.data.productId));
+    _detailProductBloc = DetailProductBloc()
+      ..add(LoadDetailProduct(widget.data.productId));
   }
 
   @override
@@ -102,7 +99,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                           color: context.themeColors.appContainerBackground,
                           child: ProductInfo(
                               loop: loop, data: widget.data, state: state)),
-                      const SizedBox(height: 15)
+                      const SizedBox(height: 5)
                     ])),
                 bottomNavigationBar: OrderFloating(
                     onTapCart: () {

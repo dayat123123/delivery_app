@@ -28,12 +28,14 @@ Widget locationWidget(LocationModel location, BuildContext context,
 
 Widget sellerNameWidget(
     BuildContext context, String sellerName, String sellerId,
-    {TextStyle? style, double? size}) {
+    {TextStyle? style, double? size, bool withOnTap = true}) {
   return GestureDetector(
-      onTap: () => context.pushNamed(RouteNames.detailstorepage, arguments: {
-            ParamsKeys.sellerIdKey: sellerId,
-            ParamsKeys.sellerNameKey: sellerName
-          }),
+      onTap: () => withOnTap
+          ? context.pushNamed(RouteNames.detailstorepage, arguments: {
+              ParamsKeys.sellerIdKey: sellerId,
+              ParamsKeys.sellerNameKey: sellerName
+            })
+          : null,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,6 +82,15 @@ Widget soldWidget(BuildContext context, {required int sold}) {
     Icon(Icons.sell_sharp, color: context.themeColors.neutral),
     const SizedBox(width: 5),
     Text(Formatter.formatTotalSell(sold),
+        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15))
+  ]);
+}
+
+Widget totalSavedWidget(BuildContext context, {required int jumSave}) {
+  return Row(children: [
+    const Icon(Icons.favorite_border),
+    const SizedBox(width: 5),
+    Text("$jumSave saved",
         style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15))
   ]);
 }

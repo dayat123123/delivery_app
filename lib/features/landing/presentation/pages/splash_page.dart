@@ -1,5 +1,5 @@
 import 'package:delivery_app/injector.dart';
-import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
+import 'package:delivery_app/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:delivery_app/shared/extensions/widget_extensions.dart';
 import 'package:delivery_app/shared/widgets/progress_indicator.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';

@@ -63,8 +63,10 @@ class DialogWidget {
 
   static AlertDialog alertDialog(BuildContext context,
       {String? title,
-      required String content,
+      String? content,
+      Widget? customContent,
       void Function()? onPressed,
+      void Function()? customOnpressed,
       String? aproveNameButton}) {
     final TextTheme textTheme = context.theme.textTheme;
     final ThemeColors themeColors = context.themeColors;
@@ -75,7 +77,7 @@ class DialogWidget {
         titleTextStyle:
             TextStyle(color: textTheme.headlineLarge?.color, fontSize: 18),
         title: Text(title ?? "Confirm"),
-        content: Text(content),
+        content: customContent ?? Text(content ?? ""),
         actionsAlignment: MainAxisAlignment.end,
         shape: const RoundedRectangleBorder(
             borderRadius: StyleHelpers.borderRadiusGeometry),
@@ -88,10 +90,11 @@ class DialogWidget {
                 CustomButton(
                     text: aproveNameButton ?? "Approve",
                     padding: EdgeInsets.zero,
-                    onPressed: () {
-                      context.pop();
-                      onPressed?.call();
-                    },
+                    onPressed: customOnpressed ??
+                        () {
+                          context.pop();
+                          onPressed?.call();
+                        },
                     buttonType: ButtonType.textbutton),
                 CustomButton(
                     text: "Cancel",
@@ -131,7 +134,7 @@ class DialogWidget {
                       boxShadow: [
                         BoxShadow(blurRadius: 5, color: color.withOpacity(0.2))
                       ]),
-                  width: MediaQuery.sizeOf(context).width * 0.8,
+                  width: double.infinity,
                   child: Row(mainAxisSize: MainAxisSize.min, children: [
                     if (useIcon)
                       Flexible(

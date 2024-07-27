@@ -1,4 +1,4 @@
-import 'package:delivery_app/core/utils/local_database/cart_model.dart';
+import 'package:delivery_app/features/favorit/domain/entities/cart_model.dart';
 import 'package:delivery_app/features/detail_toko/domain/entities/categories_toko_model.dart';
 import 'package:delivery_app/features/detail_toko/domain/entities/product_toko_model.dart';
 import 'package:delivery_app/features/detail_toko/presentation/pages/tabs/about_toko.dart';
@@ -118,7 +118,6 @@ Widget cardProductDetailTokoIsLoading(BuildContext context) {
   return CardContainer(
       withBottomMargin: false,
       borderRadius: 5,
-      height: 100,
       child:
           CustomShimmer(width: context.fullWidth, height: context.fullHeight));
 }

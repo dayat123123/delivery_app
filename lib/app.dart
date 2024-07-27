@@ -1,8 +1,8 @@
-import 'package:delivery_app/features/authentication/bloc/auth_bloc.dart';
-import 'package:delivery_app/features/cart_order/bloc/cart_order_bloc.dart';
+import 'package:delivery_app/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:delivery_app/features/cart_order/presentation/bloc/cart_order_bloc.dart';
 import 'package:delivery_app/shared/extensions/theme_extensions/theme_cubit.dart';
 import 'package:delivery_app/injector.dart';
-import 'package:delivery_app/shared/features/save_and_remove_wishlist/bloc/favorite_bloc.dart';
+import 'package:delivery_app/features/favorit/presentation/bloc/favorite_bloc.dart';
 import 'package:delivery_app/shared/misc/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

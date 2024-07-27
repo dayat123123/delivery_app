@@ -1,10 +1,10 @@
-import 'package:delivery_app/features/cart_order/bloc/cart_order_bloc.dart';
+import 'package:delivery_app/features/cart_order/presentation/bloc/cart_order_bloc.dart';
 import 'package:delivery_app/features/home/presentation/pages/home_page.dart';
 import 'package:delivery_app/features/home/presentation/widgets/bottomnavigatorbar.dart';
-import 'package:delivery_app/features/order/presentation/order_page.dart';
-import 'package:delivery_app/features/wishlist/presentation/pages/wishlist_page.dart';
+import 'package:delivery_app/features/order/presentation/pages/order_page.dart';
+import 'package:delivery_app/features/favorit/presentation/pages/wishlist_page.dart';
 import 'package:delivery_app/injector.dart';
-import 'package:delivery_app/shared/features/save_and_remove_wishlist/bloc/favorite_bloc.dart';
+import 'package:delivery_app/features/favorit/presentation/bloc/favorite_bloc.dart';
 import 'package:delivery_app/shared/widgets/scaffold.dart';
 import 'package:flutter/material.dart';
 

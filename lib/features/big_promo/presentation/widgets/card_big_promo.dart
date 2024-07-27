@@ -1,4 +1,4 @@
-import 'package:delivery_app/core/utils/local_database/cart_model.dart';
+import 'package:delivery_app/features/favorit/domain/entities/cart_model.dart';
 import 'package:delivery_app/features/big_promo/domain/entities/big_promo_model.dart';
 import 'package:delivery_app/shared/extensions/context_extensions.dart';
 import 'package:delivery_app/shared/misc/formatter.dart';
